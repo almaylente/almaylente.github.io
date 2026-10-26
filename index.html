@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alma y Lente | Fotografía</title>
     <link rel="stylesheet" href="estilos.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
 
@@ -20,7 +20,7 @@
             <li><a href="#">Galerías</a></li>
             <li><a href="#">Sobre mí</a></li>
             <li><a href="#">Contacto</a></li>
-            <li class="iconos">
+            <li class="social-icons">
                 <a href="#"><i class="fab fa-tiktok"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-pinterest-p"></i></a>
@@ -29,63 +29,67 @@
         </ul>
     </nav>
 
-    <div class="hero-contenido">
-        <h1>Retratos que cuentan historias</h1>
+    <div class="hero-content">
+        <h1>Retratos que<br>cuentan historias</h1>
         <p>FOTOGRAFÍA • RETOQUE • ARTE DIGITAL</p>
         <a href="#" class="btn">VER GALERÍAS →</a>
     </div>
 </header>
 
 <section class="categorias">
-    <div class="categoria-card">
-        <img src="imagenes/retratos.jpg" alt="Retratos">
+    <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600" alt="Retratos">
         <h3>RETRATOS</h3>
     </div>
-    <div class="categoria-card">
-        <img src="imagenes/quince.jpg" alt="Quinceañeras">
+    <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1529634597503-139d372a56d0?w=600" alt="Quinceañeras">
         <h3>QUINCEAÑERAS</h3>
     </div>
-    <div class="categoria-card">
-        <img src="imagenes/bodas.jpg" alt="Bodas">
+    <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600" alt="Bodas">
         <h3>BODAS</h3>
     </div>
-    <div class="categoria-card">
-        <img src="imagenes/eventos.jpg" alt="Eventos">
+    <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1516415059304-4e741b3c8982?w=600" alt="Eventos">
         <h3>EVENTOS</h3>
     </div>
 </section>
 
-<section class="galeria-seccion">
+<section class="galeria">
     <div class="galeria-header">
         <h2>Galería Destacada</h2>
         <a href="#" class="ver-todas">VER TODAS LAS GALERÍAS →</a>
     </div>
-    <div class="galeria-grid">
-        <button class="flecha izq">&lt;</button>
-        <img src="imagenes/foto1.jpg" alt="Foto 1">
-        <img src="imagenes/foto2.jpg" alt="Foto 2">
-        <img src="imagenes/foto3.jpg" alt="Foto 3">
-        <img src="imagenes/foto4.jpg" alt="Foto 4">
-        <img src="imagenes/foto5.jpg" alt="Foto 5">
-        <button class="flecha der">&gt;</button>
+    <div class="galeria-wrapper">
+        <button class="arrow-btn prev">&lt;</button>
+        <div class="galeria-grid">
+            <img src="https://images.unsplash.com/photo-1531740688648-5f4763130e34?w=500" alt="Foto 1">
+            <img src="https://images.unsplash.com/photo-1529634597503-139d372a56d0?w=500" alt="Foto 2">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=500" alt="Foto 3">
+            <img src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?w=500" alt="Foto 4">
+            <img src="https://images.unsplash.com/photo-1506794979040-831a4922f039?w=500" alt="Foto 5">
+        </div>
+        <button class="arrow-btn next">&gt;</button>
     </div>
 </section>
 
 <footer>
-    <div class="footer-logo">
-        <h2>Alma y Lente <i class="fas fa-camera"></i></h2>
+    <div class="footer-col marca">
+        <h3>Alma y Lente <i class="fas fa-camera"></i></h3>
         <p>FOTOGRAFÍA • RETOQUE • ARTE DIGITAL</p>
     </div>
-    <div class="footer-mensaje">
-        <p>Gracias por ser parte<br>de este proyecto ❤️</p>
+    <div class="footer-col frase">
+        <p>Gracias por ser parte<br>de este proyecto ♡</p>
     </div>
-    <div class="footer-contacto">
+    <div class="footer-col contacto">
         <h4>Contacto</h4>
-        <a href="#"><i class="fab fa-tiktok"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-pinterest-p"></i></a>
-        <a href="#"><i class="fas fa-envelope"></i></a>
-        <p>© 2026 Alma y Lente. Todos los derechos reservados.</p>
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-pinterest-p"></i></a>
+            <a href="#"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p class="copyright">© 2026 Alma y Lente. Todos los derechos reservados.</p>
     </div>
 </footer>
 
