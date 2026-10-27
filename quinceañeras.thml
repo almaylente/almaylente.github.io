@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quinceañeras</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <h1>QUINCEAÑERAS</h1>
+  <img src="foto 2.jpg">
+  <br>
+  <a href="index.html">← Volver al inicio</a>
+</body>
+</html>
