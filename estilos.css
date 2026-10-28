@@ -147,6 +147,7 @@ header {
 .hero-image {
   position: absolute;
   inset: 0;
+  display: none;
 }
 
 .hero-image img {
