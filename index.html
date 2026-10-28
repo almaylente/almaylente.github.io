@@ -8,7 +8,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">Alma y Lente</div>
+        <div class="logo">Alma y Lente <span class="sublogo">FOTOGRAFÍA • RETOQUE • ARTE DIGITAL</span></div>
         <ul class="nav-links">
             <li><a href="#">Inicio</a></li>
             <li><a href="#portafolio">Portafolio</a></li>
@@ -16,6 +16,12 @@
             <li><a href="#servicios">Servicios</a></li>
             <li><a href="#contacto">Contacto</a></li>
         </ul>
+        <div class="nav-icons">
+            <a href="#">📷</a>
+            <a href="#">♪</a>
+            <a href="#">📌</a>
+            <a href="#">✉️</a>
+        </div>
     </nav>
 
     <header class="hero">
@@ -28,23 +34,31 @@
                 <a href="#sobre-mi" class="btn btn-segundario">CONOCE MI TRABAJO</a>
             </div>
         </div>
+        <div class="hero-footer-tags">
+            <span>Retrato</span> · <span>Celebraciones</span> · <span>Arte</span>
+        </div>
     </header>
 
     <section class="vision">
+        <p class="etiqueta-centrada">MI VISIÓN FOTOGRÁFICA</p>
         <h2>Cada imagen guarda una historia.<br>Mi trabajo es ayudarte a conservarla.</h2>
         <p>En Alma y Lente, la fotografía, el retoque y la creatividad se unen para crear imágenes cuidadas, naturales y llenas de personalidad.</p>
     </section>
 
     <section id="portafolio" class="portafolio">
-        <p class="etiqueta">TRABAJO SELECCIONADO</p>
-        <h2>Mi portafolio</h2>
-        <p class="descripcion-portafolio">Una selección de retratos y momentos especiales capturados a través de mi lente.</p>
+        <div class="portafolio-header">
+            <div>
+                <p class="etiqueta">TRABAJO SELECCIONADO</p>
+                <h2>Mi portafolio</h2>
+            </div>
+            <p class="descripcion-portafolio">Una selección de retratos y momentos especiales capturados a través de mi lente.</p>
+        </div>
         
         <div class="grid-portafolio">
             <div class="tarjeta-categoria">
                 <a href="retratos.html">
                     <img src="retrato1.jpg" alt="Retratos">
-                    <span class="numero">01 / 03</span>
+                    <span class="numero">01 · RETRATO</span>
                     <h3>Retratos</h3>
                     <p>Personalidad, expresión y esencia.</p>
                 </a>
@@ -53,16 +67,25 @@
             <div class="tarjeta-categoria">
                 <a href="celebraciones.html">
                     <img src="retrato2.jpg" alt="Celebraciones">
-                    <span class="numero">02 / 03</span>
+                    <span class="numero">02 · CELEBRACIONES</span>
                     <h3>Celebraciones</h3>
                     <p>Recuerdos para toda la vida.</p>
                 </a>
             </div>
 
             <div class="tarjeta-categoria">
+                <a href="bodas.html">
+                    <img src="bodas.jpg" alt="Bodas">
+                    <span class="numero">03 · HISTORIAS DE AMOR</span>
+                    <h3>Bodas</h3>
+                    <p>La belleza de los momentos imborrables.</p>
+                </a>
+            </div>
+
+            <div class="tarjeta-categoria">
                 <a href="retoque.html">
                     <img src="retrato4.jpg" alt="Retoque fotográfico">
-                    <span class="numero">03 / 03</span>
+                    <span class="numero">04 · EDICIÓN</span>
                     <h3>Retoque fotográfico</h3>
                     <p>Detalles cuidados y textura natural.</p>
                 </a>
@@ -84,4 +107,45 @@
         </div>
     </section>
 
-    <section id="servicios" cl…
+    <section id="servicios" class="servicios">
+        <p class="etiqueta">LO QUE HAGO</p>
+        <h2>Fotografía y creatividad.</h2>
+        <div class="grid-servicios">
+            <div class="servicio">
+                <span class="numero-servicio">01 / 03</span>
+                <h3>Fotografía</h3>
+                <p>Retratos y celebraciones con atención a la luz, la composición y las emociones.</p>
+            </div>
+            <div class="servicio">
+                <span class="numero-servicio">02 / 03</span>
+                <h3>Retoque profesional</h3>
+                <p>Edición cuidadosa de piel, color y detalles, preservando la naturalidad de cada imagen.</p>
+            </div>
+            <div class="servicio">
+                <span class="numero-servicio">03 / 03</span>
+                <h3>Arte digital</h3>
+                <p>Propuestas creativas que combinan fotografía y efectos digitales.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="contacto">
+        <h2>Hagamos algo memorable.</h2>
+        <p>¿Te gusta mi trabajo y quieres que capturemos juntos tu próxima historia? Escríbeme y hablemos.</p>
+        <div class="contacto-botones">
+            <a href="mailto:tu-correo@ejemplo.com" class="btn btn-primario">ENVIAR CORREO →</a>
+            <a href="#" class="btn btn-segundario">VER TIKTOK →</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo-footer">Alma y Lente</div>
+        <p>Fotografía • Retoque • Arte Digital</p>
+        <div class="enlaces-footer">
+            <a href="#portafolio">Portafolio</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+        <p class="derechos">© 2026 Alma y Lente. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
