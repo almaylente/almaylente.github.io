@@ -138,6 +138,10 @@ header {
   align-items: center;
   overflow: hidden;
   background: #24211e;
+  background-image: url("WhatsApp Image 2026-10-26 at 15.04.44.jpeg");
+  background-size: cover;
+  background-position: center;
+}
 }
 
 .hero-image {
