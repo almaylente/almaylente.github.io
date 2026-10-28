@@ -1,151 +1,1357 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alma y Lente | Fotografía</title>
-    <link rel="stylesheet" href="estilos.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090d15">
+<meta name="description" content="Alma y Lente. Fotografía de retrato, quinceañeras, bodas, retoque fotográfico y arte digital.">
+<title>Alma y Lente | Retratos con alma</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --fondo: #090d15;
+  --fondo-claro: #101724;
+  --azul: #172538;
+  --dorado: #c5a574;
+  --blanco: #f4f0e9;
+  --gris: #a8adb7;
+  --borde: rgba(197,165,116,.25);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  background: var(--fondo);
+  color: var(--blanco);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+button {
+  font: inherit;
+}
+
+.contenedor {
+  width: min(1200px, calc(100% - 48px));
+  margin: auto;
+}
+
+h1, h2, h3, .marca {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+}
+
+h2 {
+  font-size: clamp(36px, 5vw, 55px);
+  line-height: 1.12;
+}
+
+.etiqueta {
+  color: var(--dorado);
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.texto-dorado {
+  color: var(--dorado);
+  font-style: italic;
+}
+
+/* NAVEGACIÓN */
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: linear-gradient(rgba(5,8,14,.82), transparent);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.barra {
+  min-height: 94px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+}
+
+.identidad {
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.marca {
+  font-size: 32px;
+  letter-spacing: .4px;
+  line-height: 1.1;
+}
+
+.lema-marca {
+  font-size: 8px;
+  letter-spacing: 2.7px;
+  color: var(--dorado);
+  text-transform: uppercase;
+  margin-top: 7px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+nav a {
+  font-size: 9px;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  color: #e0e0e2;
+  transition: color .25s;
+}
+
+nav a:hover {
+  color: var(--dorado);
+}
+
+.menu-movil {
+  display: none;
+  padding: 8px 12px;
+  border: 1px solid var(--borde);
+  background: transparent;
+  color: var(--blanco);
+  cursor: pointer;
+}
+
+/* PORTADA */
+
+.portada {
+  min-height: 700px;
+  height: 94vh;
+  max-height: 900px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(90deg,
+      rgba(5,9,17,.96) 0%,
+      rgba(5,9,17,.86) 33%,
+      rgba(5,9,17,.42) 68%,
+      rgba(5,9,17,.17) 100%),
+    linear-gradient(0deg, rgba(5,9,17,.75), transparent 45%),
+    url("https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=2200&q=90")
+    center 35% / cover no-repeat;
+}
+
+.portada-contenido {
+  position: relative;
+  z-index: 1;
+  padding-top: 75px;
+  max-width: 650px;
+}
+
+.linea-dorada {
+  display: block;
+  width: 54px;
+  height: 1px;
+  background: var(--dorado);
+  margin: 22px 0;
+}
+
+.portada h1 {
+  font-size: clamp(58px, 8vw, 100px);
+  line-height: .98;
+  letter-spacing: -1.5px;
+}
+
+.portada h1 em {
+  display: block;
+  color: #d8bd92;
+  font-weight: 400;
+}
+
+.portada p {
+  max-width: 400px;
+  color: #d2d5dc;
+  font-size: 12px;
+  line-height: 2.1;
+  margin-top: 25px;
+}
+
+.botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
+  margin-top: 32px;
+}
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 12px 22px;
+  border: 1px solid var(--dorado);
+  color: var(--blanco);
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  font-size: 9px;
+  transition: background .25s, color .25s;
+  cursor: pointer;
+}
+
+.boton:hover {
+  background: var(--dorado);
+  color: #090d15;
+}
+
+.boton-principal {
+  background: var(--dorado);
+  color: #10131a;
+}
+
+.boton-principal:hover {
+  background: #e1c99e;
+}
+
+.indicador {
+  position: absolute;
+  bottom: 34px;
+  right: max(24px, calc((100% - 1200px)/2));
+  color: #d1d3d8;
+  font-size: 8px;
+  letter-spacing: 3px;
+  writing-mode: vertical-rl;
+}
+
+/* PRESENTACIÓN */
+
+.presentacion {
+  padding: 90px 0 85px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 0%, #172236 0%, transparent 65%),
+    var(--fondo);
+}
+
+.presentacion h2 {
+  max-width: 790px;
+  margin: 17px auto;
+}
+
+.presentacion p {
+  max-width: 620px;
+  margin: auto;
+  color: var(--gris);
+  font-size: 11px;
+}
+
+/* CATEGORÍAS */
+
+.categorias {
+  padding: 65px 0 85px;
+}
+
+.encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 25px;
+  margin-bottom: 32px;
+}
+
+.encabezado h2 {
+  margin-top: 8px;
+}
+
+.encabezado p {
+  max-width: 340px;
+  color: var(--gris);
+  font-size: 11px;
+}
+
+.categorias-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.categoria {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.09);
+  background: var(--fondo-claro);
+  overflow: hidden;
+  color: var(--blanco);
+  cursor: pointer;
+  text-align: left;
+}
+
+.categoria-imagen {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: .76;
+}
+
+.categoria-imagen img {
+  height: 100%;
+  transition: transform .6s, filter .6s;
+  filter: brightness(.8);
+}
+
+.categoria:hover img {
+  transform: scale(1.06);
+  filter: brightness(1);
+}
+
+.categoria-imagen::after {
+  content: "";
+  position: absolute;
+  inset: 25% 0 0;
+  background: linear-gradient(transparent, rgba(5,9,17,.97));
+}
+
+.categoria-info {
+  position: absolute;
+  left: 17px;
+  right: 12px;
+  bottom: 18px;
+  z-index: 1;
+}
+
+.categoria-info span {
+  color: var(--dorado);
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.categoria-info h3 {
+  font-size: clamp(23px, 2.5vw, 31px);
+  line-height: 1.1;
+  margin: 5px 0;
+}
+
+.categoria-info p {
+  color: #c7cbd2;
+  font-size: 9px;
+}
+
+/* GALERÍA DESTACADA */
+
+.galeria {
+  padding: 80px 0 90px;
+  background: #0d121c;
+  border-top: 1px solid rgba(255,255,255,.06);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.centrado {
+  text-align: center;
+  margin-bottom: 38px;
+}
+
+.centrado h2 {
+  margin-top: 9px;
+}
+
+.centrado p {
+  max-width: 550px;
+  margin: 13px auto 0;
+  color: var(--gris);
+  font-size: 11px;
+}
+
+.fotos-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 180px;
+  gap: 12px;
+}
+
+.foto {
+  position: relative;
+  display: block;
+  border: 0;
+  padding: 0;
+  background: #182131;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.foto:nth-child(1) {
+  grid-column: span 3;
+  grid-row: span 2;
+}
+
+.foto:nth-child(2),
+.foto:nth-child(3) {
+  grid-column: span 3;
+}
+
+.foto:nth-child(4),
+.foto:nth-child(5) {
+  grid-column: span 3;
+}
+
+.foto img {
+  height: 100%;
+  transition: transform .5s, opacity .5s;
+  opacity: .88;
+}
+
+.foto:hover img {
+  transform: scale(1.04);
+  opacity: 1;
+}
+
+.foto::after {
+  content: "VER FOTOGRAFÍA ↗";
+  position: absolute;
+  bottom: 14px;
+  left: 16px;
+  color: white;
+  font-size: 8px;
+  letter-spacing: 2px;
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+.foto:hover::after {
+  opacity: 1;
+}
+
+.boton-centro {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+/* SOBRE MÍ */
+
+.sobre-mi {
+  padding: 95px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 75px;
+}
+
+.sobre-imagen {
+  position: relative;
+  padding: 0 18px 18px 0;
+}
+
+.sobre-imagen::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  bottom: 0;
+  width: 65%;
+  height: 65%;
+  border-right: 1px solid var(--dorado);
+  border-bottom: 1px solid var(--dorado);
+}
+
+.sobre-imagen img {
+  height: 490px;
+  filter: brightness(.9);
+}
+
+.sobre-texto h2 {
+  margin: 14px 0 20px;
+}
+
+.sobre-texto p {
+  color: var(--gris);
+  font-size: 11px;
+  margin-bottom: 15px;
+}
+
+.firma {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 27px;
+  font-style: italic;
+  color: var(--dorado);
+  margin-top: 24px;
+}
+
+/* SERVICIOS */
+
+.servicios {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #111b2a, #0b1019 75%);
+}
+
+.servicios-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 38px;
+  border-top: 1px solid var(--borde);
+  border-bottom: 1px solid var(--borde);
+}
+
+.servicio {
+  padding: 30px 25px;
+  border-right: 1px solid var(--borde);
+}
+
+.servicio:last-child {
+  border-right: 0;
+}
+
+.servicio-numero {
+  color: var(--dorado);
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+.servicio h3 {
+  font-size: 29px;
+  margin: 10px 0;
+}
+
+.servicio p {
+  color: var(--gris);
+  font-size: 11px;
+}
+
+/* CONTACTO */
+
+.contacto {
+  position: relative;
+  text-align: center;
+  padding: 100px 20px;
+  background:
+    linear-gradient(rgba(5,9,17,.83), rgba(5,9,17,.92)),
+    url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1800&q=85")
+    center 45% / cover;
+}
+
+.contacto h2 {
+  margin: 12px 0;
+}
+
+.contacto p {
+  max-width: 510px;
+  margin: auto;
+  color: #c7cbd2;
+  font-size: 11px;
+}
+
+.contacto .botones {
+  justify-content: center;
+}
+
+/* PIE DE PÁGINA */
+
+footer {
+  padding: 32px 0;
+  border-top: 1px solid var(--borde);
+  background: #070a10;
+}
+
+.pie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+}
+
+.pie-centro {
+  color: var(--gris);
+  font-size: 9px;
+  text-align: center;
+}
+
+.pie-enlaces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 17px;
+}
+
+.pie-enlaces a {
+  color: var(--gris);
+  font-size: 9px;
+}
+
+.pie-enlaces a:hover {
+  color: var(--dorado);
+}
+
+/* VISOR DE FOTOGRAFÍAS */
+
+.visor {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  padding: 60px;
+  align-items: center;
+  justify-content: center;
+  background: rgba(3,5,9,.97);
+}
+
+.visor.abierto {
+  display: flex;
+}
+
+.visor img {
+  width: auto;
+  max-width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+}
+
+.visor button {
+  position: absolute;
+  background: rgba(255,255,255,.08);
+  color: white;
+  border: 1px solid rgba(255,255,255,.15);
+  padding: 8px 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.visor button:hover {
+  background: var(--dorado);
+  color: #090d15;
+}
+
+.visor-cerrar {
+  top: 18px;
+  right: 20px;
+}
+
+.visor-anterior {
+  left: 15px;
+  top: 50%;
+}
+
+.visor-siguiente {
+  right: 15px;
+  top: 50%;
+}
+
+.visor-leyenda {
+  position: absolute;
+  bottom: 15px;
+  color: #e4dfd7;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+/* ADAPTACIÓN A TABLET Y CELULAR */
+
+@media (max-width: 900px) {
+  nav {
+    gap: 14px;
+  }
+
+  nav a {
+    font-size: 8px;
+  }
+
+  .categorias-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sobre-mi {
+    gap: 35px;
+  }
+
+  .sobre-imagen img {
+    height: 420px;
+  }
+
+  .pie {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 650px) {
+  .contenedor {
+    width: calc(100% - 32px);
+  }
+
+  .barra {
+    min-height: 78px;
+  }
+
+  .marca {
+    font-size: 28px;
+  }
+
+  .menu-movil {
+    display: block;
+  }
+
+  nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 20px 24px;
+    background: #0a101b;
+    border-bottom: 1px solid var(--borde);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  nav.abierto {
+    display: flex;
+  }
+
+  nav a {
+    font-size: 10px;
+  }
+
+  .portada {
+    height: 88vh;
+    min-height: 650px;
+    background-position: 60% center;
+  }
+
+  .portada-contenido {
+    padding-top: 65px;
+  }
+
+  .portada h1 {
+    font-size: clamp(55px, 14vw, 75px);
+  }
+
+  .portada p {
+    max-width: 330px;
+  }
+
+  .indicador {
+    display: none;
+  }
+
+  .presentacion {
+    padding: 65px 0;
+  }
+
+  .encabezado {
+    display: block;
+  }
+
+  .encabezado p {
+    margin-top: 12px;
+  }
+
+  .categorias {
+    padding: 60px 0;
+  }
+
+  .categorias-grid {
+    gap: 10px;
+  }
+
+  .categoria-info {
+    left: 10px;
+    right: 8px;
+    bottom: 10px;
+  }
+
+  .categoria-info h3 {
+    font-size: 23px;
+  }
+
+  .categoria-info p {
+    font-size: 8px;
+  }
+
+  .fotos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 170px;
+  }
+
+  .foto:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .foto:nth-child(n+2) {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .sobre-mi {
+    grid-template-columns: 1fr;
+    padding: 65px 0;
+    gap: 35px;
+  }
+
+  .sobre-imagen img {
+    height: 380px;
+  }
+
+  .servicios {
+    padding: 65px 0;
+  }
+
+  .servicios-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .servicio {
+    border-right: 0;
+    border-bottom: 1px solid var(--borde);
+    padding: 24px 5px;
+  }
+
+  .servicio:last-child {
+    border-bottom: 0;
+  }
+
+  .contacto {
+    padding: 75px 18px;
+  }
+
+  .pie {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .pie-enlaces {
+    justify-content: center;
+  }
+
+  .visor {
+    padding: 50px 35px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    transition-duration: .01ms !important;
+  }
+}
+</style>
 </head>
+
 <body>
-    <nav class="navbar">
-        <div class="logo">Alma y Lente <span class="sublogo">FOTOGRAFÍA • RETOQUE • ARTE DIGITAL</span></div>
-        <ul class="nav-links">
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#portafolio">Portafolio</a></li>
-            <li><a href="#sobre-mi">Sobre mí</a></li>
-            <li><a href="#servicios">Servicios</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-        </ul>
-        <div class="nav-icons">
-            <a href="#">📷</a>
-            <a href="#">♪</a>
-            <a href="#">📌</a>
-            <a href="#">✉️</a>
-        </div>
+
+<header>
+  <div class="contenedor barra">
+    <a class="identidad" href="#inicio" aria-label="Alma y Lente, inicio">
+      <div class="marca">Alma y Lente</div>
+      <div class="lema-marca">Retratos con alma</div>
+    </a>
+
+    <button class="menu-movil" id="boton-menu"
+      aria-expanded="false" aria-controls="navegacion">
+      ☰ Menú
+    </button>
+
+    <nav id="navegacion" aria-label="Navegación principal">
+      <a href="#inicio">Inicio</a>
+      <a href="#categorias">Portafolio</a>
+      <a href="#galeria">Galería</a>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#contacto">Contacto</a>
     </nav>
+  </div>
+</header>
 
-    <header class="hero">
-        <div class="hero-content">
-            <p class="subtitulo">FOTOGRAFÍA CON IDENTIDAD</p>
-            <h1>Retratos que cuentan historias.</h1>
-            <p class="hero-texto">Momentos auténticos, emociones reales y una mirada artística que transforma cada fotografía en un recuerdo.</p>
-            <div class="hero-botones">
-                <a href="#portafolio" class="btn btn-primario">EXPLORAR PORTAFOLIO →</a>
-                <a href="#sobre-mi" class="btn btn-segundario">CONOCE MI TRABAJO</a>
-            </div>
+<main>
+
+  <!-- PORTADA PRINCIPAL -->
+  <section class="portada" id="inicio">
+    <div class="contenedor portada-contenido">
+      <span class="etiqueta">Fotografía · Retoque · Arte digital</span>
+      <span class="linea-dorada"></span>
+
+      <h1>
+        Retratos<br>
+        con <em>alma.</em>
+      </h1>
+
+      <p>
+        La belleza de un instante, la fuerza de una mirada
+        y la emoción de una historia contada a través de la fotografía.
+      </p>
+
+      <div class="botones">
+        <a class="boton boton-principal" href="#categorias">
+          Explorar portafolio ↗
+        </a>
+        <a class="boton" href="#sobre-mi">
+          Conocer mi trabajo
+        </a>
+      </div>
+    </div>
+
+    <div class="indicador">ALMA Y LENTE · FOTOGRAFÍA</div>
+  </section>
+
+  <!-- INTRODUCCIÓN -->
+  <section class="presentacion">
+    <div class="contenedor">
+      <span class="etiqueta">Una mirada personal</span>
+      <h2>
+        No se trata solamente de una fotografía.
+        <span class="texto-dorado">Se trata de lo que te hace sentir.</span>
+      </h2>
+      <p>
+        Creo en las imágenes que conservan su naturalidad, transmiten
+        emociones y convierten los momentos importantes en recuerdos
+        que merecen durar para siempre.
+      </p>
+    </div>
+  </section>
+
+  <!-- CATEGORÍAS -->
+  <section class="categorias" id="categorias">
+    <div class="contenedor">
+      <div class="encabezado">
+        <div>
+          <span class="etiqueta">Descubre mi trabajo</span>
+          <h2>El portafolio</h2>
         </div>
-        <div class="hero-footer-tags">
-            <span>Retrato</span> · <span>Celebraciones</span> · <span>Arte</span>
-        </div>
-    </header>
+        <p>
+          Una selección de fotografía, retoque y creatividad.
+          Cada imagen representa una historia diferente.
+        </p>
+      </div>
 
-    <section class="vision">
-        <p class="etiqueta-centrada">MI VISIÓN FOTOGRÁFICA</p>
-        <h2>Cada imagen guarda una historia.<br>Mi trabajo es ayudarte a conservarla.</h2>
-        <p>En Alma y Lente, la fotografía, el retoque y la creatividad se unen para crear imágenes cuidadas, naturales y llenas de personalidad.</p>
-    </section>
+      <div class="categorias-grid">
 
-    <section id="portafolio" class="portafolio">
-        <div class="portafolio-header">
-            <div>
-                <p class="etiqueta">TRABAJO SELECCIONADO</p>
-                <h2>Mi portafolio</h2>
-            </div>
-            <p class="descripcion-portafolio">Una selección de retratos y momentos especiales capturados a través de mi lente.</p>
-        </div>
-        
-        <div class="grid-portafolio">
-            <div class="tarjeta-categoria">
-                <a href="retratos.html">
-                    <img src="retrato1.jpg" alt="Retratos">
-                    <span class="numero">01 · RETRATO</span>
-                    <h3>Retratos</h3>
-                    <p>Personalidad, expresión y esencia.</p>
-                </a>
-            </div>
+        <button class="categoria" data-galeria="retratos">
+          <div class="categoria-imagen">
+            <img
+              src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=900&q=85"
+              alt="Retrato fotográfico"
+              loading="lazy">
+          </div>
+          <div class="categoria-info">
+            <span>01 · Esencia</span>
+            <h3>Retratos</h3>
+            <p>La belleza de ser tú.</p>
+          </div>
+        </button>
 
-            <div class="tarjeta-categoria">
-                <a href="celebraciones.html">
-                    <img src="retrato2.jpg" alt="Celebraciones">
-                    <span class="numero">02 · CELEBRACIONES</span>
-                    <h3>Celebraciones</h3>
-                    <p>Recuerdos para toda la vida.</p>
-                </a>
-            </div>
+        <button class="categoria" data-galeria="quinceaneras">
+          <div class="categoria-imagen">
+            <img
+              src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85"
+              alt="Celebración elegante"
+              loading="lazy">
+          </div>
+          <div class="categoria-info">
+            <span>02 · Celebración</span>
+            <h3>Quinceañeras</h3>
+            <p>Un día inolvidable.</p>
+          </div>
+        </button>
 
-            <div class="tarjeta-categoria">
-                <a href="bodas.html">
-                    <img src="bodas.jpg" alt="Bodas">
-                    <span class="numero">03 · HISTORIAS DE AMOR</span>
-                    <h3>Bodas</h3>
-                    <p>La belleza de los momentos imborrables.</p>
-                </a>
-            </div>
+        <button class="categoria" data-galeria="bodas">
+          <div class="categoria-imagen">
+            <img
+              src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=900&q=85"
+              alt="Fotografía de una boda"
+              loading="lazy">
+          </div>
+          <div class="categoria-info">
+            <span>03 · Amor</span>
+            <h3>Bodas</h3>
+            <p>Historias que comienzan.</p>
+          </div>
+        </button>
 
-            <div class="tarjeta-categoria">
-                <a href="retoque.html">
-                    <img src="retrato4.jpg" alt="Retoque fotográfico">
-                    <span class="numero">04 · EDICIÓN</span>
-                    <h3>Retoque fotográfico</h3>
-                    <p>Detalles cuidados y textura natural.</p>
-                </a>
-            </div>
-        </div>
-    </section>
+        <button class="categoria" data-galeria="arte">
+          <div class="categoria-imagen">
+            <img
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85"
+              alt="Retrato artístico"
+              loading="lazy">
+          </div>
+          <div class="categoria-info">
+            <span>04 · Creatividad</span>
+            <h3>Arte digital</h3>
+            <p>La imagen sin límites.</p>
+          </div>
+        </button>
 
-    <section id="sobre-mi" class="sobre-mi">
-        <div class="contenedor-sobre-mi">
-            <img src="retrato3.jpg" alt="Yo, fotógrafo" class="foto-sobre-mi">
-            <div class="texto-sobre-mi">
-                <p class="etiqueta">DETRÁS DE LA CÁMARA</p>
-                <h3>Hola, soy el creador de Alma y Lente.</h3>
-                <p>La fotografía es mi forma de observar el mundo, descubrir detalles y capturarlos por medio de imágenes.</p>
-                <p>Mi trabajo combina la fotografía con el retoque y la exploración del arte digital, procurando conservar la naturalidad de cada persona y de cada instante.</p>
-                <p>Alma y Lente es el espacio donde comparto mi evolución creativa, mis proyectos y mi pasión por la imagen.</p>
-                <a href="#contacto" class="btn btn-primario">HABLEMOS DE FOTOGRAFÍA →</a>
-            </div>
-        </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section id="servicios" class="servicios">
-        <p class="etiqueta">LO QUE HAGO</p>
-        <h2>Fotografía y creatividad.</h2>
-        <div class="grid-servicios">
-            <div class="servicio">
-                <span class="numero-servicio">01 / 03</span>
-                <h3>Fotografía</h3>
-                <p>Retratos y celebraciones con atención a la luz, la composición y las emociones.</p>
-            </div>
-            <div class="servicio">
-                <span class="numero-servicio">02 / 03</span>
-                <h3>Retoque profesional</h3>
-                <p>Edición cuidadosa de piel, color y detalles, preservando la naturalidad de cada imagen.</p>
-            </div>
-            <div class="servicio">
-                <span class="numero-servicio">03 / 03</span>
-                <h3>Arte digital</h3>
-                <p>Propuestas creativas que combinan fotografía y efectos digitales.</p>
-            </div>
-        </div>
-    </section>
+  <!-- CINCO FOTOGRAFÍAS DESTACADAS -->
+  <section class="galeria" id="galeria">
+    <div class="contenedor">
+      <div class="centrado">
+        <span class="etiqueta">Selección especial</span>
+        <h2>Historias en imágenes</h2>
+        <p>
+          La luz, la expresión y los pequeños detalles
+          hacen que cada fotografía tenga su propia personalidad.
+        </p>
+      </div>
 
-    <section id="contacto" class="contacto">
-        <h2>Hagamos algo memorable.</h2>
-        <p>¿Te gusta mi trabajo y quieres que capturemos juntos tu próxima historia? Escríbeme y hablemos.</p>
-        <div class="contacto-botones">
-            <a href="mailto:tu-correo@ejemplo.com" class="btn btn-primario">ENVIAR CORREO →</a>
-            <a href="#" class="btn btn-segundario">VER TIKTOK →</a>
-        </div>
-    </section>
+      <div class="fotos-grid">
 
-    <footer>
-        <div class="logo-footer">Alma y Lente</div>
-        <p>Fotografía • Retoque • Arte Digital</p>
-        <div class="enlaces-footer">
-            <a href="#portafolio">Portafolio</a>
-            <a href="#contacto">Contacto</a>
-        </div>
-        <p class="derechos">© 2026 Alma y Lente. Todos los derechos reservados.</p>
-    </footer>
+        <button class="foto" data-foto="0" aria-label="Ampliar fotografía uno">
+          <img
+            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1300&q=90"
+            alt="Retrato de mujer con iluminación suave"
+            loading="lazy">
+        </button>
+
+        <button class="foto" data-foto="1" aria-label="Ampliar fotografía dos">
+          <img
+            src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=1000&q=85"
+            alt="Retrato de una mujer"
+            loading="lazy">
+        </button>
+
+        <button class="foto" data-foto="2" aria-label="Ampliar fotografía tres">
+          <img
+            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1000&q=85"
+            alt="Retrato masculino"
+            loading="lazy">
+        </button>
+
+        <button class="foto" data-foto="3" aria-label="Ampliar fotografía cuatro">
+          <img
+            src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=1000&q=85"
+            alt="Pareja en una celebración"
+            loading="lazy">
+        </button>
+
+        <button class="foto" data-foto="4" aria-label="Ampliar fotografía cinco">
+          <img
+            src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=85"
+            alt="Fotografía de celebración"
+            loading="lazy">
+        </button>
+
+      </div>
+
+      <div class="boton-centro">
+        <a class="boton" href="#contacto">Más información ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE MÍ -->
+  <section class="contenedor sobre-mi" id="sobre-mi">
+    <div class="sobre-imagen">
+      <img
+        src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=85"
+        alt="Cámara fotográfica y equipo de fotografía"
+        loading="lazy">
+    </div>
+
+    <div class="sobre-texto">
+      <span class="etiqueta">Detrás de la cámara</span>
+      <h2>La fotografía es mi manera de <span class="texto-dorado">contar historias.</span></h2>
+
+      <p>
+        Soy el creador de Alma y Lente, un proyecto donde la fotografía
+        de retrato, el retoque y el arte digital se unen para explorar
+        nuevas formas de contar historias.
+      </p>
+
+      <p>
+        Mi objetivo es crear imágenes cuidadas, con una edición natural
+        que respete la textura de la piel, la luz y la personalidad
+        de cada persona.
+      </p>
+
+      <p>
+        Aquí encontrarás parte de mi trabajo, mis proyectos y mi evolución
+        detrás de la cámara y frente a la pantalla.
+      </p>
+
+      <div class="firma">Alma y Lente</div>
+      <span class="etiqueta">Fotografía con intención</span>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="servicios" id="servicios">
+    <div class="contenedor">
+      <span class="etiqueta">Mi universo creativo</span>
+      <h2>Una imagen. Muchas posibilidades.</h2>
+
+      <div class="servicios-grid">
+        <article class="servicio">
+          <span class="servicio-numero">01 / FOTOGRAFÍA</span>
+          <h3>Capturar</h3>
+          <p>
+            Retratos y momentos especiales con atención a la composición,
+            la luz y las emociones.
+          </p>
+        </article>
+
+        <article class="servicio">
+          <span class="servicio-numero">02 / RETOQUE</span>
+          <h3>Perfeccionar</h3>
+          <p>
+            Ajustes de color, limpieza de detalles y retoque cuidadoso
+            para conservar una apariencia natural.
+          </p>
+        </article>
+
+        <article class="servicio">
+          <span class="servicio-numero">03 / ARTE DIGITAL</span>
+          <h3>Imaginar</h3>
+          <p>
+            Experimentación creativa con efectos digitales para dar
+            una nueva dimensión a las fotografías.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contacto" id="contacto">
+    <span class="etiqueta">Conectemos</span>
+    <h2>Hagamos que una historia perdure.</h2>
+    <p>
+      Gracias por visitar Alma y Lente. Conoce más de mi proceso,
+      mis fotografías y mis proyectos creativos en mis redes sociales.
+    </p>
+
+    <div class="botones">
+      <a class="boton boton-principal"
+         href="https://www.tiktok.com/@almaylente"
+         target="_blank" rel="noopener noreferrer">
+        Visitar TikTok ↗
+      </a>
+
+      <a class="boton"
+         href="https://www.facebook.com/"
+         target="_blank" rel="noopener noreferrer">
+        Facebook ↗
+      </a>
+
+      <a class="boton" href="#inicio">Volver al inicio ↑</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- PIE DE PÁGINA -->
+<footer>
+  <div class="contenedor pie">
+    <a class="identidad" href="#inicio">
+      <div class="marca">Alma y Lente</div>
+      <div class="lema-marca">Retratos con alma</div>
+    </a>
+
+    <p class="pie-centro">
+      © <span id="anio"></span> Alma y Lente.<br>
+      Fotografía · Retoque · Arte digital
+    </p>
+
+    <div class="pie-enlaces">
+      <a href="#categorias">Portafolio</a>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#contacto">Contacto</a>
+      <a href="https://www.tiktok.com/@almaylente"
+         target="_blank" rel="noopener noreferrer">TikTok ↗</a>
+    </div>
+  </div>
+</footer>
+
+<!-- VISOR DE IMÁGENES -->
+<div class="visor" id="visor" role="dialog"
+     aria-modal="true" aria-label="Fotografía ampliada">
+  <button class="visor-cerrar" id="cerrar-visor"
+          aria-label="Cerrar fotografía">×</button>
+  <button class="visor-anterior" id="foto-anterior"
+          aria-label="Fotografía anterior">‹</button>
+  <img id="foto-ampliada" src="" alt="">
+  <button class="visor-siguiente" id="foto-siguiente"
+          aria-label="Fotografía siguiente">›</button>
+  <p class="visor-leyenda" id="visor-leyenda"></p>
+</div>
+
+<script>
+  // Año del pie de página
+  document.getElementById("anio").textContent = new Date().getFullYear();
+
+  // Menú para teléfonos
+  const botonMenu = document.getElementById("boton-menu");
+  const navegacion = document.getElementById("navegacion");
+
+  botonMenu.addEventListener("click", function () {
+    const abierto = navegacion.classList.toggle("abierto");
+    botonMenu.setAttribute("aria-expanded", abierto);
+    botonMenu.textContent = abierto ? "✕ Cerrar" : "☰ Menú";
+  });
+
+  navegacion.querySelectorAll("a").forEach(function (enlace) {
+    enlace.addEventListener("click", function () {
+      navegacion.classList.remove("abierto");
+      botonMenu.setAttribute("aria-expanded", "false");
+      botonMenu.textContent = "☰ Menú";
+    });
+  });
+
+  // Fotografías provisionales de cada categoría.
+  // Más adelante se pueden sustituir por tus fotos.
+  const colecciones = {
+    retratos: {
+      nombre: "Retratos",
+      fotos: [
+        "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=1500&q=90",
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1500&q=90",
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1500&q=90"
+      ]
+    },
+    quinceaneras: {
+      nombre: "Quinceañeras",
+      fotos: [
+        "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1500&q=90",
+        "https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=1500&q=90"
+      ]
+    },
+    bodas: {
+      nombre: "Bodas",
+      fotos: [
+        "https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=1500&q=90",
+        "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1500&q=90"
+      ]
+    },
+    arte: {
+      nombre: "Arte digital",
+      fotos: [
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1500&q=90",
+        "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=1500&q=90"
+      ]
+    }
+  };
+
+  const visor = document.getElementById("visor");
+  const fotoAmpliada = document.getElementById("foto-ampliada");
+  const leyenda = document.getElementById("visor-leyenda");
+
+  let fotosActuales = [];
+  let indiceActual = 0;
+  let nombreColeccion = "";
+
+  function actualizarVisor() {
+    fotoAmpliada.src = fotosActuales[indiceActual];
+    fotoAmpliada.alt = nombreColeccion;
+    leyenda.textContent =
+      nombreColeccion + " · " +
+      (indiceActual + 1) + " de " + fotosActuales.length;
+  }
+
+  function abrirVisor(fotos, nombre, indice) {
+    fotosActuales = fotos;
+    nombreColeccion = nombre;
+    indiceActual = indice || 0;
+    actualizarVisor();
+    visor.classList.add("abierto");
+    document.body.style.overflow = "hidden";
+    document.getElementById("cerrar-visor").focus();
+  }
+
+  function cerrarVisor() {
+    visor.classList.remove("abierto");
+    document.body.style.overflow = "";
+  }
+
+  document.querySelectorAll("[data-galeria]").forEach(function (boton) {
+    boton.addEventListener("click", function () {
+      const coleccion = colecciones[boton.dataset.galeria];
+      abrirVisor(coleccion.fotos, coleccion.nombre, 0);
+    });
+  });
+
+  // Abrir las cinco fotografías destacadas
+  const fotosDestacadas = Array.from(
+    document.querySelectorAll(".foto img")
+  ).map(function (imagen) {
+    return imagen.src;
+  });
+
+  document.querySelectorAll("[data-foto]").forEach(function (boton) {
+    boton.addEventListener("click", function () {
+      abrirVisor(
+        fotosDestacadas,
+        "Galería destacada",
+        Number(boton.dataset.foto)
+      );
+    });
+  });
+
+  document.getElementById("cerrar-visor")
+    .addEventListener("click", cerrarVisor);
+
+  document.getElementById("foto-anterior")
+    .addEventListener("click", function () {
+      indiceActual =
+        (indiceActual - 1 + fotosActuales.length) % fotosActuales.length;
+      actualizarVisor();
+    });
+
+  document.getElementById("foto-siguiente")
+    .addEventListener("click", function () {
+      indiceActual = (indiceActual + 1) % fotosActuales.length;
+      actualizarVisor();
+    });
+
+  visor.addEventListener("click", function (evento) {
+    if (evento.target === visor) cerrarVisor();
+  });
+
+  document.addEventListener("keydown", function (evento) {
+    if (!visor.classList.contains("abierto")) return;
+
+    if (evento.key === "Escape") cerrarVisor();
+
+    if (evento.key === "ArrowLeft") {
+      document.getElementById("foto-anterior").click();
+    }
+
+    if (evento.key === "ArrowRight") {
+      document.getElementById("foto-siguiente").click();
+    }
+  });
+</script>
+
 </body>
 </html>
