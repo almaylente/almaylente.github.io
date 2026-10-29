@@ -138,7 +138,7 @@ header {
   align-items: center;
   overflow: hidden;
   background-color: transparet;
- background-image: url("foto.jpeg");
+ background-image: url("portada.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -152,7 +152,7 @@ header {
 
 .hero-image img {
   object-position: center 38%;
-  content: url("foto.jpeg");
+ content: url("portada.jpg");
 }
 
 .hero::after {
