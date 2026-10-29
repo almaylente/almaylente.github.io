@@ -587,6 +587,7 @@
       .modal-galeria img { height: 125px; }
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -878,14 +879,32 @@
       </div>
       <div class="modal-cuerpo">
         <p class="modal-descripcion" id="modal-descripcion"></p>
-        <div class="modal-pendiente">
+           <div class="album-admin">
+          <button id="admin-login-toggle" type="button">Acceso del fotógrafo</button>
+
+          <form id="admin-login-form" hidden>
+            <input id="admin-email" type="email" value="almaylente@gmail.com" required>
+            <input id="admin-password" type="password" placeholder="Contraseña" required>
+            <button type="submit">Iniciar sesión</button>
+          </form>
+
+          <div id="admin-upload" hidden>
+            <input id="admin-files" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple>
+            <button id="admin-upload-button" type="button">Subir fotos</button>
+          </div>
+
+          <p id="admin-status" role="status"></p>
+        </div>
+
+        <div class="modal-pendiente" id="album-empty">
           <div>
             <div class="modal-icono" aria-hidden="true">▧</div>
             <h3 class="serif">Este álbum está pendiente</h3>
-            <p>Cuando agregues las fotos de esta categoría, aparecerán aquí como una galería.</p>
+            <p>Cuando agregues fotos, aparecerán aquí como una galería.</p>
           </div>
         </div>
-        <p class="modal-ayuda">Para añadir fotos, reemplaza este mensaje por imágenes dentro de la galería del álbum.</p>
+
+        <div class="modal-galeria" id="album-gallery" style="display:none"></div>
       </div>
     </div>
   </div>
@@ -969,6 +988,239 @@
       });
     });
   </script>
+  <script>
+(() => {
+  const URL_SUPABASE = "https://buadlsinvfdppdyjnyiq.supabase.co";
+  const CLAVE_PUBLICA = "sb_publishable_xUtzKeE9EYt-kTR2DmSSmA_ret_WM1s";
+  const CORREO_ADMIN = "almaylente@gmail.com";
+  const BUCKET = "albumes";
+
+  const cliente = window.supabase.createClient(URL_SUPABASE, CLAVE_PUBLICA);
+
+  const botonAcceso = document.getElementById("admin-login-toggle");
+  const formulario = document.getElementById("admin-login-form");
+  const campoCorreo = document.getElementById("admin-email");
+  const campoContrasena = document.getElementById("admin-password");
+  const zonaSubida = document.getElementById("admin-upload");
+  const selectorFotos = document.getElementById("admin-files");
+  const botonSubir = document.getElementById("admin-upload-button");
+  const estado = document.getElementById("admin-status");
+  const galeria = document.getElementById("album-gallery");
+  const avisoVacio = document.getElementById("album-empty");
+
+  const categorias = {
+    "retratos": "retratos",
+    "celebraciones": "celebraciones",
+    "bodas": "bodas",
+    "retoque fotográfico": "retoque"
+  };
+
+  let categoriaActual = "";
+  let usuarioActual = null;
+
+  function esAdmin() {
+    return usuarioActual?.email?.toLowerCase() === CORREO_ADMIN;
+  }
+
+  function actualizarAcceso() {
+    if (!botonAcceso) return;
+
+    botonAcceso.textContent = esAdmin()
+      ? "Cerrar sesión del fotógrafo"
+      : "Acceso del fotógrafo";
+
+    if (formulario) formulario.hidden = esAdmin();
+    if (zonaSubida) zonaSubida.hidden = !esAdmin();
+  }
+
+  async function cargarFotos() {
+    if (!categoriaActual || !galeria) return;
+
+    galeria.innerHTML = "";
+    if (estado) estado.textContent = "Cargando fotos…";
+
+    const { data, error } = await cliente
+      .from("album_photos")
+      .select("id, category, path, created_at")
+      .eq("category", categoriaActual)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      if (estado) estado.textContent = "No se pudieron cargar las fotos.";
+      return;
+    }
+
+    const fotos = data || [];
+    galeria.style.display = fotos.length ? "grid" : "none";
+    if (avisoVacio) avisoVacio.style.display = fotos.length ? "none" : "grid";
+    if (estado) estado.textContent = "";
+
+    fotos.forEach((foto) => {
+      const { data: urlData } = cliente.storage.from(BUCKET).getPublicUrl(foto.path);
+      const tarjeta = document.createElement("figure");
+      tarjeta.style.cssText = "position:relative;margin:0;";
+
+      const imagen = document.createElement("img");
+      imagen.src = urlData.publicUrl;
+      imagen.alt = "Fotografía del álbum";
+      imagen.loading = "lazy";
+      imagen.style.cssText =
+        "display:block;width:100%;height:170px;object-fit:cover;border-radius:4px;";
+
+      tarjeta.appendChild(imagen);
+
+      if (esAdmin()) {
+        const borrar = document.createElement("button");
+        borrar.type = "button";
+        borrar.textContent = "Borrar";
+        borrar.style.cssText =
+          "position:absolute;top:8px;right:8px;padding:7px 10px;background:#222;color:white;border:1px solid #d4b477;border-radius:3px;cursor:pointer;";
+
+        borrar.addEventListener("click", async () => {
+          if (!confirm("¿Quieres borrar esta foto del álbum?")) return;
+
+          const { error: errorArchivo } = await cliente.storage
+            .from(BUCKET)
+            .remove([foto.path]);
+
+          if (errorArchivo) {
+            if (estado) estado.textContent = "No se pudo borrar la foto.";
+            return;
+          }
+
+          const { error: errorRegistro } = await cliente
+            .from("album_photos")
+            .delete()
+            .eq("id", foto.id);
+
+          if (errorRegistro) {
+            if (estado) estado.textContent = "La foto se borró, pero no se pudo actualizar el álbum.";
+            return;
+          }
+
+          await cargarFotos();
+        });
+
+        tarjeta.appendChild(borrar);
+      }
+
+      galeria.appendChild(tarjeta);
+    });
+  }
+
+  document.querySelectorAll(".album").forEach((album) => {
+    album.addEventListener("click", () => {
+      const titulo = (album.dataset.titulo || "").toLowerCase();
+      categoriaActual = categorias[titulo] || "";
+      cargarFotos();
+    });
+  });
+
+  if (botonAcceso) {
+    botonAcceso.addEventListener("click", async () => {
+      if (esAdmin()) {
+        await cliente.auth.signOut();
+        usuarioActual = null;
+        actualizarAcceso();
+        if (estado) estado.textContent = "Sesión cerrada.";
+      } else if (formulario) {
+        formulario.hidden = !formulario.hidden;
+      }
+    });
+  }
+
+  if (formulario) {
+    formulario.addEventListener("submit", async (evento) => {
+      evento.preventDefault();
+      if (estado) estado.textContent = "Iniciando sesión…";
+
+      const { data, error } = await cliente.auth.signInWithPassword({
+        email: campoCorreo.value.trim(),
+        password: campoContrasena.value
+      });
+
+      if (error || data.user?.email?.toLowerCase() !== CORREO_ADMIN) {
+        await cliente.auth.signOut();
+        usuarioActual = null;
+        actualizarAcceso();
+        if (estado) estado.textContent = "No se pudo iniciar sesión con esa cuenta.";
+        return;
+      }
+
+      usuarioActual = data.user;
+      actualizarAcceso();
+      if (estado) estado.textContent = "Sesión iniciada. Ya puedes subir fotos.";
+      await cargarFotos();
+    });
+  }
+
+  if (botonSubir) {
+    botonSubir.addEventListener("click", async () => {
+      if (!esAdmin()) {
+        if (estado) estado.textContent = "Inicia sesión como fotógrafo para subir fotos.";
+        return;
+      }
+
+      const archivos = Array.from(selectorFotos.files || []);
+      if (!archivos.length) {
+        if (estado) estado.textContent = "Primero selecciona una o más fotos.";
+        return;
+      }
+
+      if (!categoriaActual) {
+        if (estado) estado.textContent = "Abre primero el álbum donde quieres guardar las fotos.";
+        return;
+      }
+
+      botonSubir.disabled = true;
+
+      for (const archivo of archivos) {
+        if (archivo.size > 10 * 1024 * 1024) {
+          if (estado) estado.textContent = `${archivo.name} supera el límite de 10 MB.`;
+          continue;
+        }
+
+        const nombreSeguro = archivo.name.replace(/[^a-zA-Z0-9._-]/g, "-");
+        const ruta = `${categoriaActual}/${Date.now()}-${nombreSeguro}`;
+
+        const { error: errorSubida } = await cliente.storage
+          .from(BUCKET)
+          .upload(ruta, archivo, { upsert: false });
+
+        if (errorSubida) {
+          if (estado) estado.textContent = `No se pudo subir ${archivo.name}.`;
+          continue;
+        }
+
+        const { error: errorRegistro } = await cliente
+          .from("album_photos")
+          .insert({ category: categoriaActual, path: ruta });
+
+        if (errorRegistro) {
+          await cliente.storage.from(BUCKET).remove([ruta]);
+          if (estado) estado.textContent = `No se pudo guardar ${archivo.name} en el álbum.`;
+        }
+      }
+
+      selectorFotos.value = "";
+      botonSubir.disabled = false;
+      if (estado) estado.textContent = "Listo. Se actualizaron las fotos del álbum.";
+      await cargarFotos();
+    });
+  }
+
+  cliente.auth.getSession().then(({ data }) => {
+    usuarioActual = data.session?.user || null;
+    actualizarAcceso();
+  });
+
+  cliente.auth.onAuthStateChange((_evento, session) => {
+    usuarioActual = session?.user || null;
+    actualizarAcceso();
+    cargarFotos();
+  });
+})();
+</script>
 </body>
 </html>
 
