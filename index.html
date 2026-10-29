@@ -1,1696 +1,1194 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Alma y Lente | Fotografía y Arte Digital</title>
-  <meta name="description" content="Alma y Lente: fotografía de retrato, quinceañeras, bodas, retoque fotográfico y arte digital.">
-  <meta name="theme-color" content="#101010">
+<title>Alma y Lente | Fotografía y Arte Digital</title>
+<meta name="description" content="Alma y Lente: fotografía de retrato, quinceañeras, bodas, retoque fotográfico y arte digital. Retratos que cuentan historias.">
+<meta name="theme-color" content="#111111">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --black: #101010;
-      --dark: #151515;
-      --white: #f5f1eb;
-      --muted: #b9b3aa;
-      --gold: #c9a873;
-      --line: rgba(255,255,255,.15);
-    }
+<style>
+:root {
+    --fondo: #101010;
+    --fondo-secundario: #171717;
+    --blanco: #f5f1eb;
+    --gris: #b8b3ad;
+    --dorado: #c9a873;
+    --borde: rgba(255,255,255,.15);
+    --ancho: 1320px;
+}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 80px;
-    }
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
 
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: "DM Sans", sans-serif;
-      line-height: 1.6;
-    }
+body {
+    background: var(--fondo);
+    color: var(--blanco);
+    font-family: "DM Sans", sans-serif;
+    line-height: 1.7;
+}
 
-    body, button, a {
-      -webkit-tap-highlight-color: transparent;
-    }
+a {
+    color: inherit;
+    text-decoration: none;
+}
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-    button {
-      font: inherit;
-    }
+button {
+    font: inherit;
+}
 
-    img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+.contenedor {
+    width: min(calc(100% - 60px), var(--ancho));
+    margin-inline: auto;
+}
 
-    [hidden] {
-      display: none !important;
-    }
+.etiqueta {
+    color: var(--dorado);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+}
 
-    .container {
-      width: min(86%, 1250px);
-      margin: auto;
-    }
+.titulo-seccion {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(35px, 4vw, 53px);
+    font-weight: 400;
+    line-height: 1.2;
+}
 
-    .eyebrow {
-      color: var(--gold);
-      font-size: 9px;
-      font-weight: 600;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
+/* ENCABEZADO */
 
-    h1, h2, h3, .logo {
-      font-family: "Playfair Display", serif;
-      font-weight: 400;
-    }
+.encabezado {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    border-bottom: 1px solid var(--borde);
+    background: rgba(15,15,15,.28);
+}
 
-    /* ENCABEZADO */
+.barra {
+    min-height: 82px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
 
-    header {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 20;
-      width: 100%;
-      border-bottom: 1px solid var(--line);
-      background: rgba(10,10,10,.35);
-    }
+.marca {
+    flex-shrink: 0;
+}
 
-    .navbar {
-      min-height: 66px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 25px;
-    }
+.marca-nombre {
+    font-family: "Playfair Display", serif;
+    font-size: 27px;
+    font-style: italic;
+    line-height: 1.2;
+}
 
-    .logo {
-      font-size: 23px;
-      font-style: italic;
-      line-height: 1.15;
-      white-space: nowrap;
-    }
+.marca-descripcion {
+    margin-top: 5px;
+    color: #d2ccc4;
+    font-size: 8px;
+    letter-spacing: 2.5px;
+}
 
-    .logo small {
-      display: block;
-      margin-top: 5px;
-      font-family: "DM Sans", sans-serif;
-      font-size: 7px;
-      font-style: normal;
-      letter-spacing: 2px;
-      color: #ddd5ca;
-    }
+.navegacion {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-    }
+.navegacion a,
+.redes a {
+    font-size: 11px;
+    transition: color .25s;
+}
 
-    .nav-links a,
-    .social-links a {
-      font-size: 10px;
-      transition: color .25s;
-    }
+.navegacion a:hover,
+.redes a:hover,
+.pie a:hover {
+    color: var(--dorado);
+}
 
-    .nav-links a:hover,
-    .social-links a:hover {
-      color: var(--gold);
-    }
+.redes {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 
-    .social-links {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-    }
+.redes a {
+    font-size: 16px;
+}
 
-    .menu-toggle {
-      display: none;
-      padding: 7px 10px;
-      color: white;
-      background: transparent;
-      border: 1px solid var(--line);
-      cursor: pointer;
-    }
+.menu-boton {
+    display: none;
+    color: var(--blanco);
+    background: transparent;
+    border: 1px solid var(--borde);
+    padding: 8px 12px;
+    cursor: pointer;
+}
 
-    /* PORTADA */
+/* PORTADA */
 
-    .hero {
-      min-height: 590px;
-      height: 82vh;
-      max-height: 760px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-      background: #24211e;
-    }
+.portada {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 720px;
+    height: 88vh;
+    height: 88svh;
+    max-height: 900px;
+    overflow: hidden;
+    background: #292621;
+}
 
-    .hero-image {
-      position: absolute;
-      inset: 0;
-    }
+.portada-fondo {
+    position: absolute;
+    inset: 0;
+}
 
-    .hero-image img {
-      object-position: center 38%;
-    }
+.portada-fondo img {
+    object-position: center 35%;
+}
 
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(
-          90deg,
-          rgba(0,0,0,.88),
-          rgba(0,0,0,.65) 35%,
-          rgba(0,0,0,.12)
-        ),
-        linear-gradient(
-          0deg,
-          rgba(0,0,0,.45),
-          transparent 55%
-        );
-    }
+.portada::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg,
+            rgba(0,0,0,.87) 0%,
+            rgba(0,0,0,.67) 35%,
+            rgba(0,0,0,.16) 76%,
+            rgba(0,0,0,.12) 100%),
+        linear-gradient(0deg,
+            rgba(0,0,0,.58),
+            transparent 55%);
+}
 
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      padding-top: 65px;
-    }
+.portada-contenido {
+    position: relative;
+    z-index: 1;
+    width: min(calc(100% - 60px), var(--ancho));
+    margin: 65px auto 0;
+}
 
-    .hero h1 {
-      margin: 13px 0;
-      max-width: 560px;
-      font-size: clamp(48px,6vw,75px);
-      line-height: 1.04;
-      letter-spacing: -1.5px;
-    }
+.portada h1 {
+    max-width: 750px;
+    margin: 19px 0 20px;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(52px, 6.3vw, 83px);
+    font-weight: 400;
+    line-height: 1.07;
+    letter-spacing: -1.8px;
+}
 
-    .hero h1 em {
-      color: #e0c6a3;
-    }
+.portada h1 em {
+    color: #dfc7a7;
+    font-weight: 400;
+}
 
-    .hero-copy {
-      max-width: 370px;
-      margin-top: 18px;
-      font-size: 12px;
-      line-height: 1.7;
-    }
+.portada-texto {
+    max-width: 460px;
+    color: #e1ddd7;
+    font-size: 13px;
+    line-height: 1.8;
+}
 
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 25px;
-    }
+.botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 28px;
+}
 
-    .btn {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      padding: 11px 20px;
-      border: 1px solid rgba(255,255,255,.7);
-      font-size: 8px;
-      font-weight: 600;
-      letter-spacing: 1.8px;
-      text-transform: uppercase;
-      transition: .25s;
-      cursor: pointer;
-    }
+.boton {
+    display: inline-flex;
+    min-height: 45px;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 21px;
+    border: 1px solid rgba(255,255,255,.7);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1.8px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: background .25s, color .25s, border-color .25s;
+}
 
-    .btn:hover {
-      background: white;
-      color: #111;
-    }
+.boton:hover {
+    background: var(--blanco);
+    color: var(--fondo);
+    border-color: var(--blanco);
+}
 
-    .btn-gold {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: #17130e;
-    }
+.boton-dorado {
+    background: var(--dorado);
+    border-color: var(--dorado);
+    color: #17130e;
+}
 
-    .btn-gold:hover {
-      background: var(--white);
-      border-color: var(--white);
-    }
+.boton-dorado:hover {
+    background: var(--blanco);
+    border-color: var(--blanco);
+}
 
-    .hero-bottom {
-      position: absolute;
-      bottom: 18px;
-      left: 7%;
-      right: 7%;
-      z-index: 2;
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      color: #ddd5ca;
-      font-size: 9px;
-    }
+.portada-pie {
+    position: absolute;
+    z-index: 2;
+    right: 5%;
+    bottom: 25px;
+    color: #e3ddd5;
+    font-size: 10px;
+}
 
-    /* INTRODUCCIÓN */
+/* VISIÓN FOTOGRÁFICA */
 
-    .intro {
-      padding: 42px 0;
-      text-align: center;
-      background: linear-gradient(110deg,#151515,#101010);
-    }
+.introduccion {
+    padding: 38px 0 43px;
+    text-align: center;
+    background: #141414;
+}
 
-    .intro h2 {
-      max-width: 600px;
-      margin: 10px auto;
-      font-size: clamp(25px,3vw,35px);
-      line-height: 1.2;
-    }
+.introduccion h2 {
+    max-width: 720px;
+    margin: 10px auto 8px;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(27px, 3vw, 38px);
+    font-weight: 400;
+    line-height: 1.25;
+}
 
-    .intro h2 em {
-      color: #d9c09e;
-    }
+.introduccion h2 em {
+    color: #d8bd99;
+}
 
-    .intro p {
-      max-width: 500px;
-      margin: 16px auto 0;
-      color: var(--muted);
-      font-size: 11px;
-    }
+.separador {
+    width: 38px;
+    height: 1px;
+    margin: 16px auto;
+    background: var(--dorado);
+}
 
-    .rule {
-      width: 30px;
-      height: 1px;
-      margin: 16px auto;
-      background: var(--gold);
-    }
+.introduccion p {
+    max-width: 620px;
+    margin: auto;
+    color: var(--gris);
+    font-size: 12px;
+}
 
-    /* PORTAFOLIO Y CATEGORÍAS */
+/* PORTAFOLIO */
 
-    .portfolio {
-      padding: 48px 0 55px;
-    }
+.galerias {
+    padding: 65px 0 75px;
+    background: #0d0d0d;
+}
 
-    .section-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 25px;
-      margin-bottom: 25px;
-    }
+.encabezado-seccion {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 25px;
+    margin-bottom: 24px;
+}
 
-    .section-heading h2 {
-      font-size: 32px;
-      line-height: 1.2;
-    }
+.encabezado-seccion .titulo-seccion {
+    margin-top: 3px;
+    font-size: 39px;
+    font-style: italic;
+}
 
-    .section-heading p {
-      max-width: 320px;
-      color: var(--muted);
-      font-size: 10px;
-    }
+.encabezado-seccion p {
+    max-width: 340px;
+    color: var(--gris);
+    font-size: 12px;
+}
 
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(3,minmax(0,1fr));
-      gap: 12px;
-    }
+.rejilla-galerias {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 13px;
+}
 
-    .category-card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      min-width: 0;
-      min-height: 225px;
-      aspect-ratio: .9 / 1;
-      overflow: hidden;
-      padding: 22px;
-      text-align: left;
-      color: var(--white);
-      background: #1c1b19;
-      border: 1px solid rgba(255,255,255,.1);
-      cursor: pointer;
-      transition: border-color .3s;
-    }
+.tarjeta {
+    position: relative;
+    display: block;
+    min-width: 0;
+    aspect-ratio: .78 / 1;
+    overflow: hidden;
+    background: #24211e;
+    border: 1px solid rgba(255,255,255,.12);
+}
 
-    .category-card:hover {
-      border-color: var(--gold);
-    }
+.tarjeta img {
+    transition: transform .65s ease, filter .4s ease;
+}
 
-    .category-image {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-    }
+.tarjeta:hover img {
+    transform: scale(1.055);
+    filter: brightness(.8);
+}
 
-    .category-image img {
-      opacity: .72;
-      transition: transform .6s, opacity .4s;
-    }
-
-    .category-card:hover .category-image img {
-      transform: scale(1.05);
-      opacity: .9;
-    }
-
-    .category-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
+.tarjeta::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
         0deg,
-        rgba(0,0,0,.95),
-        rgba(0,0,0,.08) 90%
-      );
+        rgba(0,0,0,.92) 0%,
+        rgba(0,0,0,.48) 30%,
+        transparent 72%
+    );
+}
+
+.tarjeta-texto {
+    position: absolute;
+    z-index: 1;
+    left: 15px;
+    right: 12px;
+    bottom: 15px;
+}
+
+.tarjeta-texto span {
+    display: block;
+    color: var(--dorado);
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.tarjeta-texto h3 {
+    margin-top: 3px;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(19px, 2vw, 26px);
+    font-weight: 400;
+    line-height: 1.25;
+}
+
+.tarjeta-texto p {
+    margin-top: 5px;
+    color: #e0dbd5;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+/* SOBRE MÍ */
+
+.sobre-mi {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 40px;
+    padding-top: 28px;
+    padding-bottom: 28px;
+}
+
+.sobre-foto {
+    height: 430px;
+    overflow: hidden;
+    background: #292521;
+}
+
+.sobre-foto img {
+    object-position: center 30%;
+}
+
+.sobre-contenido {
+    padding: 20px 0;
+}
+
+.sobre-contenido h2 {
+    max-width: 450px;
+    margin: 10px 0 16px;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(33px, 3.3vw, 45px);
+    font-weight: 400;
+    line-height: 1.16;
+}
+
+.sobre-contenido h2 em {
+    color: #d8bd99;
+}
+
+.sobre-contenido p {
+    margin-bottom: 13px;
+    color: var(--gris);
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.sobre-contenido .boton {
+    margin-top: 7px;
+}
+
+/* SERVICIOS */
+
+.servicios {
+    padding: 40px 0 45px;
+    background: #141414;
+    border-top: 1px solid rgba(255,255,255,.07);
+    border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.servicios-interior {
+    display: grid;
+    grid-template-columns: 1.1fr 2fr;
+    gap: 35px;
+    align-items: center;
+}
+
+.servicios .titulo-seccion {
+    margin-top: 5px;
+    font-size: 34px;
+    font-style: italic;
+}
+
+.rejilla-servicios {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.servicio {
+    padding: 5px 20px;
+    border-left: 1px solid var(--borde);
+}
+
+.servicio-icono {
+    color: var(--dorado);
+    font-size: 24px;
+}
+
+.servicio-numero {
+    display: block;
+    margin-top: 6px;
+    color: var(--dorado);
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+.servicio h3 {
+    margin: 5px 0 8px;
+    font-family: "Playfair Display", serif;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+.servicio p {
+    color: var(--gris);
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+/* CONTACTO */
+
+.contacto {
+    position: relative;
+    padding: 55px 0 60px;
+    overflow: hidden;
+    text-align: center;
+    background:
+        linear-gradient(rgba(0,0,0,.83), rgba(0,0,0,.9)),
+        url("images/contacto.jpg") center 50% / cover,
+        #171513;
+}
+
+.contacto h2 {
+    margin: 8px auto 12px;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(38px, 5vw, 55px);
+    font-weight: 400;
+    line-height: 1.15;
+}
+
+.contacto p {
+    max-width: 490px;
+    margin: auto;
+    color: #d1cbc4;
+    font-size: 12px;
+}
+
+.contacto .botones {
+    justify-content: center;
+    margin-top: 22px;
+}
+
+/* PIE DE PÁGINA */
+
+.pie {
+    padding: 23px 0;
+    border-top: 1px solid var(--borde);
+    background: #0d0d0d;
+}
+
+.pie-interior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.pie .marca-nombre {
+    font-size: 23px;
+}
+
+.pie .marca-descripcion {
+    font-size: 7px;
+}
+
+.pie p,
+.pie a {
+    color: var(--gris);
+    font-size: 9px;
+}
+
+.pie-redes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* TABLET */
+
+@media (max-width: 1000px) {
+    .barra {
+        gap: 18px;
     }
 
-    .category-content {
-      position: relative;
-      z-index: 2;
+    .navegacion {
+        gap: 16px;
     }
 
-    .category-number {
-      display: block;
-      margin-bottom: 9px;
-      color: var(--gold);
-      font-size: 9px;
-      letter-spacing: 2px;
+    .redes {
+        gap: 10px;
     }
 
-    .category-card h3 {
-      font-size: clamp(21px,2.4vw,29px);
-      line-height: 1.2;
+    .rejilla-galerias {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .category-card p {
-      margin-top: 7px;
-      color: #e0d9d0;
-      font-size: 10px;
+    .tarjeta {
+        aspect-ratio: 1.05 / 1;
     }
 
-    .category-action {
-      display: inline-block;
-      margin-top: 14px;
-      font-size: 8px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
+    .servicios-interior {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+}
+
+/* CELULARES */
+
+@media (max-width: 700px) {
+    .contenedor {
+        width: calc(100% - 36px);
     }
 
-    /* VISTA INTERNA DE CATEGORÍAS Y ÁLBUMES */
-
-    .gallery-view {
-      padding-top: 20px;
-      animation: appear .3s ease;
+    .encabezado {
+        background: rgba(12,12,12,.78);
     }
 
-    @keyframes appear {
-      from {
-        opacity: 0;
-        transform: translateY(7px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .barra {
+        min-height: 76px;
     }
 
-    .back-button {
-      display: inline-block;
-      margin-bottom: 25px;
-      padding: 9px 0;
-      color: var(--muted);
-      background: none;
-      border: 0;
-      font-size: 10px;
-      cursor: pointer;
+    .marca-nombre {
+        font-size: 24px;
     }
 
-    .back-button:hover {
-      color: var(--gold);
+    .marca-descripcion {
+        font-size: 7px;
+        letter-spacing: 1.8px;
     }
 
-    .gallery-title {
-      margin: 7px 0 10px;
-      font-size: clamp(32px,4vw,45px);
-      line-height: 1.15;
-    }
-
-    .gallery-description {
-      max-width: 600px;
-      margin-bottom: 28px;
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .album-grid {
-      display: grid;
-      grid-template-columns: repeat(3,minmax(0,1fr));
-      gap: 13px;
-      margin-top: 25px;
-    }
-
-    .album-card {
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-      min-width: 0;
-      color: var(--white);
-      background: #151515;
-      border: 1px solid var(--line);
-      cursor: pointer;
-      transition: border-color .25s;
-    }
-
-    .album-card:hover {
-      border-color: var(--gold);
-    }
-
-    .album-cover {
-      position: relative;
-      aspect-ratio: 1.1 / 1;
-      overflow: hidden;
-      background: #222;
-    }
-
-    .album-cover img {
-      transition: transform .5s;
-    }
-
-    .album-card:hover img {
-      transform: scale(1.04);
-    }
-
-    .album-info {
-      padding: 17px;
-    }
-
-    .album-info small {
-      color: var(--gold);
-      font-size: 8px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
-
-    .album-info h3 {
-      margin: 6px 0;
-      font-size: 21px;
-    }
-
-    .album-info p {
-      color: var(--muted);
-      font-size: 10px;
-    }
-
-    .album-open {
-      display: block;
-      margin-top: 12px;
-      font-size: 8px;
-      letter-spacing: 1.3px;
-      text-transform: uppercase;
-    }
-
-    /* FOTOGRAFÍAS DEL ÁLBUM */
-
-    .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(3,minmax(0,1fr));
-      gap: 10px;
-      margin-top: 25px;
-    }
-
-    .photo-item {
-      aspect-ratio: .8 / 1;
-      overflow: hidden;
-      background: #1c1c1c;
-      border: 1px solid var(--line);
-      cursor: zoom-in;
-    }
-
-    .photo-item img {
-      transition: transform .4s;
-    }
-
-    .photo-item:hover img {
-      transform: scale(1.03);
-    }
-
-    .empty-album {
-      padding: 38px 22px;
-      text-align: center;
-      border: 1px solid var(--line);
-      background: #151515;
-    }
-
-    .empty-album h3 {
-      margin: 10px 0;
-      font-size: 24px;
-    }
-
-    .empty-album p {
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    /* VISOR DE FOTOGRAFÍAS */
-
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 25px;
-      background: rgba(0,0,0,.94);
-    }
-
-    .lightbox img {
-      width: auto;
-      height: auto;
-      max-width: 90vw;
-      max-height: 85vh;
-      object-fit: contain;
-    }
-
-    .lightbox-close {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      color: white;
-      background: none;
-      border: 0;
-      font-size: 32px;
-      cursor: pointer;
-    }
-
-    /* SOBRE MÍ */
-
-    .about {
-      padding: 35px 0 45px;
-      background: #151515;
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 32px;
-    }
-
-    .about-image {
-      height: 330px;
-      overflow: hidden;
-      background: #222;
-    }
-
-    .about-image img {
-      object-position: center;
-    }
-
-    .about-copy h2 {
-      margin: 8px 0 12px;
-      font-size: clamp(28px,3vw,37px);
-      line-height: 1.12;
-    }
-
-    .about-copy p {
-      margin-bottom: 12px;
-      color: var(--muted);
-      font-size: 10px;
-    }
-
-    .about-copy .btn {
-      margin-top: 5px;
-    }
-
-    /* SERVICIOS */
-
-    .services {
-      padding: 38px 0 42px;
-    }
-
-    .services-heading h2 {
-      margin-top: 5px;
-      font-size: 30px;
-      line-height: 1.2;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3,minmax(0,1fr));
-      margin-top: 24px;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .service {
-      padding: 22px 20px;
-      border-right: 1px solid var(--line);
-    }
-
-    .service:first-child {
-      padding-left: 0;
-    }
-
-    .service:last-child {
-      border-right: 0;
-    }
-
-    .service-icon {
-      color: var(--gold);
-      font-size: 22px;
-    }
-
-    .service small {
-      display: block;
-      color: var(--gold);
-      font-size: 8px;
-      letter-spacing: 1.5px;
-    }
-
-    .service h3 {
-      margin: 5px 0;
-      font-size: 19px;
-    }
-
-    .service p {
-      max-width: 230px;
-      color: var(--muted);
-      font-size: 9px;
-      line-height: 1.7;
-    }
-
-    /* CONTACTO */
-
-    .contact {
-      padding: 48px 0;
-      text-align: center;
-      background:
-        linear-gradient(rgba(0,0,0,.84),rgba(0,0,0,.91)),
-        url("https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1800&q=85")
-        center / cover;
-      border-top: 1px solid var(--line);
-    }
-
-    .contact h2 {
-      margin: 7px 0 12px;
-      font-size: clamp(31px,4vw,42px);
-      line-height: 1.15;
-    }
-
-    .contact p {
-      max-width: 400px;
-      margin: auto;
-      color: #ded8cf;
-      font-size: 10px;
-    }
-
-    .contact .buttons {
-      justify-content: center;
-      margin-top: 20px;
-    }
-
-    /* PIE DE PÁGINA */
-
-    footer {
-      padding: 20px 0;
-      border-top: 1px solid var(--line);
-    }
-
-    .footer-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .footer-copy {
-      color: var(--muted);
-      font-size: 8px;
-      text-align: center;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 13px;
-    }
-
-    .footer-links a {
-      color: var(--muted);
-      font-size: 9px;
-    }
-
-    .footer-links a:hover {
-      color: var(--gold);
-    }
-
-    /* TABLET */
-
-    @media(max-width:850px) {
-      .container {
-        width: 90%;
-      }
-
-      .navbar {
-        min-height: 70px;
-      }
-
-      .menu-toggle {
+    .menu-boton {
         display: block;
-      }
+        font-size: 10px;
+        letter-spacing: 1px;
+    }
 
-      .nav-links {
+    .navegacion {
         display: none;
         position: absolute;
         top: 100%;
         left: 0;
-        right: 0;
-        padding: 20px 5%;
+        width: 100%;
+        padding: 20px 22px;
+        background: #151515;
+        border-bottom: 1px solid var(--borde);
         flex-direction: column;
         align-items: flex-start;
         gap: 17px;
-        background: #121212;
-        border-bottom: 1px solid var(--line);
-      }
+    }
 
-      .nav-links.open {
+    .navegacion.abierto {
         display: flex;
-      }
+    }
 
-      .social-links {
+    .navegacion a {
+        font-size: 13px;
+    }
+
+    .redes {
         display: none;
-      }
+    }
 
-      .hero {
-        min-height: 620px;
+    .portada {
+        min-height: 690px;
         height: 88svh;
-      }
-
-      .category-grid {
-        grid-template-columns: repeat(2,minmax(0,1fr));
-      }
-
-      .album-grid {
-        grid-template-columns: repeat(2,minmax(0,1fr));
-      }
-
-      .about-grid {
-        gap: 22px;
-      }
+        max-height: 850px;
     }
 
-    /* CELULAR */
-
-    @media(max-width:520px) {
-      .container {
-        width: calc(100% - 36px);
-      }
-
-      .logo {
-        font-size: 22px;
-      }
-
-      .logo small {
-        font-size: 6px;
-        letter-spacing: 1.5px;
-      }
-
-      .hero {
-        min-height: 680px;
-        height: 90svh;
-        max-height: 820px;
-      }
-
-      .hero-image img {
+    .portada-fondo img {
         object-position: 58% center;
-      }
-
-      .hero::after {
-        background:
-          linear-gradient(90deg,rgba(0,0,0,.76),rgba(0,0,0,.22)),
-          linear-gradient(0deg,rgba(0,0,0,.6),transparent 70%);
-      }
-
-      .hero h1 {
-        font-size: clamp(44px,11vw,57px);
-        letter-spacing: -1px;
-      }
-
-      .hero-copy {
-        max-width: 300px;
-        font-size: 11px;
-      }
-
-      .hero-bottom {
-        left: 18px;
-        right: 18px;
-        font-size: 7px;
-      }
-
-      .intro {
-        padding: 43px 0;
-      }
-
-      .intro h2 {
-        font-size: 27px;
-      }
-
-      .section-heading {
-        display: block;
-      }
-
-      .section-heading h2 {
-        font-size: 33px;
-      }
-
-      .section-heading p {
-        margin-top: 10px;
-      }
-
-      .category-grid {
-        gap: 10px;
-      }
-
-      .category-card {
-        min-height: 190px;
-        padding: 13px;
-      }
-
-      .category-card h3 {
-        font-size: 20px;
-      }
-
-      .category-card p {
-        font-size: 9px;
-      }
-
-      .category-action {
-        font-size: 7px;
-        letter-spacing: .8px;
-      }
-
-      .album-grid {
-        gap: 10px;
-      }
-
-      .album-info {
-        padding: 11px;
-      }
-
-      .album-info h3 {
-        font-size: 18px;
-      }
-
-      .photo-grid {
-        grid-template-columns: repeat(2,minmax(0,1fr));
-        gap: 7px;
-      }
-
-      .about {
-        padding: 35px 0;
-      }
-
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-      }
-
-      .about-image {
-        height: 310px;
-      }
-
-      .services-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .service,
-      .service:first-child {
-        padding: 20px 0;
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
-      }
-
-      .service:last-child {
-        border-bottom: 0;
-      }
-
-      .footer-content {
-        flex-direction: column;
-      }
-
-      .footer-links {
-        justify-content: center;
-      }
     }
-  </style>
+
+    .portada::after {
+        background:
+            linear-gradient(90deg,
+                rgba(0,0,0,.79),
+                rgba(0,0,0,.34)),
+            linear-gradient(0deg,
+                rgba(0,0,0,.68),
+                transparent 75%);
+    }
+
+    .portada-contenido {
+        width: calc(100% - 36px);
+        margin-top: 70px;
+    }
+
+    .portada h1 {
+        max-width: 440px;
+        margin: 18px 0;
+        font-size: clamp(44px, 10.8vw, 65px);
+        letter-spacing: -1.3px;
+    }
+
+    .portada-texto {
+        max-width: 350px;
+        font-size: 12px;
+    }
+
+    .portada-pie {
+        right: 18px;
+        bottom: 18px;
+        left: 18px;
+        font-size: 8px;
+    }
+
+    .botones {
+        gap: 10px;
+    }
+
+    .boton {
+        padding: 11px 14px;
+        font-size: 8px;
+        letter-spacing: 1.3px;
+    }
+
+    .introduccion {
+        padding: 65px 0;
+    }
+
+    .introduccion h2 {
+        font-size: 30px;
+    }
+
+    .introduccion p {
+        font-size: 12px;
+    }
+
+    .galerias {
+        padding: 65px 0;
+    }
+
+    .encabezado-seccion {
+        display: block;
+        margin-bottom: 24px;
+    }
+
+    .encabezado-seccion .titulo-seccion {
+        font-size: 36px;
+    }
+
+    .encabezado-seccion p {
+        margin-top: 12px;
+    }
+
+    .rejilla-galerias {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .tarjeta {
+        aspect-ratio: 1.05 / 1;
+    }
+
+    .tarjeta-texto {
+        left: 20px;
+        right: 15px;
+        bottom: 18px;
+    }
+
+    .tarjeta-texto h3 {
+        font-size: 27px;
+    }
+
+    .tarjeta-texto p {
+        font-size: 11px;
+    }
+
+    .sobre-mi {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding-top: 65px;
+        padding-bottom: 65px;
+    }
+
+    .sobre-foto {
+        height: 390px;
+    }
+
+    .sobre-contenido h2 {
+        font-size: 39px;
+    }
+
+    .sobre-contenido p {
+        font-size: 13px;
+    }
+
+    .servicios {
+        padding: 55px 0;
+    }
+
+    .servicios .titulo-seccion {
+        font-size: 32px;
+    }
+
+    .rejilla-servicios {
+        grid-template-columns: 1fr;
+    }
+
+    .servicio {
+        padding: 23px 8px;
+        border-left: 0;
+        border-bottom: 1px solid var(--borde);
+    }
+
+    .servicio:last-child {
+        border-bottom: 0;
+    }
+
+    .servicio h3 {
+        font-size: 23px;
+    }
+
+    .servicio p {
+        font-size: 12px;
+    }
+
+    .contacto {
+        padding: 70px 0;
+    }
+
+    .contacto h2 {
+        font-size: 41px;
+    }
+
+    .contacto p {
+        font-size: 12px;
+    }
+
+    .pie-interior {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .pie-redes {
+        justify-content: center;
+    }
+
+    .pie p {
+        line-height: 1.7;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: .01ms !important;
+    }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- ENCABEZADO -->
-  <header>
-    <div class="container navbar">
-      <a href="#inicio" class="logo">
-        Alma y Lente
-        <small>FOTOGRAFÍA · RETOQUE · ARTE DIGITAL</small>
-      </a>
+<header class="encabezado">
+    <div class="contenedor barra">
 
-      <button class="menu-toggle"
-        id="menuToggle"
-        aria-label="Abrir menú"
-        aria-expanded="false">
-        ☰ MENÚ
-      </button>
-
-      <nav class="nav-links" id="navLinks">
-        <a href="#inicio">Inicio</a>
-        <a href="#portafolio">Portafolio</a>
-        <a href="#sobre-mi">Sobre mí</a>
-        <a href="#servicios">Servicios</a>
-        <a href="#contacto">Contacto</a>
-      </nav>
-
-      <div class="social-links">
-        <a href="https://www.tiktok.com/@almaylente"
-           target="_blank" rel="noopener noreferrer">
-          TikTok ↗
+        <a class="marca" href="#inicio" aria-label="Alma y Lente, inicio">
+            <div class="marca-nombre">Alma y Lente</div>
+            <div class="marca-descripcion">
+                FOTOGRAFÍA · RETOQUE · ARTE DIGITAL
+            </div>
         </a>
-      </div>
-    </div>
-  </header>
 
-  <main>
+        <button class="menu-boton"
+                id="menuBoton"
+                aria-expanded="false"
+                aria-controls="navegacion">
+            ☰ MENÚ
+        </button>
 
-    <!-- PORTADA -->
-    <section class="hero" id="inicio">
-      <div class="hero-image">
-        <img
-          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=2000&q=85"
-          alt="Retrato fotográfico"
-          fetchpriority="high">
-      </div>
+        <nav class="navegacion" id="navegacion">
+            <a href="#inicio">Inicio</a>
+            <a href="#galerias">Portafolio</a>
+            <a href="#sobre-mi">Sobre mí</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
 
-      <div class="container hero-content">
-        <span class="eyebrow">Fotografía con identidad</span>
-
-        <h1>
-          Retratos que<br>
-          <em>cuentan historias.</em>
-        </h1>
-
-        <p class="hero-copy">
-          Momentos auténticos, emociones reales y una mirada
-          artística que transforma cada fotografía en un recuerdo.
-        </p>
-
-        <div class="buttons">
-          <a href="#portafolio" class="btn btn-gold">
-            Explorar portafolio →
-          </a>
-
-          <a href="#sobre-mi" class="btn">
-            Conoce mi trabajo
-          </a>
+        <div class="redes">
+            <a href="https://www.tiktok.com/@almaylente"
+               target="_blank" rel="noopener"
+               aria-label="TikTok">♪</a>
+            <a href="https://www.instagram.com/almaylente/"
+               target="_blank" rel="noopener"
+               aria-label="Instagram">◎</a>
+            <a href="https://www.pinterest.com/"
+               target="_blank" rel="noopener"
+               aria-label="Pinterest">℘</a>
+            <a href="mailto:TU_CORREO@EJEMPLO.COM"
+               aria-label="Correo">✉️</a>
         </div>
-      </div>
 
-      <div class="hero-bottom">
-        <span>Retrato · Celebraciones · Arte</span>
-        <span>Alma y Lente © 2026</span>
-      </div>
+    </div>
+</header>
+
+<main>
+
+    <section class="portada" id="inicio">
+
+        <div class="portada-fondo">
+            <img src="images/portada.jpg"
+                 alt="Fotografía de portada de Alma y Lente"
+                 fetchpriority="high">
+        </div>
+
+        <div class="portada-contenido">
+            <span class="etiqueta">FOTOGRAFÍA CON IDENTIDAD</span>
+
+            <h1>
+                Retratos que<br>
+                <em>cuentan historias.</em>
+            </h1>
+
+            <p class="portada-texto">
+                Momentos auténticos, emociones reales y una mirada
+                artística que transforma cada fotografía en un recuerdo.
+            </p>
+
+            <div class="botones">
+                <a class="boton boton-dorado" href="#galerias">
+                    Explorar portafolio&nbsp; → 
+                </a>
+
+                <a class="boton" href="#sobre-mi">
+                    Conoce mi trabajo
+                </a>
+            </div>
+        </div>
+
+        <div class="portada-pie">
+            Retrato · Celebraciones · Arte
+        </div>
+
     </section>
 
-    <!-- INTRODUCCIÓN -->
-    <section class="intro">
-      <div class="container">
-        <span class="eyebrow">Mi visión fotográfica</span>
+    <section class="introduccion">
+        <div class="contenedor">
 
-        <h2>
-          Cada imagen guarda una historia.
-          <em>Mi trabajo es ayudarte a conservarla.</em>
-        </h2>
+            <span class="etiqueta">MI VISIÓN FOTOGRÁFICA</span>
 
-        <div class="rule"></div>
+            <h2>
+                Cada imagen guarda una historia.<br>
+                <em>Mi trabajo es ayudarte a conservarla.</em>
+            </h2>
 
-        <p>
-          En Alma y Lente, la fotografía, el retoque y la creatividad
-          se unen para crear imágenes cuidadas, naturales y llenas
-          de personalidad.
-        </p>
-      </div>
+            <div class="separador"></div>
+
+            <p>
+                En Alma y Lente, la fotografía, el retoque y la creatividad
+                se unen para crear imágenes cuidadas, naturales y llenas
+                de personalidad.
+            </p>
+
+        </div>
     </section>
 
-    <!-- PORTAFOLIO -->
-    <section class="portfolio" id="portafolio">
-      <div class="container">
+    <section class="galerias" id="galerias">
+        <div class="contenedor">
 
-        <div id="categoryHome">
-          <div class="section-heading">
+            <div class="encabezado-seccion">
+                <div>
+                    <span class="etiqueta">TRABAJO SELECCIONADO</span>
+                    <h2 class="titulo-seccion">Mi portafolio</h2>
+                </div>
+
+                <p>
+                    Una selección de retratos y momentos especiales
+                    capturados a través de mi lente.
+                </p>
+            </div>
+
+            <div class="rejilla-galerias">
+
+                <a class="tarjeta"
+                   href="images/retratos-01.jpg"
+                   target="_blank" rel="noopener">
+                    <img src="images/retratos-portada.jpg"
+                         alt="Galería de retratos"
+                         loading="lazy">
+                    <div class="tarjeta-texto">
+                        <span>01 · RETRATO</span>
+                        <h3>Retratos</h3>
+                        <p>Personalidad, expresión y esencia.</p>
+                    </div>
+                </a>
+
+                <a class="tarjeta"
+                   href="images/quinceaneras-01.jpg"
+                   target="_blank" rel="noopener">
+                    <img src="images/quinceaneras-portada.jpg"
+                         alt="Galería de quinceañeras"
+                         loading="lazy">
+                    <div class="tarjeta-texto">
+                        <span>02 · CELEBRACIONES</span>
+                        <h3>Quinceañeras</h3>
+                        <p>Recuerdos para toda la vida.</p>
+                    </div>
+                </a>
+
+                <a class="tarjeta"
+                   href="images/bodas-01.jpg"
+                   target="_blank" rel="noopener">
+                    <img src="images/bodas-portada.jpg"
+                         alt="Galería de bodas"
+                         loading="lazy">
+                    <div class="tarjeta-texto">
+                        <span>03 · HISTORIAS DE AMOR</span>
+                        <h3>Bodas</h3>
+                        <p>La belleza de los momentos irrepetibles.</p>
+                    </div>
+                </a>
+
+                <a class="tarjeta"
+                   href="images/retoque-01.jpg"
+                   target="_blank" rel="noopener">
+                    <img src="images/retoque-portada.jpg"
+                         alt="Galería de retoque fotográfico"
+                         loading="lazy">
+                    <div class="tarjeta-texto">
+                        <span>04 · EDICIÓN</span>
+                        <h3>Retoque fotográfico</h3>
+                        <p>Detalles cuidados y textura natural.</p>
+                    </div>
+                </a>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="contenedor sobre-mi" id="sobre-mi">
+
+        <div class="sobre-foto">
+            <img src="images/sobre-mi.jpg"
+                 alt="Fotógrafo de Alma y Lente"
+                 loading="lazy">
+        </div>
+
+        <div class="sobre-contenido">
+            <span class="etiqueta">DETRÁS DE LA CÁMARA</span>
+
+            <h2>
+                Hola, soy el creador de <em>Alma y Lente.</em>
+            </h2>
+
+            <p>
+                La fotografía es mi forma de observar el mundo,
+                descubrir detalles y contar historias a través de imágenes.
+            </p>
+
+            <p>
+                Mi trabajo combina la captura fotográfica con el retoque
+                y la exploración del arte digital, procurando conservar
+                la naturalidad y la personalidad de cada retrato.
+            </p>
+
+            <p>
+                Alma y Lente es el espacio donde comparto mi evolución
+                creativa, mis proyectos y mi pasión por la imagen.
+            </p>
+
+            <a class="boton" href="#contacto">
+                Hablemos de fotografía&nbsp; →
+            </a>
+        </div>
+
+    </section>
+
+    <section class="servicios" id="servicios">
+        <div class="contenedor servicios-interior">
+
             <div>
-              <span class="eyebrow">Trabajo seleccionado</span>
-              <h2>Mi portafolio</h2>
+                <span class="etiqueta">LO QUE HAGO</span>
+                <h2 class="titulo-seccion">
+                    Fotografía y creatividad.
+                </h2>
             </div>
 
-            <p>
-              Explora mis fotografías por categorías, temporadas,
-              sesiones y proyectos creativos.
-            </p>
-          </div>
+            <div class="rejilla-servicios">
 
-          <div class="category-grid">
+                <article class="servicio">
+                    <div class="servicio-icono">◎</div>
+                    <span class="servicio-numero">01 / 03</span>
+                    <h3>Fotografía</h3>
+                    <p>
+                        Retratos y celebraciones con atención a la luz,
+                        la composición y las emociones.
+                    </p>
+                </article>
 
-            <button class="category-card"
-              data-category="retratos">
-              <div class="category-image">
-                <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80"
-                  alt=""
-                  loading="lazy">
-              </div>
-              <div class="category-content">
-                <span class="category-number">01 / RETRATO</span>
-                <h3>Retratos</h3>
-                <p>Personas, expresiones y momentos auténticos.</p>
-                <span class="category-action">Explorar álbumes ↗</span>
-              </div>
-            </button>
+                <article class="servicio">
+                    <div class="servicio-icono">▧</div>
+                    <span class="servicio-numero">02 / 03</span>
+                    <h3>Retoque profesional</h3>
+                    <p>
+                        Edición cuidadosa de piel, color y detalles,
+                        preservando la textura natural.
+                    </p>
+                </article>
 
-            <button class="category-card"
-              data-category="quinceaneras">
-              <div class="category-image">
-                <img
-                  src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80"
-                  alt=""
-                  loading="lazy">
-              </div>
-              <div class="category-content">
-                <span class="category-number">02 / CELEBRACIÓN</span>
-                <h3>Quinceañeras</h3>
-                <p>Vestidos, sesiones y recuerdos especiales.</p>
-                <span class="category-action">Explorar álbumes ↗</span>
-              </div>
-            </button>
+                <article class="servicio">
+                    <div class="servicio-icono">✧</div>
+                    <span class="servicio-numero">03 / 03</span>
+                    <h3>Arte digital</h3>
+                    <p>
+                        Propuestas creativas que combinan fotografía,
+                        imaginación y efectos digitales.
+                    </p>
+                </article>
 
-            <button class="category-card"
-              data-category="bodas">
-              <div class="category-image">
-                <img
-                  src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80"
-                  alt=""
-                  loading="lazy">
-              </div>
-              <div class="category-content">
-                <span class="category-number">03 / HISTORIAS DE AMOR</span>
-                <h3>Bodas</h3>
-                <p>La belleza de los momentos irrepetibles.</p>
-                <span class="category-action">Explorar álbumes ↗</span>
-              </div>
-            </button>
-
-            <button class="category-card"
-              data-category="navidad">
-              <div class="category-image">
-                <img
-                  src="https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=800&q=80"
-                  alt=""
-                  loading="lazy">
-              </div>
-              <div class="category-content">
-                <span class="category-number">04 / TEMPORADAS</span>
-                <h3>Navidad</h3>
-                <p>Retratos llenos de calidez y espíritu navideño.</p>
-                <span class="category-action">Explorar álbumes ↗</span>
-              </div>
-            </button>
-
-            <button class="category-card"
-              data-category="retoque">
-              <div class="category-image">
-                <img
-                  src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80"
-                  alt=""
-                  loading="lazy">
-              </div>
-              <div class="category-content">
-                <span class="category-number">05 / EDICIÓN</span>
-                <h3>Retoque fotográfico</h3>
-                <p>Detalles cuidados y textura natural.</p>
-                <span class="category-action">Explorar álbumes ↗</span>
-              </div>
-            </button>
-
-            <button class="category-card"
-              data-category="arte">
-              <div class="category-image">
-                <img
-                  src="https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=800&q=80"
-                  alt=""
-                  loading="lazy">
-              </div>
-              <div class="category-content">
-                <span class="category-number">06 / CREATIVIDAD</span>
-                <h3>Arte digital</h3>
-                <p>Fotografía, imaginación y efectos digitales.</p>
-                <span class="category-action">Explorar álbumes ↗</span>
-              </div>
-            </button>
-
-          </div>
-        </div>
-
-        <!-- CONTENIDO DINÁMICO DE LAS CARPETAS -->
-        <div class="gallery-view" id="galleryView" hidden>
-          <button class="back-button" id="backButton">
-            ← Volver al portafolio
-          </button>
-
-          <span class="eyebrow" id="galleryEyebrow"></span>
-          <h2 class="gallery-title" id="galleryTitle"></h2>
-          <p class="gallery-description" id="galleryDescription"></p>
-
-          <div class="album-grid" id="albumGrid"></div>
-
-          <div id="photoView" hidden>
-            <button class="back-button" id="backToAlbums">
-              ← Volver a los álbumes
-            </button>
-
-            <span class="eyebrow" id="photoEyebrow"></span>
-            <h3 class="gallery-title" id="photoTitle"></h3>
-            <p class="gallery-description" id="photoDescription"></p>
-
-            <div class="photo-grid" id="photoGrid"></div>
-
-            <div class="empty-album" id="emptyAlbum" hidden>
-              <span class="eyebrow">Álbum en preparación</span>
-              <h3>Próximamente</h3>
-              <p>
-                Aquí podrás mostrar las fotografías de esta sesión.
-                Las imágenes se incorporarán cuando agregues tus
-                fotografías al proyecto.
-              </p>
             </div>
-          </div>
         </div>
-
-      </div>
     </section>
 
-    <!-- SOBRE MÍ -->
-    <section class="about" id="sobre-mi">
-      <div class="container about-grid">
+    <section class="contacto" id="contacto">
+        <div class="contenedor">
 
-        <div class="about-image">
-          <img
-            src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&w=1000&q=85"
-            alt="Cámara fotográfica"
-            loading="lazy">
+            <span class="etiqueta">CONTACTO</span>
+
+            <h2>Hagamos algo memorable.</h2>
+
+            <p>
+                ¿Te gusta mi trabajo o quieres conocer más sobre mis
+                fotografías? Escríbeme y conversemos.
+            </p>
+
+            <div class="botones">
+                <a class="boton boton-dorado"
+                   href="mailto:TU_CORREO@EJEMPLO.COM">
+                    ✉️ &nbsp; Enviar correo&nbsp; →
+                </a>
+
+                <a class="boton"
+                   href="https://www.tiktok.com/@almaylente"
+                   target="_blank" rel="noopener">
+                    ♪ &nbsp; Ver TikTok&nbsp; →
+                </a>
+            </div>
+
         </div>
-
-        <div class="about-copy">
-          <span class="eyebrow">Detrás de la cámara</span>
-
-          <h2>Hola, soy el creador de Alma y Lente.</h2>
-
-          <p>
-            La fotografía es mi forma de observar el mundo,
-            descubrir detalles y contar historias a través de imágenes.
-          </p>
-
-          <p>
-            Mi trabajo combina la captura fotográfica con el retoque
-            y la exploración del arte digital, procurando conservar
-            la naturalidad y la personalidad de cada retrato.
-          </p>
-
-          <p>
-            Alma y Lente es el espacio donde comparto mi evolución
-            creativa, mis proyectos y mi pasión por la imagen.
-          </p>
-
-          <a href="#contacto" class="btn">
-            Hablemos de fotografía →
-          </a>
-        </div>
-
-      </div>
     </section>
 
-    <!-- SERVICIOS -->
-    <section class="services" id="servicios">
-      <div class="container">
-        <div class="services-heading">
-          <span class="eyebrow">Lo que hago</span>
-          <h2>Fotografía y creatividad.</h2>
-        </div>
+</main>
 
-        <div class="services-grid">
+<footer class="pie">
+    <div class="contenedor pie-interior">
 
-          <article class="service">
-            <span class="service-icon">◎</span>
-            <small>01 / 03</small>
-            <h3>Fotografía</h3>
-            <p>
-              Retratos y celebraciones con atención a la luz,
-              la composición y las emociones.
-            </p>
-          </article>
-
-          <article class="service">
-            <span class="service-icon">▧</span>
-            <small>02 / 03</small>
-            <h3>Retoque profesional</h3>
-            <p>
-              Edición cuidadosa de piel, color y detalles,
-              preservando la textura natural.
-            </p>
-          </article>
-
-          <article class="service">
-            <span class="service-icon">✧</span>
-            <small>03 / 03</small>
-            <h3>Arte digital</h3>
-            <p>
-              Propuestas creativas que combinan fotografía,
-              imaginación y efectos digitales.
-            </p>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACTO -->
-    <section class="contact" id="contacto">
-      <div class="container">
-        <span class="eyebrow">Contacto</span>
-        <h2>Hagamos algo memorable.</h2>
+        <a class="marca" href="#inicio">
+            <div class="marca-nombre">Alma y Lente</div>
+            <div class="marca-descripcion">
+                FOTOGRAFÍA · RETOQUE · ARTE DIGITAL
+            </div>
+        </a>
 
         <p>
-          ¿Te gusta mi trabajo o quieres conocer más sobre
-          mis fotografías? Escríbeme y conversemos.
+            © 2026 Alma y Lente. Todos los derechos reservados.
         </p>
 
-        <div class="buttons">
-          <!-- Sustituye el correo de ejemplo por el tuyo -->
-          <a class="btn btn-gold"
-             href="mailto:TU_CORREO@EJEMPLO.COM">
-            ✉ Enviar correo →
-          </a>
-
-          <a class="btn"
-             href="https://www.tiktok.com/@almaylente"
-             target="_blank"
-             rel="noopener noreferrer">
-            Ver TikTok ↗
-          </a>
+        <div class="pie-redes">
+            <a href="#galerias">Portafolio</a>
+            <a href="#contacto">Contacto</a>
+            <a href="https://www.tiktok.com/@almaylente"
+               target="_blank" rel="noopener">TikTok ↗️</a>
         </div>
-      </div>
-    </section>
 
-  </main>
-
-  <!-- PIE DE PÁGINA -->
-  <footer>
-    <div class="container footer-content">
-      <a href="#inicio" class="logo">
-        Alma y Lente
-        <small>FOTOGRAFÍA · RETOQUE · ARTE DIGITAL</small>
-      </a>
-
-      <p class="footer-copy">
-        © 2026 Alma y Lente. Todos los derechos reservados.
-      </p>
-
-      <nav class="footer-links">
-        <a href="#portafolio">Portafolio</a>
-        <a href="#contacto">Contacto</a>
-        <a href="https://www.tiktok.com/@almaylente"
-           target="_blank" rel="noopener noreferrer">
-          TikTok ↗
-        </a>
-      </nav>
     </div>
-  </footer>
+</footer>
 
-  <!-- VISOR DE IMÁGENES -->
-  <div class="lightbox" id="lightbox" hidden>
-    <button class="lightbox-close"
-      id="lightboxClose"
-      aria-label="Cerrar imagen">
-      ×
-    </button>
-    <img id="lightboxImage" src="" alt="">
-  </div>
+<script>
+const botonMenu = document.getElementById("menuBoton");
+const navegacion = document.getElementById("navegacion");
 
-  <script>
-    /*
-      Cada categoría contiene álbumes.
-      Para añadir fotografías, agrega sus rutas en "fotos".
-      Ejemplo: "fotos/quinceaneras/sesion-01/foto-01.jpg"
-    */
+botonMenu.addEventListener("click", function () {
+    const abierto = navegacion.classList.toggle("abierto");
 
-    const portfolio = {
-      retratos: {
-        numero: "01 / RETRATO",
-        titulo: "Retratos",
-        descripcion: "Personas, expresiones y momentos auténticos.",
-        albumes: [
-          {
-            nombre: "Retratos individuales",
-            descripcion: "Sesiones personales y retratos.",
-            portada: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80",
-            fotos: []
-          },
-          {
-            nombre: "Retratos creativos",
-            descripcion: "Propuestas de luz, color y composición.",
-            portada: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=700&q=80",
-            fotos: []
-          }
-        ]
-      },
+    botonMenu.setAttribute("aria-expanded", String(abierto));
+    botonMenu.innerHTML = abierto ? "✕ CERRAR" : "☰ MENÚ";
+});
 
-      quinceaneras: {
-        numero: "02 / CELEBRACIÓN",
-        titulo: "Quinceañeras",
-        descripcion: "Sesiones especiales organizadas por temporada y álbum.",
-        albumes: [
-          {
-            nombre: "Temporada 2025",
-            descripcion: "Retratos y celebraciones de 2025.",
-            portada: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
-            fotos: []
-          },
-          {
-            nombre: "Temporada 2026",
-            descripcion: "Retratos y celebraciones de 2026.",
-            portada: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
-            fotos: []
-          }
-        ]
-      },
-
-      bodas: {
-        numero: "03 / HISTORIAS DE AMOR",
-        titulo: "Bodas",
-        descripcion: "Historias de amor, ceremonias y parejas.",
-        albumes: [
-          {
-            nombre: "Ceremonias",
-            descripcion: "Momentos especiales de una boda.",
-            portada: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80",
-            fotos: []
-          },
-          {
-            nombre: "Parejas",
-            descripcion: "Retratos y sesiones de pareja.",
-            portada: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=700&q=80",
-            fotos: []
-          }
-        ]
-      },
-
-      navidad: {
-        numero: "04 / TEMPORADAS",
-        titulo: "Navidad",
-        descripcion: "Sesiones navideñas organizadas por año.",
-        albumes: [
-          {
-            nombre: "Navidad 2025",
-            descripcion: "Fotografías de la temporada 2025.",
-            portada: "https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=700&q=80",
-            fotos: []
-          },
-          {
-            nombre: "Navidad 2026",
-            descripcion: "Fotografías de la temporada 2026.",
-            portada: "https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=700&q=80",
-            fotos: []
-          }
-        ]
-      },
-
-      retoque: {
-        numero: "05 / EDICIÓN",
-        titulo: "Retoque fotográfico",
-        descripcion: "Edición natural, cuidado de la piel y color.",
-        albumes: [
-          {
-            nombre: "Retoque natural",
-            descripcion: "Piel, color y detalles conservando la textura.",
-            portada: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=700&q=80",
-            fotos: []
-          },
-          {
-            nombre: "Antes y después",
-            descripcion: "Comparativas entre originales y editadas.",
-            portada: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80",
-            fotos: []
-          }
-        ]
-      },
-
-      arte: {
-        numero: "06 / CREATIVIDAD",
-        titulo: "Arte digital",
-        descripcion: "Fotografía, imaginación y efectos digitales.",
-        albumes: [
-          {
-            nombre: "Efectos digitales",
-            descripcion: "Retratos intervenidos artísticamente.",
-            portada: "https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=700&q=80",
-            fotos: []
-          },
-          {
-            nombre: "Composiciones creativas",
-            descripcion: "Proyectos visuales y experimentación.",
-            portada: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=700&q=80",
-            fotos: []
-          }
-        ]
-      }
-    };
-
-    const categoryHome = document.getElementById("categoryHome");
-    const galleryView = document.getElementById("galleryView");
-    const galleryEyebrow = document.getElementById("galleryEyebrow");
-    const galleryTitle = document.getElementById("galleryTitle");
-    const galleryDescription = document.getElementById("galleryDescription");
-    const albumGrid = document.getElementById("albumGrid");
-
-    const photoView = document.getElementById("photoView");
-    const photoEyebrow = document.getElementById("photoEyebrow");
-    const photoTitle = document.getElementById("photoTitle");
-    const photoDescription = document.getElementById("photoDescription");
-    const photoGrid = document.getElementById("photoGrid");
-    const emptyAlbum = document.getElementById("emptyAlbum");
-
-    let categoriaActual = null;
-
-    /* MENÚ MÓVIL */
-
-    const menuToggle = document.getElementById("menuToggle");
-    const navLinks = document.getElementById("navLinks");
-
-    menuToggle.addEventListener("click", () => {
-      const abierto = navLinks.classList.toggle("open");
-      menuToggle.setAttribute("aria-expanded", String(abierto));
+navegacion.querySelectorAll("a").forEach(function (enlace) {
+    enlace.addEventListener("click", function () {
+        navegacion.classList.remove("abierto");
+        botonMenu.setAttribute("aria-expanded", "false");
+        botonMenu.innerHTML = "☰ MENÚ";
     });
-
-    navLinks.querySelectorAll("a").forEach(enlace => {
-      enlace.addEventListener("click", () => {
-        navLinks.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-      });
-    });
-
-    /* ABRIR UNA CATEGORÍA */
-
-    document.querySelectorAll("[data-category]").forEach(boton => {
-      boton.addEventListener("click", () => {
-        abrirCategoria(boton.dataset.category);
-      });
-    });
-
-    function abrirCategoria(clave) {
-      const categoria = portfolio[clave];
-      if (!categoria) return;
-
-      categoriaActual = clave;
-
-      categoryHome.hidden = true;
-      galleryView.hidden = false;
-      photoView.hidden = true;
-
-      galleryEyebrow.textContent = categoria.numero;
-      galleryTitle.textContent = categoria.titulo;
-      galleryDescription.textContent = categoria.descripcion;
-
-      albumGrid.replaceChildren();
-
-      categoria.albumes.forEach((album, indice) => {
-        const boton = document.createElement("button");
-        boton.className = "album-card";
-        boton.type = "button";
-
-        const cubierta = document.createElement("div");
-        cubierta.className = "album-cover";
-
-        const imagen = document.createElement("img");
-        imagen.src = album.portada;
-        imagen.alt = "";
-        imagen.loading = "lazy";
-
-        cubierta.appendChild(imagen);
-
-        const informacion = document.createElement("div");
-        informacion.className = "album-info";
-
-        const numero = document.createElement("small");
-        numero.textContent =
-          "ÁLBUM " + String(indice + 1).padStart(2, "0");
-
-        const titulo = document.createElement("h3");
-        titulo.textContent = album.nombre;
-
-        const descripcion = document.createElement("p");
-        descripcion.textContent = album.descripcion;
-
-        const explorar = document.createElement("span");
-        explorar.className = "album-open";
-        explorar.textContent = "Abrir álbum ↗";
-
-        informacion.append(numero, titulo, descripcion, explorar);
-        boton.append(cubierta, informacion);
-
-        boton.addEventListener("click", () => {
-          abrirAlbum(album);
-        });
-
-        albumGrid.appendChild(boton);
-      });
-
-      galleryView.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-
-    /* ABRIR UN ÁLBUM */
-
-    function abrirAlbum(album) {
-      photoView.hidden = false;
-      albumGrid.hidden = true;
-
-      photoEyebrow.textContent = portfolio[categoriaActual].numero;
-      photoTitle.textContent = album.nombre;
-      photoDescription.textContent = album.descripcion;
-
-      photoGrid.replaceChildren();
-
-      if (!album.fotos || album.fotos.length === 0) {
-        photoGrid.hidden = true;
-        emptyAlbum.hidden = false;
-      } else {
-        emptyAlbum.hidden = true;
-        photoGrid.hidden = false;
-
-        album.fotos.forEach((foto, indice) => {
-          const boton = document.createElement("button");
-          boton.className = "photo-item";
-          boton.type = "button";
-          boton.setAttribute("aria-label", "Ampliar fotografía " + (indice + 1));
-
-          const imagen = document.createElement("img");
-          imagen.src = foto;
-          imagen.alt = portfolio[categoriaActual].titulo +
-            " - " + album.nombre + " - fotografía " + (indice + 1);
-          imagen.loading = "lazy";
-
-          boton.appendChild(imagen);
-          boton.addEventListener("click", () => abrirVisor(foto, imagen.alt));
-
-          photoGrid.appendChild(boton);
-        });
-      }
-
-      photoView.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-
-    /* REGRESAR A LOS ÁLBUMES */
-
-    document.getElementById("backButton").addEventListener("click", () => {
-      galleryView.hidden = true;
-      categoryHome.hidden = false;
-
-      document.getElementById("portafolio").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    });
-
-    document.getElementById("backToAlbums").addEventListener("click", () => {
-      photoView.hidden = true;
-      albumGrid.hidden = false;
-
-      galleryView.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    });
-
-    /* VISOR AMPLIADO */
-
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImage = document.getElementById("lightboxImage");
-
-    function abrirVisor(src, descripcion) {
-      lightboxImage.src = src;
-      lightboxImage.alt = descripcion;
-      lightbox.hidden = false;
-      document.body.style.overflow = "hidden";
-    }
-
-    function cerrarVisor() {
-      lightbox.hidden = true;
-      lightboxImage.src = "";
-      document.body.style.overflow = "";
-    }
-
-    document.getElementById("lightboxClose").addEventListener(
-      "click", cerrarVisor
-    );
-
-    lightbox.addEventListener("click", evento => {
-      if (evento.target === lightbox) cerrarVisor();
-    });
-
-    document.addEventListener("keydown", evento => {
-      if (evento.key === "Escape" && !lightbox.hidden) {
-        cerrarVisor();
-      }
-    });
-  </script>
+});
+</script>
 
 </body>
 </html>
