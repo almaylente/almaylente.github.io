@@ -698,6 +698,44 @@
   max-height: 70vh;
   object-fit: contain !important;
 }
+
+    /* Visor de álbum: una foto a pantalla completa, conservando la imagen entera */
+    .modal { padding: 0 !important; }
+    .modal-contenido {
+      width: 100vw !important; height: 100dvh !important; max-height: 100dvh !important;
+      border: 0 !important; display: flex; flex-direction: column; background: #090909;
+    }
+    .modal-cabecera { flex: 0 0 auto; }
+    .modal-cuerpo { flex: 1 1 auto; min-height: 0; overflow: auto; display: flex; flex-direction: column; }
+    .modal-descripcion { flex: 0 0 auto; }
+    .album-visor {
+      position: relative; flex: 1 1 auto; min-height: 0; display: flex; align-items: center;
+      justify-content: center; margin: 8px 0 0; background: #050505; overflow: hidden;
+      touch-action: pan-y;
+    }
+    .visor-foto { width: 100%; height: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; margin: 0; }
+    .visor-foto img { display: block; width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; }
+    #album-gallery .visor-foto img { height: 100% !important; max-height: 100% !important; object-fit: contain !important; }
+    .visor-flecha {
+      position: absolute; z-index: 2; top: 50%; transform: translateY(-50%); width: 50px; height: 64px;
+      border: 1px solid rgba(212,180,119,.75); background: rgba(10,10,10,.72); color: #fff;
+      font: 38px/1 Georgia,serif; cursor: pointer;
+    }
+    .visor-anterior { left: 14px; } .visor-siguiente { right: 14px; }
+    .visor-flecha:disabled { opacity: .35; cursor: default; }
+    .visor-pie { position: absolute; z-index: 2; right: 0; bottom: 0; left: 0; display: flex; justify-content: space-between;
+      gap: 12px; padding: 10px 16px; color: #eee; background: linear-gradient(transparent,rgba(0,0,0,.8)); font-size: 12px; }
+    .visor-borrar { position: absolute; z-index: 3; top: 14px; right: 14px; padding: 10px 14px;
+      border: 1px solid var(--dorado); background: rgba(15,15,15,.88); color: white; cursor: pointer; }
+    .album-admin[hidden], #admin-login-form[hidden], #admin-upload[hidden] { display: none !important; }
+    @media (max-width: 600px) {
+      .modal-cuerpo { padding: 12px !important; }
+      .modal-descripcion { font-size: 12px; }
+      .visor-flecha { width: 42px; height: 54px; }
+      .visor-anterior { left: 8px; } .visor-siguiente { right: 8px; }
+      .visor-pie { font-size: 10px; }
+      .visor-pie span:last-child { display: none; }
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -991,20 +1029,17 @@
       </div>
       <div class="modal-cuerpo">
         <p class="modal-descripcion" id="modal-descripcion"></p>
-           <div class="album-admin">
+        <div class="album-admin" id="album-admin" hidden>
           <button id="admin-login-toggle" type="button">Acceso del fotógrafo</button>
-
           <form id="admin-login-form" hidden>
-            <input id="admin-email" type="email" value="almaylente@gmail.com" required>
-            <input id="admin-password" type="password" placeholder="Contraseña" required>
+            <input id="admin-email" type="email" value="almaylente@gmail.com" autocomplete="username" required>
+            <input id="admin-password" type="password" placeholder="Contraseña" autocomplete="current-password" required>
             <button type="submit">Iniciar sesión</button>
           </form>
-
           <div id="admin-upload" hidden>
             <input id="admin-files" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple>
             <button id="admin-upload-button" type="button">Subir fotos</button>
           </div>
-
           <p id="admin-status" role="status"></p>
         </div>
 
@@ -1016,7 +1051,12 @@
           </div>
         </div>
 
-        <div class="modal-galeria" id="album-gallery" style="display:none"></div>
+                <div class="album-visor" id="album-gallery" style="display:none" aria-live="polite">
+          <button class="visor-flecha visor-anterior" id="foto-anterior" type="button" aria-label="Foto anterior">‹</button>
+          <figure class="visor-foto" id="visor-foto"></figure>
+          <button class="visor-flecha visor-siguiente" id="foto-siguiente" type="button" aria-label="Foto siguiente">›</button>
+          <div class="visor-pie"><span id="visor-contador"></span><span>Usa ← → o desliza para cambiar de foto</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -1106,9 +1146,9 @@
   const CLAVE_PUBLICA = "sb_publishable_xUtzKeE9EYt-kTR2DmSSmA_ret_WM1s";
   const CORREO_ADMIN = "almaylente@gmail.com";
   const BUCKET = "albumes";
-
   const cliente = window.supabase.createClient(URL_SUPABASE, CLAVE_PUBLICA);
 
+  const panelAdmin = document.getElementById("album-admin");
   const botonAcceso = document.getElementById("admin-login-toggle");
   const formulario = document.getElementById("admin-login-form");
   const campoCorreo = document.getElementById("admin-email");
@@ -1118,6 +1158,10 @@
   const botonSubir = document.getElementById("admin-upload-button");
   const estado = document.getElementById("admin-status");
   const galeria = document.getElementById("album-gallery");
+  const figura = document.getElementById("visor-foto");
+  const contador = document.getElementById("visor-contador");
+  const anterior = document.getElementById("foto-anterior");
+  const siguiente = document.getElementById("foto-siguiente");
   const avisoVacio = document.getElementById("album-empty");
 
   const categorias = {
@@ -1129,207 +1173,186 @@
 
   let categoriaActual = "";
   let usuarioActual = null;
+  let fotosActuales = [];
+  let indiceFoto = 0;
+  let inicioToqueX = 0;
+
+  // La opción ?admin=1 permite al fotógrafo abrir el acceso. Visitantes no ven los controles.
+  const modoAdmin = new URLSearchParams(window.location.search).get("admin") === "1";
+  if (panelAdmin) panelAdmin.hidden = !modoAdmin;
 
   function esAdmin() {
     return usuarioActual?.email?.toLowerCase() === CORREO_ADMIN;
   }
 
   function actualizarAcceso() {
-    if (!botonAcceso) return;
-
-    botonAcceso.textContent = esAdmin()
-      ? "Cerrar sesión del fotógrafo"
-      : "Acceso del fotógrafo";
-
-    if (formulario) formulario.hidden = esAdmin();
+    if (!panelAdmin) return;
+    panelAdmin.hidden = !modoAdmin;
+    if (botonAcceso) botonAcceso.textContent = esAdmin() ? "Cerrar sesión del fotógrafo" : "Acceso del fotógrafo";
+    if (formulario) formulario.hidden = esAdmin() || !formulario.dataset.visible;
     if (zonaSubida) zonaSubida.hidden = !esAdmin();
+    if (galeria) galeria.querySelectorAll(".visor-borrar").forEach((b) => b.hidden = !esAdmin());
   }
+
+  function mostrarFoto() {
+    if (!fotosActuales.length || !figura) return;
+    const foto = fotosActuales[indiceFoto];
+    figura.replaceChildren();
+    const imagen = document.createElement("img");
+    imagen.src = foto.url;
+    imagen.alt = `Fotografía ${indiceFoto + 1} del álbum`;
+    imagen.draggable = false;
+    figura.appendChild(imagen);
+    contador.textContent = `${indiceFoto + 1} / ${fotosActuales.length}`;
+    anterior.disabled = fotosActuales.length < 2;
+    siguiente.disabled = fotosActuales.length < 2;
+
+    if (esAdmin()) {
+      const borrar = document.createElement("button");
+      borrar.type = "button";
+      borrar.className = "visor-borrar";
+      borrar.textContent = "Borrar foto";
+      borrar.addEventListener("click", borrarFotoActual);
+      figura.appendChild(borrar);
+    }
+  }
+
+  function cambiarFoto(paso) {
+    if (!fotosActuales.length) return;
+    indiceFoto = (indiceFoto + paso + fotosActuales.length) % fotosActuales.length;
+    mostrarFoto();
+  }
+
+  anterior.addEventListener("click", () => cambiarFoto(-1));
+  siguiente.addEventListener("click", () => cambiarFoto(1));
+  galeria.addEventListener("touchstart", (e) => { inicioToqueX = e.changedTouches[0].clientX; }, { passive: true });
+  galeria.addEventListener("touchend", (e) => {
+    const delta = e.changedTouches[0].clientX - inicioToqueX;
+    if (Math.abs(delta) > 45) cambiarFoto(delta < 0 ? 1 : -1);
+  }, { passive: true });
+  document.addEventListener("keydown", (e) => {
+    if (!document.getElementById("modal-album").classList.contains("abierto") || !fotosActuales.length) return;
+    if (e.key === "ArrowRight") cambiarFoto(1);
+    if (e.key === "ArrowLeft") cambiarFoto(-1);
+  });
 
   async function cargarFotos() {
     if (!categoriaActual || !galeria) return;
-
-    galeria.innerHTML = "";
+    figura.replaceChildren();
+    fotosActuales = [];
+    galeria.style.display = "none";
     if (estado) estado.textContent = "Cargando fotos…";
 
-    const { data, error } = await cliente
-      .from("album_photos")
+    const { data, error } = await cliente.from("album_photos")
       .select("id, category, path, created_at")
       .eq("category", categoriaActual)
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: true });
 
     if (error) {
-      if (estado) estado.textContent = "No se pudieron cargar las fotos.";
+      if (estado) estado.textContent = "No se pudieron cargar las fotos. Revisa la conexión y los permisos de Supabase.";
       return;
     }
 
-    const fotos = data || [];
-    galeria.style.display = fotos.length ? "grid" : "none";
-    if (avisoVacio) avisoVacio.style.display = fotos.length ? "none" : "grid";
+    fotosActuales = (data || []).map((foto) => ({
+      ...foto,
+      url: cliente.storage.from(BUCKET).getPublicUrl(foto.path).data.publicUrl
+    }));
+    const hayFotos = fotosActuales.length > 0;
+    galeria.style.display = hayFotos ? "flex" : "none";
+    if (avisoVacio) avisoVacio.style.display = hayFotos ? "none" : "grid";
     if (estado) estado.textContent = "";
+    if (hayFotos) { indiceFoto = 0; mostrarFoto(); }
+  }
 
-    fotos.forEach((foto) => {
-      const { data: urlData } = cliente.storage.from(BUCKET).getPublicUrl(foto.path);
-      const tarjeta = document.createElement("figure");
-      tarjeta.style.cssText = "position:relative;margin:0;";
-
-      const imagen = document.createElement("img");
-      imagen.src = urlData.publicUrl;
-      imagen.alt = "Fotografía del álbum";
-      imagen.loading = "lazy";
-      imagen.style.cssText =
-        "display:block;width:100%;height:170px;object-fit:cover;border-radius:4px;";
-
-      tarjeta.appendChild(imagen);
-
-      if (esAdmin()) {
-        const borrar = document.createElement("button");
-        borrar.type = "button";
-        borrar.textContent = "Borrar";
-        borrar.style.cssText =
-          "position:absolute;top:8px;right:8px;padding:7px 10px;background:#222;color:white;border:1px solid #d4b477;border-radius:3px;cursor:pointer;";
-
-        borrar.addEventListener("click", async () => {
-          if (!confirm("¿Quieres borrar esta foto del álbum?")) return;
-
-          const { error: errorArchivo } = await cliente.storage
-            .from(BUCKET)
-            .remove([foto.path]);
-
-          if (errorArchivo) {
-            if (estado) estado.textContent = "No se pudo borrar la foto.";
-            return;
-          }
-
-          const { error: errorRegistro } = await cliente
-            .from("album_photos")
-            .delete()
-            .eq("id", foto.id);
-
-          if (errorRegistro) {
-            if (estado) estado.textContent = "La foto se borró, pero no se pudo actualizar el álbum.";
-            return;
-          }
-
-          await cargarFotos();
-        });
-
-        tarjeta.appendChild(borrar);
-      }
-
-      galeria.appendChild(tarjeta);
-    });
+  async function borrarFotoActual() {
+    if (!esAdmin() || !fotosActuales[indiceFoto]) return;
+    if (!confirm("¿Quieres borrar esta foto del álbum? Esta acción no se puede deshacer.")) return;
+    const foto = fotosActuales[indiceFoto];
+    const { error: errorArchivo } = await cliente.storage.from(BUCKET).remove([foto.path]);
+    if (errorArchivo) { estado.textContent = "No se pudo borrar la foto del almacenamiento."; return; }
+    const { error: errorRegistro } = await cliente.from("album_photos").delete().eq("id", foto.id);
+    if (errorRegistro) { estado.textContent = "La imagen se borró, pero no se pudo actualizar el álbum."; return; }
+    await cargarFotos();
   }
 
   document.querySelectorAll(".album").forEach((album) => {
     album.addEventListener("click", () => {
-      const titulo = (album.dataset.titulo || "").toLowerCase();
-      categoriaActual = categorias[titulo] || "";
+      categoriaActual = categorias[(album.dataset.titulo || "").toLowerCase()] || "";
       cargarFotos();
     });
   });
 
-  if (botonAcceso) {
-    botonAcceso.addEventListener("click", async () => {
-      if (esAdmin()) {
-        await cliente.auth.signOut();
-        usuarioActual = null;
-        actualizarAcceso();
-        if (estado) estado.textContent = "Sesión cerrada.";
-      } else if (formulario) {
-        formulario.hidden = !formulario.hidden;
-      }
-    });
-  }
-
-  if (formulario) {
-    formulario.addEventListener("submit", async (evento) => {
-      evento.preventDefault();
-      if (estado) estado.textContent = "Iniciando sesión…";
-
-      const { data, error } = await cliente.auth.signInWithPassword({
-        email: campoCorreo.value.trim(),
-        password: campoContrasena.value
-      });
-
-      if (error || data.user?.email?.toLowerCase() !== CORREO_ADMIN) {
-        await cliente.auth.signOut();
-        usuarioActual = null;
-        actualizarAcceso();
-        if (estado) estado.textContent = "No se pudo iniciar sesión con esa cuenta.";
-        return;
-      }
-
-      usuarioActual = data.user;
+  if (botonAcceso) botonAcceso.addEventListener("click", async () => {
+    if (esAdmin()) {
+      await cliente.auth.signOut();
+      usuarioActual = null;
+      formulario.dataset.visible = "";
       actualizarAcceso();
-      if (estado) estado.textContent = "Sesión iniciada. Ya puedes subir fotos.";
-      await cargarFotos();
+      if (estado) estado.textContent = "Sesión cerrada.";
+      if (categoriaActual) await cargarFotos();
+    } else if (formulario) {
+      formulario.dataset.visible = formulario.hidden ? "1" : "";
+      actualizarAcceso();
+    }
+  });
+
+  if (formulario) formulario.addEventListener("submit", async (evento) => {
+    evento.preventDefault();
+    estado.textContent = "Iniciando sesión…";
+    const { data, error } = await cliente.auth.signInWithPassword({
+      email: campoCorreo.value.trim(), password: campoContrasena.value
     });
-  }
+    if (error || data.user?.email?.toLowerCase() !== CORREO_ADMIN) {
+      await cliente.auth.signOut();
+      usuarioActual = null;
+      actualizarAcceso();
+      estado.textContent = "No se pudo iniciar sesión con esa cuenta.";
+      return;
+    }
+    usuarioActual = data.user;
+    campoContrasena.value = "";
+    actualizarAcceso();
+    estado.textContent = "Sesión iniciada. Ya puedes subir fotos.";
+    await cargarFotos();
+  });
 
-  if (botonSubir) {
-    botonSubir.addEventListener("click", async () => {
-      if (!esAdmin()) {
-        if (estado) estado.textContent = "Inicia sesión como fotógrafo para subir fotos.";
-        return;
+  if (botonSubir) botonSubir.addEventListener("click", async () => {
+    if (!esAdmin()) { estado.textContent = "Inicia sesión como fotógrafo para subir fotos."; return; }
+    const archivos = Array.from(selectorFotos.files || []);
+    if (!archivos.length) { estado.textContent = "Primero selecciona una o más fotos."; return; }
+    if (!categoriaActual) { estado.textContent = "Abre primero el álbum donde quieres guardar las fotos."; return; }
+    botonSubir.disabled = true;
+    let subidas = 0;
+    for (const archivo of archivos) {
+      if (!/^image\/(jpeg|png|webp|gif)$/.test(archivo.type)) { estado.textContent = `${archivo.name}: formato no permitido.`; continue; }
+      if (archivo.size > 10 * 1024 * 1024) { estado.textContent = `${archivo.name} supera el límite de 10 MB.`; continue; }
+      const nombreSeguro = archivo.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9._-]/g, "-");
+      const ruta = `${categoriaActual}/${Date.now()}-${crypto.randomUUID()}-${nombreSeguro}`;
+      const { error: errorSubida } = await cliente.storage.from(BUCKET).upload(ruta, archivo, { upsert: false, contentType: archivo.type });
+      if (errorSubida) { estado.textContent = `No se pudo subir ${archivo.name}.`; continue; }
+      const { error: errorRegistro } = await cliente.from("album_photos").insert({ category: categoriaActual, path: ruta });
+      if (errorRegistro) {
+        await cliente.storage.from(BUCKET).remove([ruta]);
+        estado.textContent = `No se pudo guardar ${archivo.name} en el álbum.`;
+        continue;
       }
-
-      const archivos = Array.from(selectorFotos.files || []);
-      if (!archivos.length) {
-        if (estado) estado.textContent = "Primero selecciona una o más fotos.";
-        return;
-      }
-
-      if (!categoriaActual) {
-        if (estado) estado.textContent = "Abre primero el álbum donde quieres guardar las fotos.";
-        return;
-      }
-
-      botonSubir.disabled = true;
-
-      for (const archivo of archivos) {
-        if (archivo.size > 10 * 1024 * 1024) {
-          if (estado) estado.textContent = `${archivo.name} supera el límite de 10 MB.`;
-          continue;
-        }
-
-        const nombreSeguro = archivo.name.replace(/[^a-zA-Z0-9._-]/g, "-");
-        const ruta = `${categoriaActual}/${Date.now()}-${nombreSeguro}`;
-
-        const { error: errorSubida } = await cliente.storage
-          .from(BUCKET)
-          .upload(ruta, archivo, { upsert: false });
-
-        if (errorSubida) {
-          if (estado) estado.textContent = `No se pudo subir ${archivo.name}.`;
-          continue;
-        }
-
-        const { error: errorRegistro } = await cliente
-          .from("album_photos")
-          .insert({ category: categoriaActual, path: ruta });
-
-        if (errorRegistro) {
-          await cliente.storage.from(BUCKET).remove([ruta]);
-          if (estado) estado.textContent = `No se pudo guardar ${archivo.name} en el álbum.`;
-        }
-      }
-
-      selectorFotos.value = "";
-      botonSubir.disabled = false;
-      if (estado) estado.textContent = "Listo. Se actualizaron las fotos del álbum.";
-      await cargarFotos();
-    });
-  }
+      subidas++;
+    }
+    selectorFotos.value = "";
+    botonSubir.disabled = false;
+    if (subidas) estado.textContent = `Listo: se subieron ${subidas} foto(s).`;
+    await cargarFotos();
+  });
 
   cliente.auth.getSession().then(({ data }) => {
     usuarioActual = data.session?.user || null;
     actualizarAcceso();
+    if (categoriaActual) cargarFotos();
   });
-
   cliente.auth.onAuthStateChange((_evento, session) => {
     usuarioActual = session?.user || null;
     actualizarAcceso();
-    cargarFotos();
+    if (categoriaActual) cargarFotos();
   });
 })();
 </script>
