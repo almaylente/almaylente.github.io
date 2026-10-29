@@ -305,7 +305,16 @@
       cursor: pointer;
     }
 
-    .album img { position: absolute; inset: 0; transition: transform .55s ease; }
+  .album img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: #191919;
+  transition: transform .55s ease;
+}
     .album:hover img, .album:focus-visible img { transform: scale(1.06); }
     .album:focus-visible { outline: 2px solid var(--dorado); outline-offset: 3px; }
 
@@ -784,7 +793,7 @@
               <span class="album-titulo serif">Retratos</span>
               <span class="album-descripcion">Personalidad, expresión y esencia.</span>
               <img src="retrato1.jpg">
-<img <img src="retrato2.jpg">
+
              
               <span class="album-accion">Abrir álbum ↗</span>
             </span>
