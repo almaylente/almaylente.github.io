@@ -976,7 +976,7 @@ button {
             <div class="rejilla-galerias">
 
                 <a class="tarjeta"
-                href="retrato2.jpg"
+               href="javascript:void(0)" onclick="abrirGaleria()"
                    target="_blank" rel="noopener">
                     <img src="retrato1.jpg"
                         
@@ -1192,6 +1192,37 @@ navegacion.querySelectorAll("a").forEach(function (enlace) {
     });
 });
 </script>
-
+<style>
+.galeria-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:9999;text-align:center;padding-top:20px;}
+.galeria-overlay img{max-width:90%;max-height:80vh;margin:auto;}
+.cerrar{position:absolute;top:20px;right:30px;color:white;font-size:30px;font-weight:bold;cursor:pointer;}
+.anterior, .siguiente{position:absolute;top:50%;color:white;font-size:40px;font-weight:bold;cursor:pointer;padding:15px;user-select:none;}
+.anterior{left:30px;}
+.siguiente{right:30px;}
+</style>
+<div class="galeria-overlay" id="miGaleria">
+  <span class="cerrar" onclick="cerrarGaleria()">&times;</span>
+  <span class="anterior" onclick="cambiarFoto(-1)">&#10094;</span>
+  <img id="fotoGaleria" src="retrato1.jpg" alt="Retratos">
+  <span class="siguiente" onclick="cambiarFoto(1)">&#10095;</span>
+</div>
+<script>
+var fotos = ["retrato1.jpg", "retrato2.jpg"];
+var indice = 0;
+function abrirGaleria(){
+  document.getElementById("miGaleria").style.display = "block";
+  indice = 0;
+  document.getElementById("fotoGaleria").src = fotos[indice];
+}
+function cerrarGaleria(){
+  document.getElementById("miGaleria").style.display = "none";
+}
+function cambiarFoto(n){
+  indice += n;
+  if(indice >= fotos.length) indice = 0;
+  if(indice < 0) indice = fotos.length - 1;
+  document.getElementById("fotoGaleria").src = fotos[indice];
+}
+</script>
 </body>
 </html>
