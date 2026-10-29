@@ -1,992 +1,980 @@
-Copia el código que está dentro del bloque y pégalo en el editor de `index.html` en GitHub. La clave incluida es la **Publishable** que compartiste; no agregues ninguna clave **Secret**.
-
 ```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101010">
-  <meta name="description" content="Alma y Lente: fotografía de retrato, celebraciones, bodas y retoque fotográfico.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Alma y Lente — fotografía de retrato, retoque y arte digital.">
   <title>Alma y Lente | Fotografía</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --fondo: #101010;
-      --fondo-claro: #151515;
-      --texto: #f5f1eb;
-      --texto-suave: #b9b3aa;
-      --dorado: #c9a873;
-      --linea: rgba(255,255,255,.15);
+      --fondo: #0d0d0d;
+      --fondo-suave: #111;
+      --texto: #f2eee8;
+      --texto-suave: #aaa49b;
+      --dorado: #d4b477;
+      --borde: rgba(255, 255, 255, .16);
+      --ancho: 1120px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+    html { scroll-behavior: smooth; }
+
     body {
       background: var(--fondo);
       color: var(--texto);
       font-family: "DM Sans", sans-serif;
-      line-height: 1.6;
+      font-size: 13px;
+      line-height: 1.65;
     }
-    body.bloqueado { overflow: hidden; }
+
+    body.modal-abierto { overflow: hidden; }
+
     a { color: inherit; text-decoration: none; }
-    button, input { font: inherit; }
-    button { cursor: pointer; }
+
     img { display: block; width: 100%; height: 100%; object-fit: cover; }
-    .contenedor { width: min(88%, 1240px); margin: auto; }
+
+    button { font: inherit; }
+
+    .contenedor {
+      width: min(var(--ancho), calc(100% - 72px));
+      margin: 0 auto;
+    }
+
+    .serif {
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 400;
+    }
+
     .etiqueta {
       color: var(--dorado);
       font-size: 9px;
       font-weight: 600;
-      letter-spacing: 3px;
+      letter-spacing: .28em;
       text-transform: uppercase;
     }
-    h1, h2, h3, .logo {
-      font-family: "Playfair Display", serif;
-      font-weight: 400;
-    }
+
     .boton {
       display: inline-flex;
-      justify-content: center;
+      min-height: 38px;
       align-items: center;
-      gap: 8px;
-      padding: 11px 19px;
-      border: 1px solid rgba(255,255,255,.65);
+      justify-content: center;
+      gap: 9px;
+      padding: 0 17px;
+      border: 1px solid var(--dorado);
       background: transparent;
       color: var(--texto);
       font-size: 9px;
       font-weight: 600;
-      letter-spacing: 1.3px;
+      letter-spacing: .1em;
       text-transform: uppercase;
-      transition: .25s;
+      cursor: pointer;
+      transition: .25s ease;
     }
-    .boton:hover { background: var(--texto); color: #111; }
-    .boton-dorado {
-      background: var(--dorado);
-      border-color: var(--dorado);
-      color: #17130e;
-    }
-    .boton-dorado:hover { background: var(--texto); border-color: var(--texto); }
 
-    header {
-      position: absolute;
-      inset: 0 0 auto;
-      z-index: 10;
-      border-bottom: 1px solid var(--linea);
-      background: rgba(10,10,10,.3);
-    }
+    .boton:hover { background: var(--dorado); color: #111; }
+    .boton-relleno { background: var(--dorado); color: #111; }
+    .boton-relleno:hover { background: #e5ca94; border-color: #e5ca94; }
+
+    /* Navegación */
     .barra {
-      min-height: 68px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 22px;
+      position: absolute;
+      z-index: 5;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 68px;
+      border-bottom: 1px solid var(--borde);
+      background: rgba(12, 12, 12, .58);
+      backdrop-filter: blur(8px);
     }
-    .logo { font-size: 23px; font-style: italic; line-height: 1.15; }
-    .logo small {
-      display: block;
-      margin-top: 5px;
-      font: 6px "DM Sans", sans-serif;
-      letter-spacing: 2px;
-      color: #ddd5ca;
-    }
-    .navegacion, .redes { display: flex; align-items: center; gap: 22px; }
-    .navegacion a, .redes a { font-size: 10px; }
-    .navegacion a:hover, .redes a:hover { color: var(--dorado); }
-    .menu { display: none; padding: 7px 10px; color: white; background: transparent; border: 1px solid var(--linea); }
 
+    .barra-interior {
+      display: flex;
+      width: min(var(--ancho), calc(100% - 72px));
+      height: 100%;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 auto;
+    }
+
+    .marca { display: flex; flex-direction: column; line-height: 1.15; }
+
+    .marca-nombre {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 21px;
+      font-style: italic;
+    }
+
+    .marca-subtitulo {
+      margin-top: 4px;
+      color: var(--texto-suave);
+      font-size: 7px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .navegacion { display: flex; align-items: center; gap: 22px; }
+
+    .navegacion > a {
+      color: #e1ded9;
+      font-size: 10px;
+      transition: color .2s ease;
+    }
+
+    .navegacion > a:hover { color: var(--dorado); }
+
+    .redes { display: flex; align-items: center; gap: 11px; }
+
+    .redes a {
+      display: inline-flex;
+      width: 15px;
+      height: 18px;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .menu-movil {
+      display: none;
+      border: 0;
+      background: none;
+      color: var(--texto);
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    /* Portada */
     .portada {
-      min-height: 590px;
-      height: 82vh;
-      max-height: 760px;
       position: relative;
       display: flex;
+      min-height: 440px;
       align-items: center;
       overflow: hidden;
-      background: #24211e;
-    }
-    .portada-foto { position: absolute; inset: 0; }
-    .portada-foto img { object-position: center 38%; }
-    .portada::after {
-      content: "";
-      position: absolute;
-      inset: 0;
       background:
-        linear-gradient(90deg, rgba(0,0,0,.86), rgba(0,0,0,.62) 38%, rgba(0,0,0,.08)),
-        linear-gradient(0deg, rgba(0,0,0,.45), transparent 55%);
+        linear-gradient(90deg, rgba(9, 9, 9, .9) 0%, rgba(9, 9, 9, .67) 37%, rgba(9, 9, 9, .08) 77%),
+        linear-gradient(0deg, rgba(9, 9, 9, .35), transparent 38%),
+       url("mi-foto-nueva.jpg") center 42% / cover no-repeat;
+        
     }
-    .portada-contenido { position: relative; z-index: 1; padding-top: 65px; }
+
+    .portada-contenido { position: relative; z-index: 1; padding-top: 68px; }
+
     .portada h1 {
-      max-width: 590px;
-      margin: 13px 0;
-      font-size: clamp(48px, 6vw, 75px);
+      max-width: 475px;
+      margin: 13px 0 12px;
+      font-size: clamp(38px, 5.4vw, 66px);
       line-height: 1.04;
     }
-    .portada h1 em, .historia h2 em { color: #e0c6a3; }
-    .portada-texto { max-width: 380px; margin-top: 18px; font-size: 12px; }
-    .botones { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 25px; }
-    .portada-pie {
+
+    .portada h1 em { color: #e0d5c4; font-weight: 400; }
+    .portada p { max-width: 360px; color: #ddd9d2; font-size: 12px; }
+    .portada-botones { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+
+    .portada-nota {
       position: absolute;
+      right: max(36px, calc((100% - var(--ancho)) / 2));
+      bottom: 20px;
       z-index: 1;
-      right: 6%;
-      bottom: 18px;
-      left: 6%;
-      display: flex;
-      justify-content: space-between;
-      color: #ddd5ca;
+      color: rgba(255, 255, 255, .68);
       font-size: 9px;
     }
 
-    .intro {
-      padding: 43px 0;
-      text-align: center;
-      background: linear-gradient(110deg, #151515, #101010);
+    .indicador {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      z-index: 1;
+      display: grid;
+      width: 16px;
+      height: 25px;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .45);
+      border-radius: 10px;
+      color: white;
+      transform: translateX(-50%);
     }
-    .intro h2 {
-      max-width: 700px;
-      margin: 10px auto;
-      font-size: clamp(26px, 3vw, 37px);
+
+    /* Visión */
+    .vision { padding: 37px 20px 35px; background: var(--fondo-suave); text-align: center; }
+
+    .vision h2 {
+      margin: 6px auto 10px;
+      font-size: clamp(22px, 3vw, 30px);
       line-height: 1.25;
     }
-    .intro h2 em { color: #d9c09e; }
-    .intro p {
-      max-width: 600px;
-      margin: 16px auto 0;
+
+    .vision h2 em { color: #d4c7b6; }
+
+    .vision p {
+      max-width: 540px;
+      margin: 0 auto;
       color: var(--texto-suave);
       font-size: 11px;
     }
-    .linea-dorada { width: 32px; height: 1px; margin: 16px auto; background: var(--dorado); }
 
-    .portafolio { padding: 48px 0 54px; }
+    .raya { width: 34px; height: 1px; margin: 15px auto 12px; background: var(--dorado); }
+
+    /* Historia */
+    .historia { padding: 58px 0; background: var(--fondo); }
+
+    .historia-interior {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .historia-texto h2 {
+      margin: 8px 0 16px;
+      font-size: clamp(30px, 4vw, 43px);
+      line-height: 1.12;
+    }
+
+    .historia-texto h2 em { color: #d5c8b7; }
+
+    .historia-texto p {
+      max-width: 590px;
+      margin-bottom: 12px;
+      color: #bcb7b0;
+      font-size: 13px;
+    }
+
+    .historia-cita {
+      margin: 20px 0;
+      padding: 4px 0 4px 18px;
+      border-left: 1px solid var(--dorado);
+      color: #e0d5c4 !important;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 19px !important;
+      font-style: italic;
+    }
+
+    .historia-foto {
+      position: relative;
+      min-height: 360px;
+      overflow: hidden;
+      background:
+        linear-gradient(0deg, rgba(0, 0, 0, .55), transparent 60%),
+        url("https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?auto=format&fit=crop&w=1200&q=85")
+        center 38% / cover;
+    }
+
+    .historia-foto-texto { position: absolute; right: 22px; bottom: 20px; left: 22px; }
+    .historia-foto-texto span { color: var(--dorado); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; }
+
+    .historia-foto-texto p {
+      margin-top: 4px;
+      color: white;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 22px;
+      font-style: italic;
+    }
+
+    /* Portafolio y álbumes */
+    .portafolio { padding: 33px 0 36px; background: #0d0d0d; }
+
     .encabezado-seccion {
       display: flex;
-      justify-content: space-between;
       align-items: end;
+      justify-content: space-between;
       gap: 25px;
-      margin-bottom: 21px;
+      margin-bottom: 20px;
     }
-    .encabezado-seccion h2 { font-size: 34px; line-height: 1.2; }
-    .encabezado-seccion p { max-width: 330px; color: var(--texto-suave); font-size: 11px; }
-    .categorias { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-    .categoria {
+
+    .encabezado-seccion h2 { margin-top: 2px; font-size: 30px; line-height: 1.15; }
+    .encabezado-seccion p { max-width: 320px; color: var(--texto-suave); font-size: 11px; }
+
+    .rejilla-albumes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; }
+
+    .album {
       position: relative;
       display: block;
-      min-width: 0;
-      aspect-ratio: .82 / 1;
+      min-height: 230px;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,.08);
-      background: #222;
-      color: var(--texto);
+      border: 1px solid rgba(255, 255, 255, .1);
+      background: #191919;
       text-align: left;
+      cursor: pointer;
     }
-    .categoria img { transition: transform .6s; }
-    .categoria:hover img { transform: scale(1.05); }
-    .categoria::after {
-      content: "";
+
+    .album img { position: absolute; inset: 0; transition: transform .55s ease; }
+    .album:hover img, .album:focus-visible img { transform: scale(1.06); }
+    .album:focus-visible { outline: 2px solid var(--dorado); outline-offset: 3px; }
+
+    .album::after {
       position: absolute;
       inset: 0;
-      background: linear-gradient(0deg, rgba(0,0,0,.92), transparent 68%);
+      background: linear-gradient(0deg, rgba(0, 0, 0, .9), rgba(0, 0, 0, .08) 68%);
+      content: "";
+      pointer-events: none;
     }
-    .contador {
-      position: absolute;
-      z-index: 1;
-      top: 12px;
-      right: 12px;
-      padding: 4px 8px;
-      border: 1px solid rgba(255,255,255,.35);
-      background: rgba(0,0,0,.45);
-      font-size: 9px;
-    }
-    .titulo-categoria {
-      position: absolute;
-      z-index: 1;
-      right: 10px;
-      bottom: 14px;
-      left: 14px;
-    }
-    .titulo-categoria small {
-      display: block;
-      color: var(--dorado);
+
+    .album-contenido { position: absolute; right: 14px; bottom: 14px; left: 14px; z-index: 1; }
+    .album-numero { color: var(--dorado); font-size: 8px; letter-spacing: .16em; text-transform: uppercase; }
+    .album-titulo { display: block; margin: 2px 0; font-size: 20px; line-height: 1.2; }
+    .album-descripcion { display: block; color: #d4d0ca; font-size: 10px; }
+
+    .album-pendiente {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 3px 7px;
+      border: 1px solid rgba(212, 180, 119, .65);
+      color: #e0c795;
       font-size: 8px;
-      letter-spacing: 1px;
+      letter-spacing: .13em;
       text-transform: uppercase;
     }
-    .titulo-categoria h3 { margin-top: 3px; font-size: clamp(18px, 2vw, 25px); }
-    .titulo-categoria p { margin-top: 4px; color: #e1dcd5; font-size: 9px; }
 
-    .historia { padding: 45px 0; background: var(--fondo-claro); }
-    .historia-grid {
+    .album-accion { display: inline-block; margin-left: 7px; color: white; font-size: 9px; text-transform: uppercase; }
+
+    /* Sobre mí y servicios */
+    .sobre-mi { padding: 0 0 34px; background: #111; }
+
+    .sobre-mi-interior {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1.18fr;
       align-items: center;
-      gap: 38px;
+      gap: 36px;
     }
-    .historia-foto { height: 370px; background: #222; }
-    .historia h2 { margin: 8px 0 14px; font-size: clamp(30px, 3.2vw, 42px); line-height: 1.12; }
-    .historia p { margin-bottom: 13px; color: var(--texto-suave); font-size: 12px; }
 
-    .servicios { padding: 42px 0; }
-    .servicios h2 { margin-top: 5px; font-size: 32px; }
-    .servicios-grid {
+    .sobre-foto { height: 280px; overflow: hidden; }
+    .sobre-foto img { object-position: center 36%; }
+    .sobre-texto { padding: 25px 0; }
+    .sobre-texto h2 { margin: 4px 0 11px; font-size: 29px; line-height: 1.17; }
+    .sobre-texto h2 em { color: #d5c8b7; }
+    .sobre-texto p { max-width: 500px; margin-bottom: 9px; color: #bcb7b0; font-size: 11px; }
+    .sobre-texto .boton { margin-top: 8px; }
+
+    .servicios { padding: 30px 0; border-bottom: 1px solid var(--borde); background: #0b0b0b; }
+
+    .servicios-interior {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      margin-top: 22px;
-      border-top: 1px solid var(--linea);
-      border-bottom: 1px solid var(--linea);
+      grid-template-columns: 1.15fr repeat(3, 1fr);
+      gap: 22px;
+      align-items: stretch;
     }
-    .servicio { padding: 20px; border-right: 1px solid var(--linea); }
-    .servicio:first-child { padding-left: 0; }
-    .servicio:last-child { border-right: 0; }
-    .servicio-icono { color: var(--dorado); font-size: 23px; }
-    .servicio small { display: block; color: var(--dorado); font-size: 8px; letter-spacing: 1.5px; }
-    .servicio h3 { margin: 5px 0; font-size: 20px; }
-    .servicio p { max-width: 250px; color: var(--texto-suave); font-size: 10px; }
 
+    .servicios-intro h2 { margin-top: 3px; font-size: 25px; line-height: 1.15; }
+    .servicio { padding-left: 19px; border-left: 1px solid var(--borde); }
+    .servicio-icono { margin-bottom: 5px; color: var(--dorado); font-size: 22px; }
+    .servicio h3 { margin-bottom: 4px; font-family: "Playfair Display", Georgia, serif; font-size: 17px; font-weight: 400; }
+    .servicio p { color: var(--texto-suave); font-size: 10px; }
+
+    /* Contacto: imagen de la Canon EOS R6 Mark II */
     .contacto {
-      padding: 50px 0;
-      text-align: center;
+      position: relative;
+      padding: 36px 20px;
+      overflow: hidden;
       background:
-        linear-gradient(rgba(0,0,0,.78), rgba(0,0,0,.88)),
-        url("https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1800&q=85") center/cover;
-      border-top: 1px solid var(--linea);
+        linear-gradient(rgba(8, 8, 8, .40), rgba(8, 8, 8, .56)),
+        url("https://i1.adis.ws/i/canon/5666C028_EOS-R6-Mark-II_07?aspect=1%3A1&bg=rgb%28245%2C246%2C246%29&fmt=webp&qlt=80&sm=aspect&w=940")
+        center 50% / cover no-repeat;
+      text-align: center;
     }
-    .contacto h2 { margin: 5px 0 10px; font-size: clamp(32px, 4vw, 45px); }
-    .contacto p { max-width: 440px; margin: auto; color: #ded8cf; font-size: 11px; }
-    .contacto .botones { justify-content: center; margin-top: 18px; }
-    footer { padding: 20px 0; border-top: 1px solid var(--linea); }
-    .pie {
-      display: flex;
-      justify-content: space-between;
+
+    .contacto h2 { margin: 4px 0 6px; font-size: 29px; line-height: 1.2; }
+    .contacto p { color: #f0ece5; font-size: 11px; }
+    .contacto-botones { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 16px; }
+
+    /* Pie de página */
+    footer { padding: 18px 0; border-top: 1px solid var(--borde); background: #0a0a0a; }
+    .pie-interior { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .pie-marca .marca-nombre { font-size: 19px; }
+    .derechos { color: var(--texto-suave); font-size: 9px; text-align: center; }
+    .pie-enlaces { display: flex; align-items: center; gap: 15px; color: #d5d1cb; font-size: 9px; }
+
+    /* Ventanas */
+    .modal {
+      position: fixed;
+      z-index: 20;
+      inset: 0;
+      display: none;
       align-items: center;
-      gap: 18px;
+      justify-content: center;
+      padding: 22px;
+      background: rgba(0, 0, 0, .82);
+      backdrop-filter: blur(8px);
     }
-    .pie-texto { color: var(--texto-suave); font-size: 9px; text-align: center; }
-    .pie-enlaces { display: flex; flex-wrap: wrap; gap: 14px; }
-    .pie-enlaces a, .admin-link { color: var(--texto-suave); font-size: 9px; }
-    .admin-link { border: 0; background: none; text-decoration: underline; text-underline-offset: 3px; }
 
-    .aviso {
-      position: fixed;
-      z-index: 80;
-      right: 16px;
-      bottom: 16px;
-      max-width: min(420px, calc(100% - 32px));
-      padding: 12px 15px;
-      border: 1px solid var(--linea);
-      background: #191919;
-      font-size: 12px;
-      box-shadow: 0 8px 35px #0008;
+    .modal.abierto { display: flex; }
+
+    .modal-contenido {
+      display: flex;
+      width: min(900px, 100%);
+      max-height: min(760px, 90vh);
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid rgba(212, 180, 119, .38);
+      background: #111;
+      box-shadow: 0 25px 90px rgba(0, 0, 0, .65);
+      animation: aparecer .2s ease-out;
     }
-    .aviso:empty { display: none; }
-    .aviso.error { border-color: #a75050; }
 
-    .capa {
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(10px) scale(.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .modal-cabecera, .modal-historia-cabecera {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--borde);
+      background: #111;
+    }
+
+    .modal-cabecera h2, .modal-historia-cabecera h2 { margin-top: 3px; font-size: 26px; line-height: 1.2; }
+
+    .modal-cerrar {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid var(--borde);
+      background: transparent;
+      color: white;
+      font-size: 23px;
+      cursor: pointer;
+    }
+
+    .modal-cerrar:hover { border-color: var(--dorado); color: var(--dorado); }
+    .modal-cuerpo { overflow-y: auto; padding: 23px 24px 26px; }
+    .modal-descripcion { margin-bottom: 17px; color: var(--texto-suave); font-size: 12px; }
+
+    .modal-pendiente {
+      display: grid;
+      min-height: 225px;
+      place-items: center;
+      padding: 25px;
+      border: 1px dashed rgba(212, 180, 119, .4);
+      background: rgba(255, 255, 255, .025);
+      text-align: center;
+    }
+
+    .modal-icono { margin-bottom: 7px; color: var(--dorado); font-size: 35px; }
+    .modal-pendiente h3 { margin-bottom: 5px; font-size: 20px; }
+    .modal-pendiente p { max-width: 400px; color: var(--texto-suave); font-size: 11px; }
+
+    .modal-galeria { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+    .modal-galeria img { height: 170px; border: 1px solid rgba(255, 255, 255, .1); object-fit: cover; }
+    .modal-ayuda { margin-top: 14px; color: var(--texto-suave); font-size: 10px; }
+
+    .modal-historia {
       position: fixed;
-      z-index: 50;
+      z-index: 30;
       inset: 0;
       display: none;
       align-items: center;
       justify-content: center;
       padding: 20px;
-      background: rgba(0,0,0,.84);
-      backdrop-filter: blur(5px);
+      background: rgba(0, 0, 0, .84);
+      backdrop-filter: blur(8px);
     }
-    .capa.abierta { display: flex; }
-    .ventana {
-      position: relative;
-      width: min(100%, 1050px);
-      max-height: 92vh;
-      overflow: auto;
-      border: 1px solid var(--linea);
-      background: #111;
-      box-shadow: 0 24px 80px #000b;
-    }
-    .ventana-cabecera {
-      position: sticky;
-      z-index: 2;
-      top: 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      padding: 18px 22px;
-      border-bottom: 1px solid var(--linea);
-      background: #111;
-    }
-    .ventana-cabecera h2 { font-size: 27px; }
-    .cerrar {
-      width: 38px;
-      height: 38px;
-      border: 1px solid var(--linea);
-      background: transparent;
-      color: white;
-      font-size: 24px;
-    }
-    .ventana-cuerpo { padding: 22px; }
-    .album-barra {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 18px;
-    }
-    .album-barra p, .nota { color: var(--texto-suave); font-size: 12px; }
-    .panel-subir {
-      display: none;
-      margin-bottom: 20px;
-      padding: 17px;
-      border: 1px solid rgba(201,168,115,.45);
-      background: #181612;
-    }
-    .panel-subir.visible { display: block; }
-    .panel-subir h3 { margin-bottom: 8px; font-size: 19px; }
-    .fila-subir, .acciones-admin { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
-    .fila-subir input { max-width: 100%; color: var(--texto-suave); font-size: 12px; }
-    .boton-pequeno {
-      padding: 8px 12px;
-      border: 1px solid var(--linea);
-      background: transparent;
-      color: var(--texto);
-      font-size: 10px;
-    }
-    .boton-pequeno.dorado { border-color: var(--dorado); background: var(--dorado); color: #17130e; }
-    .rejilla-fotos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .foto-album { position: relative; aspect-ratio: 1; overflow: hidden; background: #222; }
-    .foto-album img { cursor: zoom-in; }
-    .borrar-foto {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      padding: 6px 9px;
-      border: 1px solid #fff6;
-      background: #111d;
-      color: white;
-      font-size: 10px;
-    }
-    .vacio {
-      grid-column: 1 / -1;
-      padding: 50px 15px;
-      border: 1px dashed var(--linea);
-      color: var(--texto-suave);
-      text-align: center;
-      font-size: 13px;
-    }
-    .ventana-login { width: min(100%, 440px); }
-    .formulario { display: grid; gap: 13px; }
-    .formulario label { color: var(--texto-suave); font-size: 11px; }
-    .formulario input {
-      width: 100%;
-      margin-top: 5px;
-      padding: 11px;
-      border: 1px solid var(--linea);
-      background: #191919;
-      color: white;
-    }
-    .formulario .boton { width: 100%; margin-top: 5px; }
-    .ampliada { z-index: 60; }
-    .ampliada .ventana { width: auto; max-width: 92vw; max-height: 92vh; border: 0; background: transparent; box-shadow: none; }
-    .ampliada img { width: auto; height: auto; max-width: 92vw; max-height: 86vh; object-fit: contain; }
-    .ampliada .cerrar { position: fixed; top: 18px; right: 18px; background: #111c; }
 
-    @media (max-width: 850px) {
-      .menu { display: block; }
+    .modal-historia.abierto { display: flex; }
+
+    .modal-historia-contenido {
+      width: min(850px, 100%);
+      max-height: 90vh;
+      overflow: hidden;
+      border: 1px solid rgba(212, 180, 119, .38);
+      background: #111;
+      box-shadow: 0 25px 90px rgba(0, 0, 0, .65);
+    }
+
+    .modal-historia-cuerpo {
+      max-height: calc(90vh - 80px);
+      overflow-y: auto;
+      padding: 25px clamp(20px, 5vw, 54px) 42px;
+    }
+
+    .modal-historia-cuerpo h3 {
+      margin: 25px 0 10px;
+      color: var(--dorado);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 23px;
+      font-weight: 400;
+    }
+
+    .modal-historia-cuerpo h3:first-child { margin-top: 0; }
+
+    .modal-historia-cuerpo p {
+      margin: 0 0 13px;
+      color: #c3beb6;
+      font-size: 13px;
+      line-height: 1.85;
+    }
+
+    .modal-historia-cuerpo .cita {
+      padding-left: 17px;
+      border-left: 1px solid var(--dorado);
+      color: #e1d5c3;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 19px;
+      font-style: italic;
+    }
+
+    body.historia-abierta { overflow: hidden; }
+
+    /* Adaptación para celular */
+    @media (max-width: 760px) {
+      .contenedor, .barra-interior { width: min(100% - 38px, var(--ancho)); }
+      .barra { height: 62px; }
+      .menu-movil { display: block; }
+
       .navegacion {
         position: absolute;
-        top: 100%;
-        left: 0;
+        top: 61px;
         right: 0;
+        left: 0;
         display: none;
-        padding: 19px 5%;
-        flex-direction: column;
         align-items: flex-start;
-        background: #121212;
-        border-bottom: 1px solid var(--linea);
+        padding: 18px 22px;
+        border-bottom: 1px solid var(--borde);
+        background: rgba(12, 12, 12, .98);
       }
-      .navegacion.abierta { display: flex; }
-      .redes { display: none; }
-      .categorias { grid-template-columns: repeat(2, 1fr); }
-      .historia-grid { gap: 24px; }
+
+      .navegacion.abierta { display: flex; flex-direction: column; gap: 15px; }
+      .navegacion .redes { margin-top: 3px; }
+      .portada { min-height: 540px; background-position: 58% center; }
+      .portada-contenido { padding-top: 65px; }
+      .portada h1 { max-width: 390px; font-size: clamp(40px, 10vw, 60px); }
+      .portada-nota { right: 19px; bottom: 17px; }
+      .encabezado-seccion { align-items: flex-start; flex-direction: column; gap: 8px; }
+      .rejilla-albumes { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .album { min-height: 250px; }
+      .historia { padding: 38px 0; }
+      .historia-interior { grid-template-columns: 1fr; gap: 22px; }
+      .historia-foto { min-height: 290px; }
+      .sobre-mi-interior { grid-template-columns: 1fr; gap: 8px; }
+      .sobre-foto { height: 340px; }
+      .sobre-texto { padding: 15px 0 10px; }
+      .servicios-interior { grid-template-columns: 1fr 1fr; gap: 23px 15px; }
+      .servicios-intro { grid-column: 1 / -1; }
+      .servicio { padding-left: 13px; }
+      .pie-interior { flex-wrap: wrap; }
+      .derechos { order: 3; width: 100%; text-align: left; }
+      .modal { padding: 12px; }
+      .modal-contenido { max-height: 94vh; }
+      .modal-cabecera, .modal-historia-cabecera { padding: 17px; }
+      .modal-cuerpo { padding: 17px; }
+      .modal-galeria { grid-template-columns: repeat(2, 1fr); }
+      .modal-historia { padding: 10px; }
+      .modal-historia-contenido { max-height: 94vh; }
+      .modal-historia-cuerpo { max-height: calc(94vh - 75px); padding: 20px; }
     }
-    @media (max-width: 540px) {
-      .contenedor { width: calc(100% - 36px); }
-      .logo { font-size: 21px; }
-      .portada { min-height: 660px; height: 90svh; }
-      .portada-foto img { object-position: 58% center; }
-      .portada h1 { font-size: clamp(43px, 11vw, 56px); }
-      .portada-texto { max-width: 300px; font-size: 11px; }
-      .portada-pie { right: 18px; left: 18px; font-size: 7px; }
-      .intro { padding: 40px 0; }
-      .intro h2 { font-size: 27px; }
-      .encabezado-seccion { display: block; }
-      .encabezado-seccion h2 { font-size: 33px; }
-      .encabezado-seccion p { margin-top: 9px; }
-      .categorias { gap: 9px; }
-      .categoria { aspect-ratio: .75 / 1; }
-      .titulo-categoria { bottom: 10px; left: 9px; }
-      .titulo-categoria h3 { font-size: 18px; }
-      .historia-grid { grid-template-columns: 1fr; gap: 23px; }
-      .historia-foto { height: 310px; }
-      .historia h2 { font-size: 35px; }
-      .servicios-grid { grid-template-columns: 1fr; }
-      .servicio, .servicio:first-child { padding: 17px 0; border-right: 0; border-bottom: 1px solid var(--linea); }
-      .servicio:last-child { border-bottom: 0; }
-      .pie { flex-direction: column; text-align: center; }
-      .pie-enlaces { justify-content: center; }
-      .rejilla-fotos { grid-template-columns: repeat(2, 1fr); }
-      .capa { padding: 10px; }
-      .ventana { max-height: 95vh; }
-      .ventana-cabecera, .ventana-cuerpo { padding: 15px; }
-      .album-barra { align-items: flex-start; flex-direction: column; }
+
+    @media (max-width: 430px) {
+      .portada { min-height: 510px; }
+      .portada p { max-width: 310px; }
+      .album { min-height: 205px; }
+      .album-titulo { font-size: 17px; }
+      .album-contenido { right: 10px; bottom: 11px; left: 10px; }
+      .sobre-foto { height: 285px; }
+      .pie-enlaces { gap: 9px; }
+      .modal-cabecera h2, .modal-historia-cabecera h2 { font-size: 22px; }
+      .modal-galeria img { height: 125px; }
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="contenedor barra">
-      <a class="logo" href="#inicio">Alma y Lente
-        <small>FOTOGRAFÍA · RETOQUE · ARTE DIGITAL</small>
+  <header class="barra">
+    <div class="barra-interior">
+      <a class="marca" href="#inicio" aria-label="Alma y Lente, inicio">
+        <span class="marca-nombre">Alma y Lente</span>
+        <span class="marca-subtitulo">Fotografía · Retoque · Arte digital</span>
       </a>
-      <button class="menu" id="botonMenu" aria-expanded="false">☰ MENÚ</button>
+
+      <button class="menu-movil" id="boton-menu" aria-label="Abrir menú" aria-expanded="false">☰</button>
+
       <nav class="navegacion" id="navegacion">
         <a href="#inicio">Inicio</a>
         <a href="#portafolio">Portafolio</a>
+        <a href="#sobre-mi">Sobre mí</a>
         <a href="#mi-historia">Mi historia</a>
         <a href="#servicios">Servicios</a>
         <a href="#contacto">Contacto</a>
+        <div class="redes" aria-label="Redes sociales">
+          <a href="#" aria-label="TikTok">♪</a>
+          <a href="#" aria-label="Instagram">◎</a>
+          <a href="#" aria-label="Pinterest">℘</a>
+          <a href="mailto:hola@almaylente.com" aria-label="Correo">✉</a>
+        </div>
       </nav>
-      <div class="redes">
-        <a href="https://www.tiktok.com/@almaylente" target="_blank" rel="noopener">♪</a>
-        <a href="https://www.instagram.com/almaylente/" target="_blank" rel="noopener">◎</a>
-        <a href="#contacto">✉</a>
-      </div>
     </div>
   </header>
 
   <main>
     <section class="portada" id="inicio">
-      <div class="portada-foto"><img src="mi-foto-nueva.jpg" alt="Fotógrafo de Alma y Lente"></div>
       <div class="contenedor portada-contenido">
         <span class="etiqueta">Fotografía con identidad</span>
-        <h1>Retratos que<br><em>cuentan historias.</em></h1>
-        <p class="portada-texto">Momentos auténticos, emociones reales y una mirada artística que transforma cada fotografía en un recuerdo.</p>
-        <div class="botones">
-          <a class="boton boton-dorado" href="#portafolio">Explorar portafolio →</a>
-          <a class="boton" href="#mi-historia">Conoce mi historia</a>
+        <h1 class="serif">Retratos que<br><em>cuentan historias.</em></h1>
+        <p>Momentos auténticos, emociones reales y una mirada artística que transforma cada fotografía en un recuerdo.</p>
+        <div class="portada-botones">
+          <a class="boton boton-relleno" href="#portafolio">Explorar portafolio →</a>
+          <a class="boton" href="#sobre-mi">Conoce mi trabajo</a>
         </div>
       </div>
-      <div class="portada-pie"><span>Retrato · Celebraciones · Arte</span><span>Alma y Lente © 2026</span></div>
+      <a class="indicador" href="#vision" aria-label="Desplazarse hacia abajo">⌄</a>
+      <span class="portada-nota">Retrato · Celebraciones · Arte</span>
     </section>
 
-    <section class="intro">
-      <div class="contenedor">
-        <span class="etiqueta">Mi visión fotográfica</span>
-        <h2>Cada imagen guarda una historia.<br><em>Mi trabajo es ayudarte a conservarla.</em></h2>
-        <div class="linea-dorada"></div>
-        <p>En Alma y Lente, la fotografía, el retoque y la creatividad se unen para crear imágenes cuidadas, naturales y llenas de personalidad.</p>
+    <section class="vision" id="vision">
+      <span class="etiqueta">Mi visión fotográfica</span>
+      <h2 class="serif">Cada imagen guarda una historia.<br><em>Mi trabajo es ayudarte a conservarla.</em></h2>
+      <div class="raya"></div>
+      <p>En Alma y Lente, la fotografía y la creatividad se unen para crear imágenes cuidadas, naturales y llenas de personalidad.</p>
+    </section>
+
+    <section class="historia" id="mi-historia">
+      <div class="contenedor historia-interior">
+        <div class="historia-texto">
+          <span class="etiqueta">Mi historia</span>
+          <h2 class="serif">La fotografía que<br><em>nace del alma.</em></h2>
+          <p>Mi historia comenzó sin un plan, sin una cámara profesional y sin saber hasta dónde podía llegar. Solo tenía una inquietud y muchas ganas de aprender.</p>
+          <p>Empecé con un celular. Cada fotografía, cada error y cada intento me enseñaron a mirar la luz, las emociones y la esencia de cada persona.</p>
+          <p class="historia-cita">“No necesitas tenerlo todo para comenzar; necesitas comenzar con lo que tienes.”</p>
+          <p>Así nació Alma y Lente: la unión entre corazón y visión, entre emoción e imagen.</p>
+          <button class="boton boton-relleno" id="abrir-historia" type="button">Leer mi historia completa ↗</button>
+        </div>
+        <div class="historia-foto" role="img" aria-label="Fotógrafo con su cámara">
+          <div class="historia-foto-texto">
+            <span>Alma y Lente</span>
+            <p>Mirar más allá de lo evidente.</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="portafolio" id="portafolio">
       <div class="contenedor">
         <div class="encabezado-seccion">
-          <div><span class="etiqueta">Trabajo seleccionado</span><h2>Mi portafolio</h2></div>
-          <p>Abre una categoría para ver su álbum. Las fotos que agregues aparecerán aquí para todas las personas.</p>
+          <div>
+            <span class="etiqueta">Trabajo seleccionado</span>
+            <h2 class="serif"><em>Mi portafolio</em></h2>
+          </div>
+          <p>Abre una categoría para entrar a su álbum de fotografías.</p>
         </div>
 
-        <div class="categorias">
-          <button class="categoria" data-categoria="retratos" aria-label="Abrir álbum de retratos">
-            <img src="retrato1.jpg" alt="Retrato" loading="lazy">
-            <span class="contador" data-contador="retratos">0 fotos</span>
-            <span class="titulo-categoria"><small>01 · Retrato</small><h3>Retratos</h3><p>Personalidad, expresión y esencia.</p></span>
+        <div class="rejilla-albumes">
+          <button class="album" type="button"
+            data-titulo="Retratos"
+            data-categoria="01 · Retrato"
+            data-descripcion="Retratos que expresan personalidad, emoción y esencia. Este álbum está pendiente de fotografías.">
+          
+            
+            <span class="album-contenido">
+              <span class="album-numero">01 · Retrato</span>
+              <span class="album-titulo serif">Retratos</span>
+              <span class="album-descripcion">Personalidad, expresión y esencia.</span>
+              <img src="retrato1.jpg">
+<img <img src="retrato2.jpg">
+             
+              <span class="album-accion">Abrir álbum ↗</span>
+            </span>
           </button>
-          <button class="categoria" data-categoria="celebraciones" aria-label="Abrir álbum de celebraciones">
-            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85" alt="Celebración" loading="lazy">
-            <span class="contador" data-contador="celebraciones">0 fotos</span>
-            <span class="titulo-categoria"><small>02 · Celebraciones</small><h3>Quinceañeras</h3><p>Recuerdos para toda la vida.</p></span>
+
+          <button class="album" type="button"
+            data-titulo="Celebraciones"
+            data-categoria="02 · Celebraciones"
+            data-descripcion="Momentos especiales y recuerdos para toda la vida. Este álbum está pendiente de fotografías.">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=85" alt="Celebración de boda" loading="lazy">
+            <span class="album-contenido">
+              <span class="album-numero">02 · Celebraciones</span>
+              <span class="album-titulo serif">Celebraciones</span>
+              <span class="album-descripcion">Recuerdos para toda la vida.</span>
+              <span class="album-pendiente">Álbum pendiente</span>
+              <span class="album-accion">Abrir álbum ↗</span>
+            </span>
           </button>
-          <button class="categoria" data-categoria="bodas" aria-label="Abrir álbum de bodas">
-            <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=900&q=85" alt="Boda" loading="lazy">
-            <span class="contador" data-contador="bodas">0 fotos</span>
-            <span class="titulo-categoria"><small>03 · Historias de amor</small><h3>Bodas</h3><p>La belleza de los momentos irrepetibles.</p></span>
+
+          <button class="album" type="button"
+            data-titulo="Bodas"
+            data-categoria="03 · Historias de amor"
+            data-descripcion="La belleza de los momentos irrepetibles. Este álbum está pendiente de fotografías.">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=85" alt="Pareja compartiendo un momento especial" loading="lazy">
+            <span class="album-contenido">
+              <span class="album-numero">03 · Historias de amor</span>
+              <span class="album-titulo serif">Bodas</span>
+              <span class="album-descripcion">La belleza de los momentos irrepetibles.</span>
+              <span class="album-pendiente">Álbum pendiente</span>
+              <span class="album-accion">Abrir álbum ↗</span>
+            </span>
           </button>
-          <button class="categoria" data-categoria="retoque" aria-label="Abrir álbum de retoque">
-            <img src="retrato2.jpg" alt="Retoque fotográfico" loading="lazy">
-            <span class="contador" data-contador="retoque">0 fotos</span>
-            <span class="titulo-categoria"><small>04 · Edición</small><h3>Retoque fotográfico</h3><p>Detalles cuidados y textura natural.</p></span>
+
+          <button class="album" type="button"
+            data-titulo="Retoque fotográfico"
+            data-categoria="04 · Edición"
+            data-descripcion="Detalles cuidados y textura natural. Este álbum está pendiente de fotografías.">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=85" alt="Retrato para retoque fotográfico" loading="lazy">
+            <span class="album-contenido">
+              <span class="album-numero">04 · Edición</span>
+              <span class="album-titulo serif">Retoque fotográfico</span>
+              <span class="album-descripcion">Detalles cuidados y textura natural.</span>
+              <span class="album-pendiente">Álbum pendiente</span>
+              <span class="album-accion">Abrir álbum ↗</span>
+            </span>
           </button>
         </div>
       </div>
     </section>
 
-    <section class="historia" id="mi-historia">
-      <div class="contenedor historia-grid">
-        <div class="historia-foto"><img src="mi-foto-nueva.jpg" alt="El creador de Alma y Lente" loading="lazy"></div>
-        <div>
+    <section class="sobre-mi" id="sobre-mi">
+      <div class="contenedor sobre-mi-interior">
+        <div class="sobre-foto">
+          <img src="https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?auto=format&fit=crop&w=1200&q=85" alt="Fotógrafo trabajando con su cámara" loading="lazy">
+        </div>
+        <div class="sobre-texto">
           <span class="etiqueta">Detrás de la cámara</span>
-          <h2>Mi historia:<br><em>la fotografía que nace del alma.</em></h2>
-          <p>Hay momentos que llegan sin avisar y, en un instante, se convierten en recuerdos que queremos conservar para siempre.</p>
-          <p>Alma y Lente nació de mi deseo de mirar con atención esos momentos: una expresión sincera, una celebración, una persona siendo ella misma. Para mí, fotografiar es mucho más que tomar una imagen; es cuidar la emoción que vive dentro de ella.</p>
-          <p>Con cada retrato, celebración y proyecto creativo busco contar historias con sensibilidad, respetando la esencia de cada persona y creando recuerdos que puedan volver a sentirse con el paso del tiempo.</p>
-          <p>Gracias por visitar mi espacio y permitirme compartir contigo una parte de mi camino.</p>
+          <h2 class="serif">Hola, soy el creador de<br><em>Alma y Lente.</em></h2>
+          <p>La fotografía es mi forma de observar el mundo, descubrir detalles y contar historias a través de imágenes.</p>
+          <p>Mi trabajo se enfoca en retratos individuales al aire libre, con luz natural y una mirada atenta a la esencia de cada persona.</p>
           <a class="boton" href="#contacto">Hablemos de fotografía →</a>
         </div>
       </div>
     </section>
 
     <section class="servicios" id="servicios">
-      <div class="contenedor">
-        <span class="etiqueta">Lo que hago</span>
-        <h2>Fotografía y creatividad.</h2>
-        <div class="servicios-grid">
-          <article class="servicio"><div class="servicio-icono">◎</div><small>01 / 03</small><h3>Fotografía</h3><p>Retratos y celebraciones con atención a la luz, la composición y las emociones.</p></article>
-          <article class="servicio"><div class="servicio-icono">▧</div><small>02 / 03</small><h3>Retoque profesional</h3><p>Edición cuidadosa de piel, color y detalles, preservando la textura natural.</p></article>
-          <article class="servicio"><div class="servicio-icono">✧</div><small>03 / 03</small><h3>Arte digital</h3><p>Propuestas creativas que combinan fotografía, imaginación y efectos digitales.</p></article>
+      <div class="contenedor servicios-interior">
+        <div class="servicios-intro">
+          <span class="etiqueta">Lo que hago</span>
+          <h2 class="serif"><em>Fotografía y creatividad.</em></h2>
         </div>
+        <article class="servicio">
+          <div class="servicio-icono" aria-hidden="true">◎</div>
+          <span class="etiqueta">01 / 03</span>
+          <h3>Fotografía</h3>
+          <p>Retratos al aire libre, con atención a la luz, la composición y las emociones.</p>
+        </article>
+        <article class="servicio">
+          <div class="servicio-icono" aria-hidden="true">▧</div>
+          <span class="etiqueta">02 / 03</span>
+          <h3>Retoque profesional</h3>
+          <p>Edición cuidadosa de piel, color y detalles, preservando la textura natural.</p>
+        </article>
+        <article class="servicio">
+          <div class="servicio-icono" aria-hidden="true">☆</div>
+          <span class="etiqueta">03 / 03</span>
+          <h3>Arte digital</h3>
+          <p>Propuestas creativas que combinan fotografía, imaginación y efectos digitales.</p>
+        </article>
       </div>
     </section>
 
     <section class="contacto" id="contacto">
-      <div class="contenedor">
-        <span class="etiqueta">Contacto</span>
-        <h2>Hagamos algo memorable.</h2>
-        <p>¿Te gusta mi trabajo o quieres conocer más sobre mis fotografías? Escríbeme y conversemos.</p>
-        <div class="botones">
-          <a class="boton boton-dorado" href="mailto:almaylente@gmail.com">✉ Enviar correo →</a>
-          <a class="boton" href="https://www.tiktok.com/@almaylente" target="_blank" rel="noopener">♪ Ver TikTok →</a>
-        </div>
+      <span class="etiqueta">Contacto</span>
+      <h2 class="serif"><em>Hagamos algo memorable.</em></h2>
+      <p>¿Te gustaría una sesión de retrato al aire libre?</p>
+      <p>Escríbeme y conversemos.</p>
+      <div class="contacto-botones">
+        <a class="boton boton-relleno" href="mailto:hola@almaylente.com">✉ Enviar correo →</a>
+        <a class="boton" href="#portafolio">Ver portafolio →</a>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="contenedor pie">
-      <a class="logo" href="#inicio">Alma y Lente<small>FOTOGRAFÍA · RETOQUE · ARTE DIGITAL</small></a>
-      <p class="pie-texto">© 2026 Alma y Lente. Todos los derechos reservados.</p>
+    <div class="contenedor pie-interior">
+      <a class="marca pie-marca" href="#inicio">
+        <span class="marca-nombre">Alma y Lente</span>
+        <span class="marca-subtitulo">Fotografía · Retoque · Arte digital</span>
+      </a>
+      <p class="derechos">© 2025 Alma y Lente. Todos los derechos reservados.</p>
       <div class="pie-enlaces">
         <a href="#portafolio">Portafolio</a>
+        <a href="#mi-historia">Mi historia</a>
         <a href="#contacto">Contacto</a>
-        <button class="admin-link" id="botonAdmin">Acceso del fotógrafo</button>
+        <div class="redes" aria-label="Redes sociales">
+          <a href="#" aria-label="TikTok">♪</a>
+          <a href="#" aria-label="Instagram">◎</a>
+          <a href="#" aria-label="Pinterest">℘</a>
+          <a href="mailto:hola@almaylente.com" aria-label="Correo">✉</a>
+        </div>
       </div>
     </div>
   </footer>
 
-  <div class="aviso" id="aviso" role="status" aria-live="polite"></div>
+  <!-- Ventana con la historia completa -->
+  <div class="modal-historia" id="modal-historia" role="dialog" aria-modal="true" aria-labelledby="titulo-historia">
+    <article class="modal-historia-contenido">
+      <header class="modal-historia-cabecera">
+        <div>
+          <span class="etiqueta">Alma y Lente</span>
+          <h2 class="serif" id="titulo-historia">La fotografía que nace del alma</h2>
+        </div>
+        <button class="modal-cerrar" id="cerrar-historia" type="button" aria-label="Cerrar historia">×</button>
+      </header>
 
-  <div class="capa" id="capaAlbum" aria-hidden="true">
-    <section class="ventana" role="dialog" aria-modal="true" aria-labelledby="tituloAlbum">
-      <div class="ventana-cabecera">
-        <div><span class="etiqueta">Álbum</span><h2 id="tituloAlbum">Retratos</h2></div>
-        <button class="cerrar" data-cerrar="capaAlbum" aria-label="Cerrar">×</button>
+      <div class="modal-historia-cuerpo">
+        <p>Hay momentos que llegan sin avisar. No hacen ruido ni anuncian que están a punto de transformar nuestra vida. Simplemente aparecen, como la primera luz del amanecer: silenciosa, casi imperceptible, pero capaz de cambiar por completo aquello que toca.</p>
+        <p>Mi historia comenzó así. Sin un plan. Sin una cámara profesional. Sin un estudio. Sin conocimientos técnicos. Sin saber hasta dónde podía llegar. Todo comenzó con algo mucho más sencillo, pero también más poderoso: una inquietud que nació dentro de mí.</p>
+        <p>Un día cualquiera, mientras observaba imágenes que aparecían y desaparecían rápidamente en una pantalla, algo consiguió detener mi atención. Entre tantas fotografías encontré el trabajo del fotógrafo Marcos Alberca.</p>
+        <p>Entonces ocurrió algo difícil de explicar. No contemplé únicamente fotografías. Descubrí emociones. Encontré miradas capaces de hablar sin pronunciar una sola palabra. Percibí historias escondidas en un rostro, una postura, una sombra o en la forma en que la luz acariciaba a una persona.</p>
+        <p>Comprendí que una fotografía podía representar mucho más que una imagen: podía convertirse en memoria, en sentimiento, en identidad, en un relato capaz de permanecer incluso después de que el instante hubiera desaparecido.</p>
+        <p>Aquello despertó algo dentro de mí. Recuerdo haber pensado:</p>
+        <p class="cita">“Yo también quiero hacer esto.”</p>
+        <p>No sabía cómo lograrlo. Tampoco cuánto tiempo tomaría ni si algún día podría considerarme fotógrafo. Lo único que tenía claro era que quería intentarlo. Y, en ocasiones, eso es todo lo que necesitamos para comenzar.</p>
+
+        <h3>El comienzo: un celular y una voluntad inquebrantable</h3>
+        <p>El inicio no fue perfecto. Fue real. No contaba con equipo costoso, lentes especializados ni experiencia. Tenía únicamente un celular en la mano y un enorme deseo de aprender. Así que decidí trabajar con aquello que estaba a mi alcance.</p>
+        <p>Salí a observar. Empecé a interpretar la iluminación de otra manera, a prestar atención a los rostros, las sombras, los colores y esos pequeños instantes que normalmente pasan desapercibidos. Tomé una fotografía. Después otra. Y luego muchas más.</p>
+        <p>Algunas me encantaban. Otras eran un desastre. Varias no se acercaban a lo que había imaginado. Sin embargo, todas tenían algo importante que enseñarme. Cada error se convirtió en una lección. Cada intento representó un avance. Cada fracaso abrió una nueva oportunidad.</p>
+        <p>Con el tiempo comencé a cambiar. No solamente mejoraron mis fotografías; también se transformó mi manera de observar. Descubrí que la fotografía no comienza cuando presionas un botón, sino mucho antes: cuando aprendes a interpretar la luz, reconocer la fuerza de una sombra y comprender que una mirada puede comunicar más que mil palabras.</p>
+        <p>Pero, sobre todo, aprendí a mirar a la persona que está frente a mí no como un objeto, sino como un ser humano con experiencias, sueños, emociones y una esencia que merece ser comprendida y respetada.</p>
+        <p>También llegaron las dudas. Hubo momentos en los que sentí que no era suficiente. Instantes en los que me comparaba con otros y percibía una enorme distancia entre ellos y yo. Entonces comprendí una de las lecciones más importantes de mi camino:</p>
+        <p class="cita">No tenía que ser mejor que nadie; solamente tenía que superar al hombre que fui ayer.</p>
+        <p>Continué. Practiqué. Me equivoqué. Aprendí. Volví a intentarlo. Una y otra vez. Porque el talento puede abrir una puerta, pero es la constancia la que permite avanzar. La inspiración enciende la chispa, pero el trabajo diario es capaz de convertirla en fuego.</p>
+        <p>Finalmente entendí algo fundamental:</p>
+        <p class="cita">No necesitas tenerlo todo para comenzar; necesitas comenzar con lo que tienes.</p>
+
+        <h3>El sueño toma forma: nace Alma y Lente</h3>
+        <p>Después de meses de dedicación llegó un día inolvidable: conseguí mi primera cámara profesional. Para algunos habría sido simplemente un aparato. Para mí representaba mucho más. Era el resultado de mis intentos, mis equivocaciones, mis horas de aprendizaje y todo aquello que había construido desde aquel primer celular.</p>
+        <p>Así nació Alma y Lente. El nombre no es una casualidad. Representa mi manera de entender la fotografía.</p>
+        <p><strong>Alma:</strong> porque creo que cada retrato debe transmitir sentimiento. Detrás de cada rostro existe una historia que merece ser reconocida y respetada. No quiero limitarme a mostrar cómo eres físicamente; quiero descubrir y revelar quién eres.</p>
+        <p><strong>Lente:</strong> porque es mi herramienta para observar el mundo y, al mismo tiempo, mirar más allá de lo evidente. A través de él busco encontrar esa esencia que, en ocasiones, ni nosotros mismos somos capaces de reconocer.</p>
+        <p>Es la unión entre corazón y visión; entre emoción e imagen.</p>
+        <p>Mi propósito es claro: dedicarme exclusivamente a los retratos individuales al aire libre. Elijo espacios abiertos, naturaleza y luz natural porque creo firmemente que no necesitamos artificios para ser extraordinarios.</p>
+        <p>La iluminación cambia. El paisaje se transforma. El tiempo avanza. Pero la esencia permanece. Y esa es precisamente la que quiero conservar.</p>
+        <p>No busco crear únicamente fotografías bonitas. Quiero producir imágenes que, muchos años después, puedan mirarse y provocar una sensación profunda:</p>
+        <p class="cita">“Ese era yo.”</p>
+        <p>Auténtico. Real. Humano. Único. Porque todos merecemos conservar una imagen que nos permita recordar quiénes fuimos y la historia que llevamos dentro.</p>
+
+        <h3>Para ti que lees esto</h3>
+        <p>Quizá tienes un sueño guardado. Algo que deseas hacer, crear o transformar, pero sigues esperando tener dinero, equipo, experiencia o encontrar el momento perfecto. Déjame compartir contigo algo que aprendí durante mi propio recorrido: el momento perfecto casi nunca llega.</p>
+        <p>No necesitas que todo sea ideal. Necesitas reunir el valor suficiente para dar el primer paso. Yo tampoco comencé siendo profesional. Empecé con un celular, ilusión y miedo, pero también con más fe que dudas.</p>
+        <p>Si tienes un sueño, no lo entierres por temor. No permitas que la falta de recursos determine hasta dónde puedes llegar. Comenzar desde abajo no significa estar destinado a permanecer allí. Los grandes caminos también nacen de pequeños pasos. Da el tuyo hoy.</p>
+        <p>Aprende a mirar los errores como experiencias que te hacen crecer, no como derrotas que deben detenerte. Recuerda que los sueños no se construyen de una sola vez. Se levantan poco a poco, jornada tras jornada, decisión tras decisión, poniendo dedicación y corazón en aquello que realmente amas.</p>
+
+        <h3>Mi camino continúa</h3>
+        <p>Todavía aprendo. Todavía crezco. Todavía existen metas que parecen lejanas. Mi gran objetivo es convertirme en fotógrafo profesional al cien por ciento, vivir de aquello que amo y llevar Alma y Lente a cada persona que quiera descubrir y mostrar su verdadera belleza.</p>
+        <p>No sé hasta dónde llegará esta historia, pero tengo algo claro: no pienso descubrirlo permaneciendo inmóvil.</p>
+        <p>Mi verdad es esta: Alma y Lente nació de un sueño, creció mediante la constancia, se fortaleció a través de los errores y continúa avanzando con una sola intención: mirar más allá de lo evidente.</p>
+        <p class="cita">Porque una cámara puede capturar un rostro...<br>Pero cuando una imagen nace del alma, puede capturar una vida.</p>
       </div>
-      <div class="ventana-cuerpo">
-        <div class="album-barra">
-          <p id="descripcionAlbum">Fotografías de esta categoría.</p>
-          <div id="accionesAdmin" hidden>
-            <button class="boton-pequeno" id="botonSalir">Cerrar sesión</button>
-          </div>
-        </div>
-        <div class="panel-subir" id="panelSubir">
-          <h3>Añadir fotos a este álbum</h3>
-          <div class="fila-subir">
-            <input id="archivosFotos" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple>
-            <button class="boton-pequeno dorado" id="botonSubir">Subir fotos</button>
-          </div>
-          <p class="nota" style="margin-top:8px">Puedes elegir varias fotos. Máximo 10 MB por foto.</p>
-        </div>
-        <div class="rejilla-fotos" id="rejillaFotos"></div>
-      </div>
-    </section>
+    </article>
   </div>
 
-  <div class="capa" id="capaLogin" aria-hidden="true">
-    <section class="ventana ventana-login" role="dialog" aria-modal="true" aria-labelledby="tituloLogin">
-      <div class="ventana-cabecera">
-        <div><span class="etiqueta">Solo administrador</span><h2 id="tituloLogin">Acceso del fotógrafo</h2></div>
-        <button class="cerrar" data-cerrar="capaLogin" aria-label="Cerrar">×</button>
+  <!-- Ventana que se abre al seleccionar una categoría -->
+  <div class="modal" id="modal-album" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+    <div class="modal-contenido">
+      <div class="modal-cabecera">
+        <div>
+          <span class="etiqueta" id="modal-categoria">Categoría</span>
+          <h2 class="serif" id="modal-titulo">Álbum</h2>
+        </div>
+        <button class="modal-cerrar" id="cerrar-modal" type="button" aria-label="Cerrar álbum">×</button>
       </div>
-      <div class="ventana-cuerpo">
-        <form class="formulario" id="formularioLogin">
-          <label>Correo electrónico
-            <input id="correoLogin" type="email" autocomplete="username" required value="almaylente@gmail.com">
-          </label>
-          <label>Contraseña
-            <input id="claveLogin" type="password" autocomplete="current-password" required>
-          </label>
-          <p class="nota">Inicia sesión con la cuenta de fotógrafo que creaste en Supabase.</p>
-          <button class="boton boton-dorado" type="submit">Iniciar sesión</button>
-        </form>
+      <div class="modal-cuerpo">
+        <p class="modal-descripcion" id="modal-descripcion"></p>
+        <div class="modal-pendiente">
+          <div>
+            <div class="modal-icono" aria-hidden="true">▧</div>
+            <h3 class="serif">Este álbum está pendiente</h3>
+            <p>Cuando agregues las fotos de esta categoría, aparecerán aquí como una galería.</p>
+          </div>
+        </div>
+        <p class="modal-ayuda">Para añadir fotos, reemplaza este mensaje por imágenes dentro de la galería del álbum.</p>
       </div>
-    </section>
-  </div>
-
-  <div class="capa ampliada" id="capaFoto" aria-hidden="true">
-    <button class="cerrar" data-cerrar="capaFoto" aria-label="Cerrar foto">×</button>
-    <div class="ventana"><img id="fotoAmpliada" alt="Fotografía ampliada"></div>
+    </div>
   </div>
 
   <script>
-    // Usa aquí la URL y la Publishable key de Supabase. Nunca pongas una clave Secret aquí.
-    const SUPABASE_URL = "https://buadlsinvfdppdyjnyiq.supabase.co";
-    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_xUtzKeE9EYt-kTR2DmSSmA_ret_WM1s";
-    const CORREO_ADMIN = "almaylente@gmail.com";
-    const CUBO = "albumes";
-    const NOMBRES = {
-      retratos: "Retratos",
-      celebraciones: "Quinceañeras y celebraciones",
-      bodas: "Bodas",
-      retoque: "Retoque fotográfico"
-    };
+    const botonMenu = document.getElementById("boton-menu");
+    const navegacion = document.getElementById("navegacion");
 
-    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-    const elemento = id => document.getElementById(id);
-    const aviso = elemento("aviso");
-    let categoriaActual = "retratos";
-    let usuarioActual = null;
-    let temporizadorAviso;
+    const modalAlbum = document.getElementById("modal-album");
+    const botonCerrarAlbum = document.getElementById("cerrar-modal");
+    const modalTitulo = document.getElementById("modal-titulo");
+    const modalCategoria = document.getElementById("modal-categoria");
+    const modalDescripcion = document.getElementById("modal-descripcion");
+    const albumes = document.querySelectorAll(".album");
 
-    function mostrarAviso(texto, error = false) {
-      aviso.textContent = texto;
-      aviso.classList.toggle("error", error);
-      clearTimeout(temporizadorAviso);
-      temporizadorAviso = setTimeout(() => {
-        aviso.textContent = "";
-        aviso.classList.remove("error");
-      }, 6500);
+    const modalHistoria = document.getElementById("modal-historia");
+    const botonAbrirHistoria = document.getElementById("abrir-historia");
+    const botonCerrarHistoria = document.getElementById("cerrar-historia");
+
+    function abrirAlbum(album) {
+      modalTitulo.textContent = album.dataset.titulo;
+      modalCategoria.textContent = album.dataset.categoria;
+      modalDescripcion.textContent = album.dataset.descripcion;
+      modalAlbum.classList.add("abierto");
+      document.body.classList.add("modal-abierto");
+      botonCerrarAlbum.focus();
     }
 
-    function abrirCapa(id) {
-      elemento(id).classList.add("abierta");
-      elemento(id).setAttribute("aria-hidden", "false");
-      document.body.classList.add("bloqueado");
+    function cerrarAlbum() {
+      modalAlbum.classList.remove("abierto");
+      document.body.classList.remove("modal-abierto");
     }
 
-    function cerrarCapa(id) {
-      elemento(id).classList.remove("abierta");
-      elemento(id).setAttribute("aria-hidden", "true");
-      if (!document.querySelector(".capa.abierta")) {
-        document.body.classList.remove("bloqueado");
-      }
+    function abrirHistoria() {
+      modalHistoria.classList.add("abierto");
+      document.body.classList.add("modal-abierto");
+      botonCerrarHistoria.focus();
     }
 
-    function esAdmin() {
-      return usuarioActual &&
-        usuarioActual.email &&
-        usuarioActual.email.toLowerCase() === CORREO_ADMIN;
+    function cerrarHistoria() {
+      modalHistoria.classList.remove("abierto");
+      document.body.classList.remove("modal-abierto");
+      botonAbrirHistoria.focus();
     }
 
-    function actualizarPermisos() {
-      const permitido = esAdmin();
-      elemento("panelSubir").classList.toggle("visible", !!permitido);
-      elemento("accionesAdmin").hidden = !permitido;
-      elemento("botonAdmin").textContent = permitido
-        ? "Cerrar sesión de fotógrafo"
-        : "Acceso del fotógrafo";
-    }
-
-    async function cargarContadores() {
-      try {
-        const { data, error } = await supabaseClient
-          .from("album_photos")
-          .select("category");
-
-        if (error) throw error;
-
-        const conteos = {
-          retratos: 0,
-          celebraciones: 0,
-          bodas: 0,
-          retoque: 0
-        };
-
-        (data || []).forEach(foto => {
-          if (foto.category in conteos) conteos[foto.category]++;
-        });
-
-        Object.entries(conteos).forEach(([categoria, cantidad]) => {
-          const etiqueta = document.querySelector(`[data-contador="${categoria}"]`);
-          if (etiqueta) etiqueta.textContent =
-            `${cantidad} ${cantidad === 1 ? "foto" : "fotos"}`;
-        });
-      } catch (error) {
-        console.error(error);
-        mostrarAviso("No pude cargar los álbumes. Revisa la configuración de Supabase.", true);
-      }
-    }
-
-    async function abrirAlbum(categoria) {
-      if (!(categoria in NOMBRES)) return;
-      categoriaActual = categoria;
-      elemento("tituloAlbum").textContent = NOMBRES[categoria];
-      elemento("descripcionAlbum").textContent =
-        `Fotografías de ${NOMBRES[categoria].toLowerCase()}.`;
-      abrirCapa("capaAlbum");
-      actualizarPermisos();
-      await cargarFotos();
-    }
-
-    async function cargarFotos() {
-      const rejilla = elemento("rejillaFotos");
-      rejilla.innerHTML = '<div class="vacio">Cargando fotografías…</div>';
-
-      try {
-        const { data, error } = await supabaseClient
-          .from("album_photos")
-          .select("id,category,path,created_at")
-          .eq("category", categoriaActual)
-          .order("created_at", { ascending: false });
-
-        if (error) throw error;
-
-        if (!data || data.length === 0) {
-          rejilla.innerHTML = '<div class="vacio">Todavía no hay fotos en este álbum.</div>';
-          await cargarContadores();
-          return;
-        }
-
-        rejilla.replaceChildren();
-
-        data.forEach(foto => {
-          const { data: urlData } = supabaseClient
-            .storage.from(CUBO).getPublicUrl(foto.path);
-
-          const tarjeta = document.createElement("div");
-          tarjeta.className = "foto-album";
-
-          const imagen = document.createElement("img");
-          imagen.src = urlData.publicUrl;
-          imagen.alt = `${NOMBRES[categoriaActual]} · Alma y Lente`;
-          imagen.loading = "lazy";
-          imagen.addEventListener("click", () => {
-            elemento("fotoAmpliada").src = urlData.publicUrl;
-            abrirCapa("capaFoto");
-          });
-          tarjeta.appendChild(imagen);
-
-          if (esAdmin()) {
-            const borrar = document.createElement("button");
-            borrar.className = "borrar-foto";
-            borrar.textContent = "Borrar";
-            borrar.addEventListener("click", () => borrarFoto(foto));
-            tarjeta.appendChild(borrar);
-          }
-
-          rejilla.appendChild(tarjeta);
-        });
-
-        await cargarContadores();
-      } catch (error) {
-        console.error(error);
-        rejilla.innerHTML = '<div class="vacio">No se pudieron cargar las fotos. Revisa la conexión con Supabase.</div>';
-        mostrarAviso(error.message || "Error al cargar el álbum.", true);
-      }
-    }
-
-    function limpiarNombre(nombre) {
-      return nombre.normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-zA-Z0-9._-]/g, "-");
-    }
-
-    async function subirFotos() {
-      if (!esAdmin()) {
-        mostrarAviso("Inicia sesión con tu cuenta para subir fotos.", true);
-        return;
-      }
-
-      const selector = elemento("archivosFotos");
-      const archivos = Array.from(selector.files || []);
-
-      if (archivos.length === 0) {
-        mostrarAviso("Primero elige una o varias fotos.", true);
-        return;
-      }
-
-      const boton = elemento("botonSubir");
-      boton.disabled = true;
-      boton.textContent = "Subiendo…";
-      let subidas = 0;
-
-      try {
-        for (const archivo of archivos) {
-          const tiposPermitidos = [
-            "image/jpeg", "image/png", "image/webp", "image/gif"
-          ];
-
-          if (!tiposPermitidos.includes(archivo.type)) {
-            throw new Error(`${archivo.name} no es JPG, PNG, WebP o GIF.`);
-          }
-          if (archivo.size > 10 * 1024 * 1024) {
-            throw new Error(`${archivo.name} pesa más de 10 MB.`);
-          }
-
-          const ruta = `${categoriaActual}/${Date.now()}-${crypto.randomUUID()}-${limpiarNombre(archivo.name)}`;
-
-          const { error: errorSubida } = await supabaseClient
-            .storage.from(CUBO)
-            .upload(ruta, archivo, { contentType: archivo.type, upsert: false });
-
-          if (errorSubida) throw errorSubida;
-
-          const { error: errorRegistro } = await supabaseClient
-            .from("album_photos")
-            .insert({ category: categoriaActual, path: ruta });
-
-          if (errorRegistro) {
-            await supabaseClient.storage.from(CUBO).remove([ruta]);
-            throw errorRegistro;
-          }
-
-          subidas++;
-        }
-
-        selector.value = "";
-        mostrarAviso(`${subidas} ${subidas === 1 ? "foto subida" : "fotos subidas"} correctamente.`);
-        await cargarFotos();
-      } catch (error) {
-        console.error(error);
-        mostrarAviso(error.message || "No se pudieron subir las fotos.", true);
-        await cargarFotos();
-      } finally {
-        boton.disabled = false;
-        boton.textContent = "Subir fotos";
-      }
-    }
-
-    async function borrarFoto(foto) {
-      if (!esAdmin()) return;
-      if (!confirm("¿Quieres borrar esta foto del álbum? Esta acción no se puede deshacer.")) return;
-
-      try {
-        const { error: errorArchivo } = await supabaseClient
-          .storage.from(CUBO).remove([foto.path]);
-        if (errorArchivo) throw errorArchivo;
-
-        const { error: errorRegistro } = await supabaseClient
-          .from("album_photos").delete().eq("id", foto.id);
-        if (errorRegistro) throw errorRegistro;
-
-        mostrarAviso("La foto se borró.");
-        await cargarFotos();
-      } catch (error) {
-        console.error(error);
-        mostrarAviso(error.message || "No se pudo borrar la foto.", true);
-      }
-    }
-
-    async function sincronizarSesion() {
-      const { data } = await supabaseClient.auth.getSession();
-      usuarioActual = data.session ? data.session.user : null;
-      actualizarPermisos();
-    }
-
-    elemento("formularioLogin").addEventListener("submit", async evento => {
-      evento.preventDefault();
-      const boton = evento.submitter;
-      boton.disabled = true;
-      boton.textContent = "Entrando…";
-
-      try {
-        const { data, error } = await supabaseClient.auth.signInWithPassword({
-          email: elemento("correoLogin").value.trim(),
-          password: elemento("claveLogin").value
-        });
-
-        if (error) throw error;
-        usuarioActual = data.user;
-
-        if (!esAdmin()) {
-          await supabaseClient.auth.signOut();
-          usuarioActual = null;
-          throw new Error("Esta cuenta no tiene permiso de administrador.");
-        }
-
-        cerrarCapa("capaLogin");
-        actualizarPermisos();
-        mostrarAviso("Sesión iniciada. Abre una categoría para administrar sus fotos.");
-
-        if (elemento("capaAlbum").classList.contains("abierta")) {
-          await cargarFotos();
-        }
-      } catch (error) {
-        mostrarAviso(error.message || "No se pudo iniciar sesión. Revisa el correo y la contraseña.", true);
-      } finally {
-        boton.disabled = false;
-        boton.textContent = "Iniciar sesión";
-      }
+    albumes.forEach((album) => {
+      album.addEventListener("click", () => abrirAlbum(album));
     });
 
-    elemento("botonAdmin").addEventListener("click", async () => {
-      if (esAdmin()) {
-        await supabaseClient.auth.signOut();
-        usuarioActual = null;
-        actualizarPermisos();
-        if (elemento("capaAlbum").classList.contains("abierta")) await cargarFotos();
-        mostrarAviso("Sesión cerrada.");
-      } else {
-        abrirCapa("capaLogin");
-      }
+    botonCerrarAlbum.addEventListener("click", cerrarAlbum);
+    modalAlbum.addEventListener("click", (evento) => {
+      if (evento.target === modalAlbum) cerrarAlbum();
     });
 
-    elemento("botonSalir").addEventListener("click", async () => {
-      await supabaseClient.auth.signOut();
-      usuarioActual = null;
-      actualizarPermisos();
-      await cargarFotos();
-      mostrarAviso("Sesión cerrada.");
+    botonAbrirHistoria.addEventListener("click", abrirHistoria);
+    botonCerrarHistoria.addEventListener("click", cerrarHistoria);
+    modalHistoria.addEventListener("click", (evento) => {
+      if (evento.target === modalHistoria) cerrarHistoria();
     });
 
-    elemento("botonSubir").addEventListener("click", subirFotos);
-
-    document.querySelectorAll("[data-categoria]").forEach(boton => {
-      boton.addEventListener("click", () => abrirAlbum(boton.dataset.categoria));
-    });
-
-    document.querySelectorAll("[data-cerrar]").forEach(boton => {
-      boton.addEventListener("click", () => cerrarCapa(boton.dataset.cerrar));
-    });
-
-    document.querySelectorAll(".capa").forEach(capa => {
-      capa.addEventListener("click", evento => {
-        if (evento.target === capa) cerrarCapa(capa.id);
-      });
-    });
-
-    document.addEventListener("keydown", evento => {
+    document.addEventListener("keydown", (evento) => {
       if (evento.key === "Escape") {
-        document.querySelectorAll(".capa.abierta").forEach(capa => cerrarCapa(capa.id));
+        if (modalAlbum.classList.contains("abierto")) cerrarAlbum();
+        if (modalHistoria.classList.contains("abierto")) cerrarHistoria();
       }
     });
 
-    const botonMenu = elemento("botonMenu");
-    const navegacion = elemento("navegacion");
     botonMenu.addEventListener("click", () => {
-      const abierta = navegacion.classList.toggle("abierta");
-      botonMenu.setAttribute("aria-expanded", String(abierta));
-      botonMenu.textContent = abierta ? "✕ CERRAR" : "☰ MENÚ";
+      const estaAbierta = navegacion.classList.toggle("abierta");
+      botonMenu.setAttribute("aria-expanded", estaAbierta);
+      botonMenu.setAttribute("aria-label", estaAbierta ? "Cerrar menú" : "Abrir menú");
+      botonMenu.textContent = estaAbierta ? "×" : "☰";
     });
 
-    navegacion.querySelectorAll("a").forEach(enlace => {
+    navegacion.querySelectorAll("a").forEach((enlace) => {
       enlace.addEventListener("click", () => {
         navegacion.classList.remove("abierta");
         botonMenu.setAttribute("aria-expanded", "false");
-        botonMenu.textContent = "☰ MENÚ";
+        botonMenu.setAttribute("aria-label", "Abrir menú");
+        botonMenu.textContent = "☰";
       });
     });
-
-    supabaseClient.auth.onAuthStateChange((_evento, sesion) => {
-      usuarioActual = sesion ? sesion.user : null;
-      actualizarPermisos();
-    });
-
-    sincronizarSesion();
-    cargarContadores();
   </script>
 </body>
 </html>
 ```
+<!-- Actualización: nueva foto de portada -->
+/* Foto del álbum de retratos */
+.album img {
+  object-fit: cover;
+  object-position: top center;
+}
