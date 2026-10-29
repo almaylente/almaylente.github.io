@@ -151,7 +151,7 @@ background-image: url("mi-foto-nueva.jpg") !important;
 }
 
 .hero-image img {
-  object-position: center 38%;
+ object-position: top center;
 /* content: url("mi-foto-nueva.jpg") !important; */
 }
 
