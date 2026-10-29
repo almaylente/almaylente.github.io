@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Alma y Lente — fotografía, retrato, celebraciones y arte digital.">
+  <meta name="description" content="Alma y Lente — fotografía de retrato, retoque y arte digital.">
   <title>Alma y Lente | Fotografía</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,6 +14,7 @@
   <style>
     :root {
       --fondo: #0d0d0d;
+      --fondo-suave: #111;
       --texto: #f2eee8;
       --texto-suave: #aaa49b;
       --dorado: #d4b477;
@@ -61,10 +62,10 @@
 
     .boton {
       display: inline-flex;
-      min-height: 36px;
+      min-height: 38px;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 9px;
       padding: 0 17px;
       border: 1px solid var(--dorado);
       background: transparent;
@@ -78,13 +79,8 @@
     }
 
     .boton:hover { background: var(--dorado); color: #111; }
-
     .boton-relleno { background: var(--dorado); color: #111; }
-
-    .boton-relleno:hover {
-      background: #e5ca94;
-      border-color: #e5ca94;
-    }
+    .boton-relleno:hover { background: #e5ca94; border-color: #e5ca94; }
 
     /* Navegación */
     .barra {
@@ -95,7 +91,7 @@
       width: 100%;
       height: 68px;
       border-bottom: 1px solid var(--borde);
-      background: rgba(12, 12, 12, .48);
+      background: rgba(12, 12, 12, .58);
       backdrop-filter: blur(8px);
     }
 
@@ -124,7 +120,7 @@
       text-transform: uppercase;
     }
 
-    .navegacion { display: flex; align-items: center; gap: 27px; }
+    .navegacion { display: flex; align-items: center; gap: 22px; }
 
     .navegacion > a {
       color: #e1ded9;
@@ -132,10 +128,9 @@
       transition: color .2s ease;
     }
 
-    .navegacion > a:hover,
-    .navegacion > a.activo { color: var(--dorado); }
+    .navegacion > a:hover { color: var(--dorado); }
 
-    .redes { display: flex; align-items: center; gap: 12px; }
+    .redes { display: flex; align-items: center; gap: 11px; }
 
     .redes a {
       display: inline-flex;
@@ -143,7 +138,6 @@
       height: 18px;
       align-items: center;
       justify-content: center;
-      color: var(--texto);
       font-size: 11px;
       font-weight: 600;
     }
@@ -181,9 +175,7 @@
     }
 
     .portada h1 em { color: #e0d5c4; font-weight: 400; }
-
     .portada p { max-width: 360px; color: #ddd9d2; font-size: 12px; }
-
     .portada-botones { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
 
     .portada-nota {
@@ -207,12 +199,11 @@
       border: 1px solid rgba(255, 255, 255, .45);
       border-radius: 10px;
       color: white;
-      font-size: 10px;
       transform: translateX(-50%);
     }
 
     /* Visión */
-    .vision { padding: 37px 20px 35px; background: #111; text-align: center; }
+    .vision { padding: 37px 20px 35px; background: var(--fondo-suave); text-align: center; }
 
     .vision h2 {
       margin: 6px auto 10px;
@@ -231,7 +222,63 @@
 
     .raya { width: 34px; height: 1px; margin: 15px auto 12px; background: var(--dorado); }
 
-    /* Categorías y álbumes */
+    /* Historia */
+    .historia { padding: 58px 0; background: var(--fondo); }
+
+    .historia-interior {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .historia-texto h2 {
+      margin: 8px 0 16px;
+      font-size: clamp(30px, 4vw, 43px);
+      line-height: 1.12;
+    }
+
+    .historia-texto h2 em { color: #d5c8b7; }
+
+    .historia-texto p {
+      max-width: 590px;
+      margin-bottom: 12px;
+      color: #bcb7b0;
+      font-size: 13px;
+    }
+
+    .historia-cita {
+      margin: 20px 0;
+      padding: 4px 0 4px 18px;
+      border-left: 1px solid var(--dorado);
+      color: #e0d5c4 !important;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 19px !important;
+      font-style: italic;
+    }
+
+    .historia-foto {
+      position: relative;
+      min-height: 360px;
+      overflow: hidden;
+      background:
+        linear-gradient(0deg, rgba(0, 0, 0, .55), transparent 60%),
+        url("https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?auto=format&fit=crop&w=1200&q=85")
+        center 38% / cover;
+    }
+
+    .historia-foto-texto { position: absolute; right: 22px; bottom: 20px; left: 22px; }
+    .historia-foto-texto span { color: var(--dorado); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; }
+
+    .historia-foto-texto p {
+      margin-top: 4px;
+      color: white;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 22px;
+      font-style: italic;
+    }
+
+    /* Portafolio y álbumes */
     .portafolio { padding: 33px 0 36px; background: #0d0d0d; }
 
     .encabezado-seccion {
@@ -243,7 +290,6 @@
     }
 
     .encabezado-seccion h2 { margin-top: 2px; font-size: 30px; line-height: 1.15; }
-
     .encabezado-seccion p { max-width: 320px; color: var(--texto-suave); font-size: 11px; }
 
     .rejilla-albumes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; }
@@ -260,10 +306,7 @@
     }
 
     .album img { position: absolute; inset: 0; transition: transform .55s ease; }
-
-    .album:hover img,
-    .album:focus-visible img { transform: scale(1.06); }
-
+    .album:hover img, .album:focus-visible img { transform: scale(1.06); }
     .album:focus-visible { outline: 2px solid var(--dorado); outline-offset: 3px; }
 
     .album::after {
@@ -275,17 +318,9 @@
     }
 
     .album-contenido { position: absolute; right: 14px; bottom: 14px; left: 14px; z-index: 1; }
-
-    .album-numero {
-      color: var(--dorado);
-      font-size: 8px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-    }
-
-    .album h3 { margin: 2px 0; font-size: 20px; line-height: 1.2; }
-
-    .album p { color: #d4d0ca; font-size: 10px; }
+    .album-numero { color: var(--dorado); font-size: 8px; letter-spacing: .16em; text-transform: uppercase; }
+    .album-titulo { display: block; margin: 2px 0; font-size: 20px; line-height: 1.2; }
+    .album-descripcion { display: block; color: #d4d0ca; font-size: 10px; }
 
     .album-pendiente {
       display: inline-block;
@@ -298,16 +333,9 @@
       text-transform: uppercase;
     }
 
-    .album-accion {
-      display: inline-block;
-      margin-left: 7px;
-      color: white;
-      font-size: 9px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
+    .album-accion { display: inline-block; margin-left: 7px; color: white; font-size: 9px; text-transform: uppercase; }
 
-    /* Sobre mí */
+    /* Sobre mí y servicios */
     .sobre-mi { padding: 0 0 34px; background: #111; }
 
     .sobre-mi-interior {
@@ -318,20 +346,13 @@
     }
 
     .sobre-foto { height: 280px; overflow: hidden; }
-
     .sobre-foto img { object-position: center 36%; }
-
     .sobre-texto { padding: 25px 0; }
-
     .sobre-texto h2 { margin: 4px 0 11px; font-size: 29px; line-height: 1.17; }
-
     .sobre-texto h2 em { color: #d5c8b7; }
-
     .sobre-texto p { max-width: 500px; margin-bottom: 9px; color: #bcb7b0; font-size: 11px; }
-
     .sobre-texto .boton { margin-top: 8px; }
 
-    /* Servicios */
     .servicios { padding: 30px 0; border-bottom: 1px solid var(--borde); background: #0b0b0b; }
 
     .servicios-interior {
@@ -342,45 +363,35 @@
     }
 
     .servicios-intro h2 { margin-top: 3px; font-size: 25px; line-height: 1.15; }
-
     .servicio { padding-left: 19px; border-left: 1px solid var(--borde); }
-
     .servicio-icono { margin-bottom: 5px; color: var(--dorado); font-size: 22px; }
-
     .servicio h3 { margin-bottom: 4px; font-family: "Playfair Display", Georgia, serif; font-size: 17px; font-weight: 400; }
-
     .servicio p { color: var(--texto-suave); font-size: 10px; }
 
-    /* Contacto */
+    /* Contacto: imagen de la Canon EOS R6 Mark II */
     .contacto {
       position: relative;
-      padding: 32px 20px;
+      padding: 36px 20px;
       overflow: hidden;
       background:
-        linear-gradient(rgba(8, 8, 8, .76), rgba(8, 8, 8, .84)),
-        url("https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?auto=format&fit=crop&w=1800&q=80")
+        linear-gradient(rgba(8, 8, 8, .40), rgba(8, 8, 8, .56)),
+        url("https://i1.adis.ws/i/canon/5666C028_EOS-R6-Mark-II_07?aspect=1%3A1&bg=rgb%28245%2C246%2C246%29&fmt=webp&qlt=80&sm=aspect&w=940")
         center 50% / cover no-repeat;
       text-align: center;
     }
 
     .contacto h2 { margin: 4px 0 6px; font-size: 29px; line-height: 1.2; }
-
-    .contacto p { color: #d2cec8; font-size: 11px; }
-
+    .contacto p { color: #f0ece5; font-size: 11px; }
     .contacto-botones { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 16px; }
 
     /* Pie de página */
     footer { padding: 18px 0; border-top: 1px solid var(--borde); background: #0a0a0a; }
-
     .pie-interior { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-
     .pie-marca .marca-nombre { font-size: 19px; }
-
     .derechos { color: var(--texto-suave); font-size: 9px; text-align: center; }
-
     .pie-enlaces { display: flex; align-items: center; gap: 15px; color: #d5d1cb; font-size: 9px; }
 
-    /* Ventana del álbum */
+    /* Ventanas */
     .modal {
       position: fixed;
       z-index: 20;
@@ -396,7 +407,6 @@
     .modal.abierto { display: flex; }
 
     .modal-contenido {
-      position: relative;
       display: flex;
       width: min(900px, 100%);
       max-height: min(760px, 90vh);
@@ -413,16 +423,17 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    .modal-cabecera {
+    .modal-cabecera, .modal-historia-cabecera {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
-      padding: 21px 24px;
+      padding: 20px 24px;
       border-bottom: 1px solid var(--borde);
+      background: #111;
     }
 
-    .modal-cabecera h2 { margin-top: 3px; font-size: 27px; line-height: 1.15; }
+    .modal-cabecera h2, .modal-historia-cabecera h2 { margin-top: 3px; font-size: 26px; line-height: 1.2; }
 
     .modal-cerrar {
       display: grid;
@@ -435,13 +446,10 @@
       color: white;
       font-size: 23px;
       cursor: pointer;
-      transition: .2s ease;
     }
 
     .modal-cerrar:hover { border-color: var(--dorado); color: var(--dorado); }
-
     .modal-cuerpo { overflow-y: auto; padding: 23px 24px 26px; }
-
     .modal-descripcion { margin-bottom: 17px; color: var(--texto-suave); font-size: 12px; }
 
     .modal-pendiente {
@@ -455,31 +463,74 @@
     }
 
     .modal-icono { margin-bottom: 7px; color: var(--dorado); font-size: 35px; }
-
     .modal-pendiente h3 { margin-bottom: 5px; font-size: 20px; }
-
     .modal-pendiente p { max-width: 400px; color: var(--texto-suave); font-size: 11px; }
 
-    .modal-galeria {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .modal-galeria img {
-      height: 170px;
-      border: 1px solid rgba(255, 255, 255, .1);
-      object-fit: cover;
-    }
-
+    .modal-galeria { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+    .modal-galeria img { height: 170px; border: 1px solid rgba(255, 255, 255, .1); object-fit: cover; }
     .modal-ayuda { margin-top: 14px; color: var(--texto-suave); font-size: 10px; }
 
+    .modal-historia {
+      position: fixed;
+      z-index: 30;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, .84);
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-historia.abierto { display: flex; }
+
+    .modal-historia-contenido {
+      width: min(850px, 100%);
+      max-height: 90vh;
+      overflow: hidden;
+      border: 1px solid rgba(212, 180, 119, .38);
+      background: #111;
+      box-shadow: 0 25px 90px rgba(0, 0, 0, .65);
+    }
+
+    .modal-historia-cuerpo {
+      max-height: calc(90vh - 80px);
+      overflow-y: auto;
+      padding: 25px clamp(20px, 5vw, 54px) 42px;
+    }
+
+    .modal-historia-cuerpo h3 {
+      margin: 25px 0 10px;
+      color: var(--dorado);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 23px;
+      font-weight: 400;
+    }
+
+    .modal-historia-cuerpo h3:first-child { margin-top: 0; }
+
+    .modal-historia-cuerpo p {
+      margin: 0 0 13px;
+      color: #c3beb6;
+      font-size: 13px;
+      line-height: 1.85;
+    }
+
+    .modal-historia-cuerpo .cita {
+      padding-left: 17px;
+      border-left: 1px solid var(--dorado);
+      color: #e1d5c3;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 19px;
+      font-style: italic;
+    }
+
+    body.historia-abierta { overflow: hidden; }
+
+    /* Adaptación para celular */
     @media (max-width: 760px) {
       .contenedor, .barra-interior { width: min(100% - 38px, var(--ancho)); }
-
       .barra { height: 62px; }
-
       .menu-movil { display: block; }
 
       .navegacion {
@@ -495,69 +546,44 @@
       }
 
       .navegacion.abierta { display: flex; flex-direction: column; gap: 15px; }
-
       .navegacion .redes { margin-top: 3px; }
-
       .portada { min-height: 540px; background-position: 58% center; }
-
       .portada-contenido { padding-top: 65px; }
-
       .portada h1 { max-width: 390px; font-size: clamp(40px, 10vw, 60px); }
-
       .portada-nota { right: 19px; bottom: 17px; }
-
       .encabezado-seccion { align-items: flex-start; flex-direction: column; gap: 8px; }
-
       .rejilla-albumes { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-
       .album { min-height: 250px; }
-
+      .historia { padding: 38px 0; }
+      .historia-interior { grid-template-columns: 1fr; gap: 22px; }
+      .historia-foto { min-height: 290px; }
       .sobre-mi-interior { grid-template-columns: 1fr; gap: 8px; }
-
       .sobre-foto { height: 340px; }
-
       .sobre-texto { padding: 15px 0 10px; }
-
       .servicios-interior { grid-template-columns: 1fr 1fr; gap: 23px 15px; }
-
       .servicios-intro { grid-column: 1 / -1; }
-
       .servicio { padding-left: 13px; }
-
       .pie-interior { flex-wrap: wrap; }
-
       .derechos { order: 3; width: 100%; text-align: left; }
-
       .modal { padding: 12px; }
-
       .modal-contenido { max-height: 94vh; }
-
-      .modal-cabecera { padding: 17px; }
-
+      .modal-cabecera, .modal-historia-cabecera { padding: 17px; }
       .modal-cuerpo { padding: 17px; }
-
       .modal-galeria { grid-template-columns: repeat(2, 1fr); }
+      .modal-historia { padding: 10px; }
+      .modal-historia-contenido { max-height: 94vh; }
+      .modal-historia-cuerpo { max-height: calc(94vh - 75px); padding: 20px; }
     }
 
     @media (max-width: 430px) {
       .portada { min-height: 510px; }
-
       .portada p { max-width: 310px; }
-
-      .rejilla-albumes { grid-template-columns: 1fr 1fr; }
-
       .album { min-height: 205px; }
-
-      .album h3 { font-size: 17px; }
-
+      .album-titulo { font-size: 17px; }
       .album-contenido { right: 10px; bottom: 11px; left: 10px; }
-
       .sobre-foto { height: 285px; }
-
       .pie-enlaces { gap: 9px; }
-
-      .modal-cabecera h2 { font-size: 23px; }
-
+      .modal-cabecera h2, .modal-historia-cabecera h2 { font-size: 22px; }
       .modal-galeria img { height: 125px; }
     }
   </style>
@@ -574,9 +600,10 @@
       <button class="menu-movil" id="boton-menu" aria-label="Abrir menú" aria-expanded="false">☰</button>
 
       <nav class="navegacion" id="navegacion">
-        <a class="activo" href="#inicio">Inicio</a>
+        <a href="#inicio">Inicio</a>
         <a href="#portafolio">Portafolio</a>
         <a href="#sobre-mi">Sobre mí</a>
+        <a href="#mi-historia">Mi historia</a>
         <a href="#servicios">Servicios</a>
         <a href="#contacto">Contacto</a>
         <div class="redes" aria-label="Redes sociales">
@@ -608,7 +635,27 @@
       <span class="etiqueta">Mi visión fotográfica</span>
       <h2 class="serif">Cada imagen guarda una historia.<br><em>Mi trabajo es ayudarte a conservarla.</em></h2>
       <div class="raya"></div>
-      <p>En Alma y Lente, la fotografía, el retoque y la creatividad se unen para crear imágenes cuidadas, naturales y llenas de personalidad.</p>
+      <p>En Alma y Lente, la fotografía y la creatividad se unen para crear imágenes cuidadas, naturales y llenas de personalidad.</p>
+    </section>
+
+    <section class="historia" id="mi-historia">
+      <div class="contenedor historia-interior">
+        <div class="historia-texto">
+          <span class="etiqueta">Mi historia</span>
+          <h2 class="serif">La fotografía que<br><em>nace del alma.</em></h2>
+          <p>Mi historia comenzó sin un plan, sin una cámara profesional y sin saber hasta dónde podía llegar. Solo tenía una inquietud y muchas ganas de aprender.</p>
+          <p>Empecé con un celular. Cada fotografía, cada error y cada intento me enseñaron a mirar la luz, las emociones y la esencia de cada persona.</p>
+          <p class="historia-cita">“No necesitas tenerlo todo para comenzar; necesitas comenzar con lo que tienes.”</p>
+          <p>Así nació Alma y Lente: la unión entre corazón y visión, entre emoción e imagen.</p>
+          <button class="boton boton-relleno" id="abrir-historia" type="button">Leer mi historia completa ↗</button>
+        </div>
+        <div class="historia-foto" role="img" aria-label="Fotógrafo con su cámara">
+          <div class="historia-foto-texto">
+            <span>Alma y Lente</span>
+            <p>Mirar más allá de lo evidente.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="portafolio" id="portafolio">
@@ -629,8 +676,8 @@
             <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=85" alt="Retrato de una mujer" loading="lazy">
             <span class="album-contenido">
               <span class="album-numero">01 · Retrato</span>
-              <span class="serif" style="display:block;font-size:20px;line-height:1.2;margin:2px 0;">Retratos</span>
-              <span style="display:block;color:#d4d0ca;font-size:10px;">Personalidad, expresión y esencia.</span>
+              <span class="album-titulo serif">Retratos</span>
+              <span class="album-descripcion">Personalidad, expresión y esencia.</span>
               <span class="album-pendiente">Álbum pendiente</span>
               <span class="album-accion">Abrir álbum ↗</span>
             </span>
@@ -643,8 +690,8 @@
             <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=85" alt="Celebración de boda" loading="lazy">
             <span class="album-contenido">
               <span class="album-numero">02 · Celebraciones</span>
-              <span class="serif" style="display:block;font-size:20px;line-height:1.2;margin:2px 0;">Celebraciones</span>
-              <span style="display:block;color:#d4d0ca;font-size:10px;">Recuerdos para toda la vida.</span>
+              <span class="album-titulo serif">Celebraciones</span>
+              <span class="album-descripcion">Recuerdos para toda la vida.</span>
               <span class="album-pendiente">Álbum pendiente</span>
               <span class="album-accion">Abrir álbum ↗</span>
             </span>
@@ -657,8 +704,8 @@
             <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=85" alt="Pareja compartiendo un momento especial" loading="lazy">
             <span class="album-contenido">
               <span class="album-numero">03 · Historias de amor</span>
-              <span class="serif" style="display:block;font-size:20px;line-height:1.2;margin:2px 0;">Bodas</span>
-              <span style="display:block;color:#d4d0ca;font-size:10px;">La belleza de los momentos irrepetibles.</span>
+              <span class="album-titulo serif">Bodas</span>
+              <span class="album-descripcion">La belleza de los momentos irrepetibles.</span>
               <span class="album-pendiente">Álbum pendiente</span>
               <span class="album-accion">Abrir álbum ↗</span>
             </span>
@@ -671,8 +718,8 @@
             <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=85" alt="Retrato para retoque fotográfico" loading="lazy">
             <span class="album-contenido">
               <span class="album-numero">04 · Edición</span>
-              <span class="serif" style="display:block;font-size:20px;line-height:1.2;margin:2px 0;">Retoque fotográfico</span>
-              <span style="display:block;color:#d4d0ca;font-size:10px;">Detalles cuidados y textura natural.</span>
+              <span class="album-titulo serif">Retoque fotográfico</span>
+              <span class="album-descripcion">Detalles cuidados y textura natural.</span>
               <span class="album-pendiente">Álbum pendiente</span>
               <span class="album-accion">Abrir álbum ↗</span>
             </span>
@@ -690,8 +737,7 @@
           <span class="etiqueta">Detrás de la cámara</span>
           <h2 class="serif">Hola, soy el creador de<br><em>Alma y Lente.</em></h2>
           <p>La fotografía es mi forma de observar el mundo, descubrir detalles y contar historias a través de imágenes.</p>
-          <p>Mi trabajo combina la captura fotográfica con el retoque y la exploración del arte digital, procurando conservar la naturalidad y la personalidad de cada retrato.</p>
-          <p>Alma y Lente es el espacio donde comparto mi evolución creativa, mis proyectos y mi pasión por la imagen.</p>
+          <p>Mi trabajo se enfoca en retratos individuales al aire libre, con luz natural y una mirada atenta a la esencia de cada persona.</p>
           <a class="boton" href="#contacto">Hablemos de fotografía →</a>
         </div>
       </div>
@@ -707,7 +753,7 @@
           <div class="servicio-icono" aria-hidden="true">◎</div>
           <span class="etiqueta">01 / 03</span>
           <h3>Fotografía</h3>
-          <p>Retratos y celebraciones con atención a la luz, la composición y las emociones.</p>
+          <p>Retratos al aire libre, con atención a la luz, la composición y las emociones.</p>
         </article>
         <article class="servicio">
           <div class="servicio-icono" aria-hidden="true">▧</div>
@@ -727,7 +773,7 @@
     <section class="contacto" id="contacto">
       <span class="etiqueta">Contacto</span>
       <h2 class="serif"><em>Hagamos algo memorable.</em></h2>
-      <p>¿Te gusta mi trabajo o quieres conocer más sobre mis fotografías?</p>
+      <p>¿Te gustaría una sesión de retrato al aire libre?</p>
       <p>Escríbeme y conversemos.</p>
       <div class="contacto-botones">
         <a class="boton boton-relleno" href="mailto:hola@almaylente.com">✉ Enviar correo →</a>
@@ -745,6 +791,7 @@
       <p class="derechos">© 2025 Alma y Lente. Todos los derechos reservados.</p>
       <div class="pie-enlaces">
         <a href="#portafolio">Portafolio</a>
+        <a href="#mi-historia">Mi historia</a>
         <a href="#contacto">Contacto</a>
         <div class="redes" aria-label="Redes sociales">
           <a href="#" aria-label="TikTok">♪</a>
@@ -755,6 +802,66 @@
       </div>
     </div>
   </footer>
+
+  <!-- Ventana con la historia completa -->
+  <div class="modal-historia" id="modal-historia" role="dialog" aria-modal="true" aria-labelledby="titulo-historia">
+    <article class="modal-historia-contenido">
+      <header class="modal-historia-cabecera">
+        <div>
+          <span class="etiqueta">Alma y Lente</span>
+          <h2 class="serif" id="titulo-historia">La fotografía que nace del alma</h2>
+        </div>
+        <button class="modal-cerrar" id="cerrar-historia" type="button" aria-label="Cerrar historia">×</button>
+      </header>
+
+      <div class="modal-historia-cuerpo">
+        <p>Hay momentos que llegan sin avisar. No hacen ruido ni anuncian que están a punto de transformar nuestra vida. Simplemente aparecen, como la primera luz del amanecer: silenciosa, casi imperceptible, pero capaz de cambiar por completo aquello que toca.</p>
+        <p>Mi historia comenzó así. Sin un plan. Sin una cámara profesional. Sin un estudio. Sin conocimientos técnicos. Sin saber hasta dónde podía llegar. Todo comenzó con algo mucho más sencillo, pero también más poderoso: una inquietud que nació dentro de mí.</p>
+        <p>Un día cualquiera, mientras observaba imágenes que aparecían y desaparecían rápidamente en una pantalla, algo consiguió detener mi atención. Entre tantas fotografías encontré el trabajo del fotógrafo Marcos Alberca.</p>
+        <p>Entonces ocurrió algo difícil de explicar. No contemplé únicamente fotografías. Descubrí emociones. Encontré miradas capaces de hablar sin pronunciar una sola palabra. Percibí historias escondidas en un rostro, una postura, una sombra o en la forma en que la luz acariciaba a una persona.</p>
+        <p>Comprendí que una fotografía podía representar mucho más que una imagen: podía convertirse en memoria, en sentimiento, en identidad, en un relato capaz de permanecer incluso después de que el instante hubiera desaparecido.</p>
+        <p>Aquello despertó algo dentro de mí. Recuerdo haber pensado:</p>
+        <p class="cita">“Yo también quiero hacer esto.”</p>
+        <p>No sabía cómo lograrlo. Tampoco cuánto tiempo tomaría ni si algún día podría considerarme fotógrafo. Lo único que tenía claro era que quería intentarlo. Y, en ocasiones, eso es todo lo que necesitamos para comenzar.</p>
+
+        <h3>El comienzo: un celular y una voluntad inquebrantable</h3>
+        <p>El inicio no fue perfecto. Fue real. No contaba con equipo costoso, lentes especializados ni experiencia. Tenía únicamente un celular en la mano y un enorme deseo de aprender. Así que decidí trabajar con aquello que estaba a mi alcance.</p>
+        <p>Salí a observar. Empecé a interpretar la iluminación de otra manera, a prestar atención a los rostros, las sombras, los colores y esos pequeños instantes que normalmente pasan desapercibidos. Tomé una fotografía. Después otra. Y luego muchas más.</p>
+        <p>Algunas me encantaban. Otras eran un desastre. Varias no se acercaban a lo que había imaginado. Sin embargo, todas tenían algo importante que enseñarme. Cada error se convirtió en una lección. Cada intento representó un avance. Cada fracaso abrió una nueva oportunidad.</p>
+        <p>Con el tiempo comencé a cambiar. No solamente mejoraron mis fotografías; también se transformó mi manera de observar. Descubrí que la fotografía no comienza cuando presionas un botón, sino mucho antes: cuando aprendes a interpretar la luz, reconocer la fuerza de una sombra y comprender que una mirada puede comunicar más que mil palabras.</p>
+        <p>Pero, sobre todo, aprendí a mirar a la persona que está frente a mí no como un objeto, sino como un ser humano con experiencias, sueños, emociones y una esencia que merece ser comprendida y respetada.</p>
+        <p>También llegaron las dudas. Hubo momentos en los que sentí que no era suficiente. Instantes en los que me comparaba con otros y percibía una enorme distancia entre ellos y yo. Entonces comprendí una de las lecciones más importantes de mi camino:</p>
+        <p class="cita">No tenía que ser mejor que nadie; solamente tenía que superar al hombre que fui ayer.</p>
+        <p>Continué. Practiqué. Me equivoqué. Aprendí. Volví a intentarlo. Una y otra vez. Porque el talento puede abrir una puerta, pero es la constancia la que permite avanzar. La inspiración enciende la chispa, pero el trabajo diario es capaz de convertirla en fuego.</p>
+        <p>Finalmente entendí algo fundamental:</p>
+        <p class="cita">No necesitas tenerlo todo para comenzar; necesitas comenzar con lo que tienes.</p>
+
+        <h3>El sueño toma forma: nace Alma y Lente</h3>
+        <p>Después de meses de dedicación llegó un día inolvidable: conseguí mi primera cámara profesional. Para algunos habría sido simplemente un aparato. Para mí representaba mucho más. Era el resultado de mis intentos, mis equivocaciones, mis horas de aprendizaje y todo aquello que había construido desde aquel primer celular.</p>
+        <p>Así nació Alma y Lente. El nombre no es una casualidad. Representa mi manera de entender la fotografía.</p>
+        <p><strong>Alma:</strong> porque creo que cada retrato debe transmitir sentimiento. Detrás de cada rostro existe una historia que merece ser reconocida y respetada. No quiero limitarme a mostrar cómo eres físicamente; quiero descubrir y revelar quién eres.</p>
+        <p><strong>Lente:</strong> porque es mi herramienta para observar el mundo y, al mismo tiempo, mirar más allá de lo evidente. A través de él busco encontrar esa esencia que, en ocasiones, ni nosotros mismos somos capaces de reconocer.</p>
+        <p>Es la unión entre corazón y visión; entre emoción e imagen.</p>
+        <p>Mi propósito es claro: dedicarme exclusivamente a los retratos individuales al aire libre. Elijo espacios abiertos, naturaleza y luz natural porque creo firmemente que no necesitamos artificios para ser extraordinarios.</p>
+        <p>La iluminación cambia. El paisaje se transforma. El tiempo avanza. Pero la esencia permanece. Y esa es precisamente la que quiero conservar.</p>
+        <p>No busco crear únicamente fotografías bonitas. Quiero producir imágenes que, muchos años después, puedan mirarse y provocar una sensación profunda:</p>
+        <p class="cita">“Ese era yo.”</p>
+        <p>Auténtico. Real. Humano. Único. Porque todos merecemos conservar una imagen que nos permita recordar quiénes fuimos y la historia que llevamos dentro.</p>
+
+        <h3>Para ti que lees esto</h3>
+        <p>Quizá tienes un sueño guardado. Algo que deseas hacer, crear o transformar, pero sigues esperando tener dinero, equipo, experiencia o encontrar el momento perfecto. Déjame compartir contigo algo que aprendí durante mi propio recorrido: el momento perfecto casi nunca llega.</p>
+        <p>No necesitas que todo sea ideal. Necesitas reunir el valor suficiente para dar el primer paso. Yo tampoco comencé siendo profesional. Empecé con un celular, ilusión y miedo, pero también con más fe que dudas.</p>
+        <p>Si tienes un sueño, no lo entierres por temor. No permitas que la falta de recursos determine hasta dónde puedes llegar. Comenzar desde abajo no significa estar destinado a permanecer allí. Los grandes caminos también nacen de pequeños pasos. Da el tuyo hoy.</p>
+        <p>Aprende a mirar los errores como experiencias que te hacen crecer, no como derrotas que deben detenerte. Recuerda que los sueños no se construyen de una sola vez. Se levantan poco a poco, jornada tras jornada, decisión tras decisión, poniendo dedicación y corazón en aquello que realmente amas.</p>
+
+        <h3>Mi camino continúa</h3>
+        <p>Todavía aprendo. Todavía crezco. Todavía existen metas que parecen lejanas. Mi gran objetivo es convertirme en fotógrafo profesional al cien por ciento, vivir de aquello que amo y llevar Alma y Lente a cada persona que quiera descubrir y mostrar su verdadera belleza.</p>
+        <p>No sé hasta dónde llegará esta historia, pero tengo algo claro: no pienso descubrirlo permaneciendo inmóvil.</p>
+        <p>Mi verdad es esta: Alma y Lente nació de un sueño, creció mediante la constancia, se fortaleció a través de los errores y continúa avanzando con una sola intención: mirar más allá de lo evidente.</p>
+        <p class="cita">Porque una cámara puede capturar un rostro...<br>Pero cuando una imagen nace del alma, puede capturar una vida.</p>
+      </div>
+    </article>
+  </div>
 
   <!-- Ventana que se abre al seleccionar una categoría -->
   <div class="modal" id="modal-album" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
@@ -776,15 +883,6 @@
           </div>
         </div>
         <p class="modal-ayuda">Para añadir fotos, reemplaza este mensaje por imágenes dentro de la galería del álbum.</p>
-        <!--
-          Cuando tengas fotografías, puedes ponerlas aquí.
-          Ejemplo:
-          <div class="modal-galeria">
-            <img src="fotos/retrato-1.jpg" alt="Retrato 1">
-            <img src="fotos/retrato-2.jpg" alt="Retrato 2">
-            <img src="fotos/retrato-3.jpg" alt="Retrato 3">
-          </div>
-        -->
       </div>
     </div>
   </div>
@@ -792,40 +890,63 @@
   <script>
     const botonMenu = document.getElementById("boton-menu");
     const navegacion = document.getElementById("navegacion");
-    const modal = document.getElementById("modal-album");
-    const botonCerrar = document.getElementById("cerrar-modal");
+
+    const modalAlbum = document.getElementById("modal-album");
+    const botonCerrarAlbum = document.getElementById("cerrar-modal");
     const modalTitulo = document.getElementById("modal-titulo");
     const modalCategoria = document.getElementById("modal-categoria");
     const modalDescripcion = document.getElementById("modal-descripcion");
     const albumes = document.querySelectorAll(".album");
 
+    const modalHistoria = document.getElementById("modal-historia");
+    const botonAbrirHistoria = document.getElementById("abrir-historia");
+    const botonCerrarHistoria = document.getElementById("cerrar-historia");
+
     function abrirAlbum(album) {
       modalTitulo.textContent = album.dataset.titulo;
       modalCategoria.textContent = album.dataset.categoria;
       modalDescripcion.textContent = album.dataset.descripcion;
-      modal.classList.add("abierto");
+      modalAlbum.classList.add("abierto");
       document.body.classList.add("modal-abierto");
-      botonCerrar.focus();
+      botonCerrarAlbum.focus();
     }
 
     function cerrarAlbum() {
-      modal.classList.remove("abierto");
+      modalAlbum.classList.remove("abierto");
       document.body.classList.remove("modal-abierto");
+    }
+
+    function abrirHistoria() {
+      modalHistoria.classList.add("abierto");
+      document.body.classList.add("modal-abierto");
+      botonCerrarHistoria.focus();
+    }
+
+    function cerrarHistoria() {
+      modalHistoria.classList.remove("abierto");
+      document.body.classList.remove("modal-abierto");
+      botonAbrirHistoria.focus();
     }
 
     albumes.forEach((album) => {
       album.addEventListener("click", () => abrirAlbum(album));
     });
 
-    botonCerrar.addEventListener("click", cerrarAlbum);
+    botonCerrarAlbum.addEventListener("click", cerrarAlbum);
+    modalAlbum.addEventListener("click", (evento) => {
+      if (evento.target === modalAlbum) cerrarAlbum();
+    });
 
-    modal.addEventListener("click", (evento) => {
-      if (evento.target === modal) cerrarAlbum();
+    botonAbrirHistoria.addEventListener("click", abrirHistoria);
+    botonCerrarHistoria.addEventListener("click", cerrarHistoria);
+    modalHistoria.addEventListener("click", (evento) => {
+      if (evento.target === modalHistoria) cerrarHistoria();
     });
 
     document.addEventListener("keydown", (evento) => {
-      if (evento.key === "Escape" && modal.classList.contains("abierto")) {
-        cerrarAlbum();
+      if (evento.key === "Escape") {
+        if (modalAlbum.classList.contains("abierto")) cerrarAlbum();
+        if (modalHistoria.classList.contains("abierto")) cerrarHistoria();
       }
     });
 
