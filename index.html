@@ -19,12 +19,7 @@
   --width: 1120px;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
+* { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
 body {
@@ -34,12 +29,7 @@ body {
 }
 
 body.lock { overflow: hidden; }
-
-button, a {
-  font: inherit;
-  color: inherit;
-}
-
+button, a { font: inherit; color: inherit; }
 a { text-decoration: none; }
 
 .wrap {
@@ -76,8 +66,7 @@ a { text-decoration: none; }
   cursor: pointer;
 }
 
-.btn:hover,
-.btn.primary {
+.btn:hover, .btn.primary {
   background: var(--gold);
   color: #111;
 }
@@ -208,8 +197,7 @@ a { text-decoration: none; }
   margin: 8px 0 14px;
 }
 
-.story h2 em,
-.about h2 em { color: #d5c8b7; }
+.story h2 em, .about h2 em { color: #d5c8b7; }
 
 .story p {
   max-width: 570px;
@@ -457,12 +445,14 @@ footer {
 
 .dialog.photo-mode .description { display: none; }
 .dialog.photo-mode .gallery.single { flex: 1; min-height: 0; }
+
 .dialog.photo-mode .gallery.single .tile {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
+
 .dialog.photo-mode .gallery.single .tile img {
   max-height: calc(100svh - 155px);
   max-width: calc(100vw - 120px);
@@ -508,7 +498,6 @@ footer {
   gap: 12px;
 }
 
-/* Retratos y Celebraciones se muestran una foto grande a la vez. */
 .gallery.single {
   display: flex;
   justify-content: center;
@@ -530,9 +519,7 @@ footer {
   object-fit: contain;
 }
 
-.gallery.single .filename {
-  text-align: center;
-}
+.gallery.single .filename { text-align: center; }
 
 .slideshow-controls {
   display: flex;
@@ -661,6 +648,7 @@ footer {
   .footerin { flex-wrap: wrap; }
   .footerin p { width: 100%; }
   .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
   .dialog.photo-mode .gallery.single .tile img {
     max-height: calc(100svh - 145px);
     max-width: calc(100vw - 86px);
@@ -868,81 +856,44 @@ footer {
       </div>
       <button class="close" id="closeStory" aria-label="Cerrar historia">×</button>
     </header>
-
     <div class="storybody">
       <p>Hay momentos que llegan sin avisar. No hacen ruido ni anuncian que están a punto de transformar nuestra vida. Simplemente aparecen, como la primera luz del amanecer: silenciosa, casi imperceptible, pero capaz de cambiar por completo aquello que toca.</p>
-
       <p>Mi historia comenzó así. Sin un plan. Sin una cámara profesional. Sin un estudio. Sin conocimientos técnicos. Sin saber hasta dónde podía llegar. Todo comenzó con algo mucho más sencillo, pero también más poderoso: una inquietud que nació dentro de mí.</p>
-
       <p>Un día cualquiera, mientras observaba imágenes que aparecían y desaparecían rápidamente en una pantalla, algo consiguió detener mi atención. Entre tantas fotografías encontré el trabajo del fotógrafo Marcos Alberca.</p>
-
       <p>Entonces ocurrió algo difícil de explicar. No contemplé únicamente fotografías. Descubrí emociones. Encontré miradas capaces de hablar sin pronunciar una sola palabra. Percibí historias escondidas en un rostro, una postura, una sombra o en la forma en que la luz acariciaba a una persona.</p>
-
       <p>Comprendí que una fotografía podía representar mucho más que una imagen: podía convertirse en memoria, sentimiento, identidad y en un relato capaz de permanecer incluso después de que el instante hubiera desaparecido.</p>
-
       <p>Aquello despertó algo dentro de mí. Recuerdo haber pensado:</p>
       <blockquote>“Yo también quiero hacer esto.”</blockquote>
-
       <p>No sabía cómo lograrlo ni cuánto tiempo tomaría. Lo único que tenía claro era que quería intentarlo. Y, en ocasiones, eso es todo lo que necesitamos para comenzar.</p>
-
       <h3>El comienzo: un celular y una voluntad inquebrantable</h3>
-
       <p>El inicio no fue perfecto. Fue real. No contaba con equipo costoso, lentes especializados ni experiencia. Tenía únicamente un celular en la mano y un enorme deseo de aprender.</p>
-
       <p>Salí a observar. Empecé a interpretar la iluminación de otra manera, a prestar atención a los rostros, las sombras, los colores y esos pequeños instantes que normalmente pasan desapercibidos. Tomé una fotografía. Después otra. Y luego muchas más.</p>
-
       <p>Algunas me encantaban. Otras eran un desastre. Varias no se acercaban a lo que había imaginado. Sin embargo, todas tenían algo importante que enseñarme. Cada error se convirtió en una lección. Cada intento representó un avance. Cada fracaso abrió una nueva oportunidad.</p>
-
       <p>Con el tiempo también se transformó mi manera de observar. Descubrí que la fotografía no comienza cuando presionas un botón, sino cuando aprendes a interpretar la luz, reconocer la fuerza de una sombra y comprender que una mirada puede comunicar más que mil palabras.</p>
-
       <p>Aprendí a mirar a la persona frente a mí no como un objeto, sino como un ser humano con experiencias, sueños, emociones y una esencia que merece ser comprendida y respetada.</p>
-
       <p>También llegaron las dudas. Hubo momentos en los que sentí que no era suficiente y me comparaba con otros. Entonces comprendí una de las lecciones más importantes de mi camino:</p>
-
       <blockquote>No tenía que ser mejor que nadie; solamente tenía que superar al hombre que fui ayer.</blockquote>
-
       <p>Continué. Practiqué. Me equivoqué. Aprendí. Volví a intentarlo. Una y otra vez. Porque el talento puede abrir una puerta, pero es la constancia la que permite avanzar.</p>
-
       <blockquote>No necesitas tenerlo todo para comenzar; necesitas comenzar con lo que tienes.</blockquote>
-
       <h3>El sueño toma forma: nace Alma y Lente</h3>
-
       <p>Después de meses de dedicación llegó un día inolvidable: conseguí mi primera cámara profesional. Para mí representaba el resultado de mis intentos, mis equivocaciones y mis horas de aprendizaje.</p>
-
       <p>Así nació Alma y Lente. El nombre representa mi manera de entender la fotografía.</p>
-
       <p><strong>Alma:</strong> porque creo que cada retrato debe transmitir sentimiento. Detrás de cada rostro existe una historia que merece ser reconocida y respetada. Quiero descubrir y revelar quién eres.</p>
-
       <p><strong>Lente:</strong> porque es mi herramienta para observar el mundo y mirar más allá de lo evidente, buscando esa esencia que a veces ni nosotros mismos reconocemos.</p>
-
       <p>Es la unión entre corazón y visión; entre emoción e imagen. Mi propósito es dedicarme exclusivamente a los retratos individuales al aire libre. Elijo espacios abiertos, naturaleza y luz natural porque creo que no necesitamos artificios para ser extraordinarios.</p>
-
       <p>La iluminación cambia. El paisaje se transforma. El tiempo avanza. Pero la esencia permanece. Y esa es precisamente la que quiero conservar.</p>
-
       <p>No busco crear únicamente fotografías bonitas. Quiero producir imágenes que, muchos años después, puedan mirarse y provocar una sensación profunda:</p>
-
       <blockquote>“Ese era yo.”</blockquote>
-
       <p>Auténtico. Real. Humano. Único. Porque todos merecemos conservar una imagen que nos permita recordar quiénes fuimos y la historia que llevamos dentro.</p>
-
       <h3>Para ti que lees esto</h3>
-
       <p>Quizá tienes un sueño guardado, pero sigues esperando tener dinero, equipo, experiencia o encontrar el momento perfecto. Déjame compartir contigo algo que aprendí: el momento perfecto casi nunca llega.</p>
-
       <p>No necesitas que todo sea ideal. Necesitas reunir el valor suficiente para dar el primer paso. Yo tampoco comencé siendo profesional. Empecé con un celular, ilusión y miedo, pero también con más fe que dudas.</p>
-
       <p>Si tienes un sueño, no lo entierres por temor. No permitas que la falta de recursos determine hasta dónde puedes llegar. Los grandes caminos también nacen de pequeños pasos. Da el tuyo hoy.</p>
-
       <p>Aprende a mirar los errores como experiencias que te hacen crecer, no como derrotas. Los sueños se levantan poco a poco, jornada tras jornada, decisión tras decisión, poniendo dedicación y corazón en aquello que amas.</p>
-
       <h3>Mi camino continúa</h3>
-
       <p>Todavía aprendo. Todavía crezco. Todavía existen metas que parecen lejanas. Mi gran objetivo es convertirme en fotógrafo profesional al cien por ciento, vivir de aquello que amo y llevar Alma y Lente a cada persona que quiera descubrir y mostrar su verdadera belleza.</p>
-
       <p>No sé hasta dónde llegará esta historia, pero tengo algo claro: no pienso descubrirlo permaneciendo inmóvil.</p>
-
       <p>Alma y Lente nació de un sueño, creció mediante la constancia, se fortaleció a través de los errores y continúa avanzando con una sola intención: mirar más allá de lo evidente.</p>
-
       <blockquote>Porque una cámara puede capturar un rostro...<br>Pero cuando una imagen nace del alma, puede capturar una vida.</blockquote>
     </div>
   </article>
@@ -1055,7 +1006,8 @@ function showCurrentPhoto() {
 
   tile.append(image, caption);
   gallery.appendChild(tile);
-  document.getElementById("slideCount").textContent = `${activePhotoIndex + 1} / ${activePhotos.length}`;
+  document.getElementById("slideCount").textContent =
+    `${activePhotoIndex + 1} / ${activePhotos.length}`;
 }
 
 async function renderGallery() {
@@ -1067,6 +1019,7 @@ async function renderGallery() {
   try {
     const fixedPhotos = staticAlbums[currentCategory];
     const savedPhotos = await allPhotos();
+
     const photos = currentCategory === "celebraciones"
       ? (fixedPhotos || savedPhotos)
       : (savedPhotos.length ? savedPhotos : (fixedPhotos || []));
@@ -1152,7 +1105,8 @@ document.querySelectorAll(".album").forEach(card => {
 
 document.getElementById("previousPhoto").addEventListener("click", () => {
   if (!activePhotos.length) return;
-  activePhotoIndex = (activePhotoIndex - 1 + activePhotos.length) % activePhotos.length;
+  activePhotoIndex =
+    (activePhotoIndex - 1 + activePhotos.length) % activePhotos.length;
   showCurrentPhoto();
 });
 
@@ -1185,7 +1139,8 @@ storyModal.addEventListener("click", event => {
 
 document.addEventListener("keydown", event => {
   if (albumModal.classList.contains("open") && activePhotos.length && event.key === "ArrowLeft") {
-    activePhotoIndex = (activePhotoIndex - 1 + activePhotos.length) % activePhotos.length;
+    activePhotoIndex =
+      (activePhotoIndex - 1 + activePhotos.length) % activePhotos.length;
     showCurrentPhoto();
   }
 
