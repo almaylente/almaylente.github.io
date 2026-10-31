@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alma y Lente | Fotografía</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
@@ -132,6 +133,7 @@ a { text-decoration: none; }
   border: 0;
   color: white;
   font-size: 22px;
+  cursor: pointer;
 }
 
 .hero {
@@ -193,13 +195,18 @@ a { text-decoration: none; }
   margin: 15px auto;
 }
 
-.story { padding: 52px 0; }
 .story {
   padding: 52px 0;
-  background-color: var(--bg);
+  background: var(--bg);
 }
 
-/* Marca de agua detrás del texto, sin quedar cubierta por la foto decorativa. */
+.storygrid {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  align-items: center;
+  gap: 38px;
+}
+
 .storygrid > div:first-child {
   position: relative;
   isolation: isolate;
@@ -211,19 +218,12 @@ a { text-decoration: none; }
   inset: -20px;
   z-index: -1;
   background-image:
-    linear-gradient(rgba(13, 13, 13, .90), rgba(13, 13, 13, .90)),
+    linear-gradient(rgba(13,13,13,.90), rgba(13,13,13,.90)),
     url("https://almaylente.github.io/logotipo%20jpg.png");
-  background-repeat: no-repeat, no-repeat;
+  background-repeat: no-repeat;
   background-position: center, 65% center;
   background-size: cover, min(100%, 520px) auto;
   pointer-events: none;
-}
-
-.storygrid {
-  display: grid;
-  grid-template-columns: 1.05fr .95fr;
-  align-items: center;
-  gap: 38px;
 }
 
 .story h2 {
@@ -308,7 +308,7 @@ a { text-decoration: none; }
 
 .album:hover img { transform: scale(1.05); }
 
-.album:after {
+.album::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -491,7 +491,6 @@ footer {
   gap: 12px;
 }
 
-/* Retratos, Celebraciones, Bodas y Retoque muestran una foto grande a la vez. */
 .gallery.single {
   display: flex;
   justify-content: center;
@@ -513,9 +512,7 @@ footer {
   object-fit: contain;
 }
 
-.gallery.single .filename {
-  text-align: center;
-}
+.gallery.single .filename { text-align: center; }
 
 .slideshow-controls {
   display: flex;
@@ -537,8 +534,15 @@ footer {
   cursor: pointer;
 }
 
-.slide-button:hover { border-color: var(--gold); color: var(--gold); }
-.slide-count { color: var(--muted); font-size: 11px; }
+.slide-button:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.slide-count {
+  color: var(--muted);
+  font-size: 11px;
+}
 
 .tile {
   position: relative;
@@ -637,14 +641,21 @@ footer {
   }
 
   .storyphoto { min-height: 270px; }
-  .storyphoto { min-height: 270px; }
-  .storygrid > div:first-child::before { background-position: center, 65% center; background-size: cover, min(82vw, 430px) auto; }
+
+  .storygrid > div:first-child::before {
+    background-position: center, 65% center;
+    background-size: cover, min(82vw, 430px) auto;
+  }
+
   .cards { grid-template-columns: repeat(2, 1fr); }
   .album { min-height: 220px; }
+
   .servicegrid { grid-template-columns: 1fr 1fr; }
   .serviceintro { grid-column: 1 / -1; }
+
   .footerin { flex-wrap: wrap; }
   .footerin p { width: 100%; }
+
   .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
@@ -655,21 +666,28 @@ footer {
   }
 
   .album { min-height: 190px; }
-  .album { min-height: 190px; }
-  .storygrid > div:first-child::before { background-position: center, 65% center; background-size: cover, min(85vw, 360px) auto; }
+
+  .storygrid > div:first-child::before {
+    background-position: center, 65% center;
+    background-size: cover, min(85vw, 360px) auto;
+  }
+
   .albumtext strong { font-size: 17px; }
 }
 </style>
 </head>
 
 <body>
+
 <header class="nav">
   <div class="wrap navin">
     <a class="brand" href="#inicio">
       <strong>Alma y Lente</strong>
       <small>FOTOGRAFÍA · RETOQUE · ARTE DIGITAL</small>
     </a>
+
     <button class="menu" id="menu" aria-label="Abrir menú">☰</button>
+
     <nav class="links" id="links">
       <a href="#inicio">Inicio</a>
       <a href="#portafolio">Portafolio</a>
@@ -681,11 +699,13 @@ footer {
 </header>
 
 <main>
+
   <section class="hero" id="inicio">
     <div class="wrap">
       <span class="label">Fotografía con identidad</span>
       <h1 class="serif">Retratos que<br><em>cuentan historias.</em></h1>
       <p>Momentos auténticos, emociones reales y una mirada artística que transforma cada fotografía en un recuerdo.</p>
+
       <div class="actions">
         <a class="btn primary" href="#portafolio">Explorar portafolio →</a>
         <a class="btn" href="#mi-historia">Conoce mi historia</a>
@@ -705,12 +725,19 @@ footer {
       <div>
         <span class="label">Mi historia</span>
         <h2 class="serif">La fotografía que<br><em>nace del alma.</em></h2>
+
         <p>Mi historia comenzó sin un plan, sin una cámara profesional y sin saber hasta dónde podía llegar. Solo tenía una inquietud y muchas ganas de aprender.</p>
+
         <p>Empecé con un celular. Cada fotografía, cada error y cada intento me enseñaron a mirar la luz, las emociones y la esencia de cada persona.</p>
+
         <p class="quote">“No necesitas tenerlo todo para comenzar; necesitas comenzar con lo que tienes.”</p>
+
         <button class="btn primary" id="openStory">Leer mi historia completa ↗</button>
       </div>
-      <div class="storyphoto"><span>Mirar más allá de lo evidente.</span></div>
+
+      <div class="storyphoto">
+        <span>Mirar más allá de lo evidente.</span>
+      </div>
     </div>
   </section>
 
@@ -725,7 +752,12 @@ footer {
       </div>
 
       <div class="cards">
-        <button class="album" data-id="retratos" data-title="Retratos" data-category="01 · Retrato" data-description="Retratos individuales al aire libre, con luz natural y personalidad.">
+
+        <button class="album"
+          data-id="retratos"
+          data-title="Retratos"
+          data-category="01 · Retrato"
+          data-description="Retratos individuales al aire libre, con luz natural y personalidad.">
           <img src="https://almaylente.github.io/retrato1.jpg" alt="Portada del álbum Retratos">
           <span class="albumtext">
             <small>01 · Retrato</small>
@@ -734,7 +766,11 @@ footer {
           </span>
         </button>
 
-        <button class="album" data-id="celebraciones" data-title="Celebraciones" data-category="02 · Celebraciones" data-description="Momentos especiales y recuerdos para toda la vida.">
+        <button class="album"
+          data-id="celebraciones"
+          data-title="Celebraciones"
+          data-category="02 · Celebraciones"
+          data-description="Momentos especiales y recuerdos para toda la vida.">
           <img src="https://almaylente.github.io/mis%20xv%20a%C3%B1os%20%281%29.jpg" alt="Portada del álbum Celebraciones">
           <span class="albumtext">
             <small>02 · Celebraciones</small>
@@ -743,8 +779,12 @@ footer {
           </span>
         </button>
 
-        <button class="album" data-id="bodas" data-title="Bodas" data-category="03 · Historias de amor" data-description="La belleza de los momentos irrepetibles.">
-          <img src="https://almaylente.github.io/Novia%20de%20Boda%20%281%29.jpg" alt="Portada del álbum Bodas">
+        <button class="album"
+          data-id="bodas"
+          data-title="Bodas"
+          data-category="03 · Historias de amor"
+          data-description="La belleza de los momentos irrepetibles.">
+          <img src="https://almaylente.github.io/Boda%20%281%29.jpg" alt="Portada del álbum Bodas">
           <span class="albumtext">
             <small>03 · Historias de amor</small>
             <strong>Bodas</strong>
@@ -752,7 +792,11 @@ footer {
           </span>
         </button>
 
-        <button class="album" data-id="retoque" data-title="Retoque fotográfico" data-category="04 · Edición" data-description="Detalles cuidados y textura natural.">
+        <button class="album"
+          data-id="retoque"
+          data-title="Retoque fotográfico"
+          data-category="04 · Edición"
+          data-description="Detalles cuidados y textura natural.">
           <img src="https://almaylente.github.io/Retoque%20fotografico.jpg" alt="Portada del álbum Retoque fotográfico">
           <span class="albumtext">
             <small>04 · Edición</small>
@@ -760,6 +804,7 @@ footer {
             <span>Detalles y textura natural.</span>
           </span>
         </button>
+
       </div>
     </div>
   </section>
@@ -767,6 +812,7 @@ footer {
   <section class="about" id="sobre-mi">
     <div class="wrap aboutgrid">
       <img src="https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?auto=format&fit=crop&w=1200&q=85" alt="Fotógrafo con cámara" loading="lazy">
+
       <div>
         <span class="label">Detrás de la cámara</span>
         <h2 class="serif">Hola, soy el creador de<br><em>Alma y Lente.</em></h2>
@@ -782,16 +828,19 @@ footer {
         <span class="label">Lo que hago</span>
         <h2 class="serif">Fotografía y creatividad.</h2>
       </div>
+
       <article class="service">
         <span class="label">◎</span>
         <h3>Fotografía</h3>
         <p>Retratos al aire libre y emociones reales.</p>
       </article>
+
       <article class="service">
         <span class="label">▧</span>
         <h3>Retoque profesional</h3>
         <p>Edición cuidada y natural.</p>
       </article>
+
       <article class="service">
         <span class="label">☆</span>
         <h3>Arte digital</h3>
@@ -804,10 +853,12 @@ footer {
     <span class="label">Contacto</span>
     <h2 class="serif"><em>Hagamos algo memorable.</em></h2>
     <p>¿Te gustaría una sesión de retrato al aire libre?</p>
+
     <div class="actions" style="justify-content:center">
       <a class="btn primary" href="mailto:hola@almaylente.com">Enviar correo →</a>
     </div>
   </section>
+
 </main>
 
 <footer>
@@ -816,24 +867,30 @@ footer {
       <strong>Alma y Lente</strong>
       <small>FOTOGRAFÍA · RETOQUE · ARTE DIGITAL</small>
     </a>
+
     <p>© Alma y Lente. Todos los derechos reservados.</p>
     <a href="#portafolio">Portafolio</a>
   </div>
 </footer>
 
+<!-- VENTANA DE LOS ÁLBUMES -->
 <div class="modal" id="albumModal" role="dialog" aria-modal="true" aria-labelledby="albumTitle">
   <section class="dialog">
+
     <header class="dialoghead">
       <div>
         <span class="label" id="albumCategory"></span>
         <h2 class="serif" id="albumTitle"></h2>
       </div>
+
       <button class="close" id="closeAlbum" aria-label="Cerrar álbum">×</button>
     </header>
+
     <div class="dialogbody">
       <p class="description" id="albumDescription"></p>
-      <div class="gallery" id="gallery"></div>
-      <div class="slideshow-controls" id="slideshowControls" hidden>
+      <div class="gallery single" id="gallery"></div>
+
+      <div class="slideshow-controls" id="slideshowControls">
         <button class="slide-button" id="previousPhoto" type="button" aria-label="Foto anterior">‹</button>
         <span class="slide-count" id="slideCount">1 / 1</span>
         <button class="slide-button" id="nextPhoto" type="button" aria-label="Foto siguiente">›</button>
@@ -842,51 +899,41 @@ footer {
   </section>
 </div>
 
+<!-- VENTANA DE LA HISTORIA -->
 <div class="modal" id="storyModal" role="dialog" aria-modal="true" aria-labelledby="storyTitle">
   <article class="dialog storydialog">
+
     <header class="dialoghead">
       <div>
         <span class="label">Alma y Lente</span>
         <h2 class="serif" id="storyTitle">La fotografía que nace del alma</h2>
       </div>
+
       <button class="close" id="closeStory" aria-label="Cerrar historia">×</button>
     </header>
 
     <div class="storybody">
       <p>Hay momentos que llegan sin avisar. No hacen ruido ni anuncian que están a punto de transformar nuestra vida. Simplemente aparecen, como la primera luz del amanecer: silenciosa, casi imperceptible, pero capaz de cambiar por completo aquello que toca.</p>
 
-      <p>Mi historia comenzó así. Sin un plan. Sin una cámara profesional. Sin un estudio. Sin conocimientos técnicos. Sin saber hasta dónde podía llegar. Todo comenzó con algo mucho más sencillo, pero también más poderoso: una inquietud que nació dentro de mí.</p>
+      <p>Mi historia comenzó así. Sin un plan. Sin una cámara profesional. Sin un estudio. Sin conocimientos técnicos. Todo comenzó con algo mucho más sencillo, pero también más poderoso: una inquietud que nació dentro de mí.</p>
 
-      <p>Un día cualquiera, mientras observaba imágenes que aparecían y desaparecían rápidamente en una pantalla, algo consiguió detener mi atención. Entre tantas fotografías encontré el trabajo del fotógrafo Marcos Alberca.</p>
+      <p>Un día cualquiera, mientras observaba imágenes que aparecían y desaparecían rápidamente en una pantalla, encontré el trabajo del fotógrafo Marcos Alberca.</p>
 
-      <p>Entonces ocurrió algo difícil de explicar. No contemplé únicamente fotografías. Descubrí emociones. Encontré miradas capaces de hablar sin pronunciar una sola palabra. Percibí historias escondidas en un rostro, una postura, una sombra o en la forma en que la luz acariciaba a una persona.</p>
+      <p>Entonces descubrí emociones, miradas capaces de hablar sin pronunciar una sola palabra e historias escondidas en un rostro, una postura, una sombra o en la forma en que la luz acariciaba a una persona.</p>
 
       <p>Comprendí que una fotografía podía representar mucho más que una imagen: podía convertirse en memoria, sentimiento, identidad y en un relato capaz de permanecer incluso después de que el instante hubiera desaparecido.</p>
 
-      <p>Aquello despertó algo dentro de mí. Recuerdo haber pensado:</p>
       <blockquote>“Yo también quiero hacer esto.”</blockquote>
 
-      <p>No sabía cómo lograrlo ni cuánto tiempo tomaría. Lo único que tenía claro era que quería intentarlo. Y, en ocasiones, eso es todo lo que necesitamos para comenzar.</p>
-
-      <h3>El comienzo: un celular y una voluntad inquebrantable</h3>
+      <h3>El comienzo: un celular y muchas ganas de aprender</h3>
 
       <p>El inicio no fue perfecto. Fue real. No contaba con equipo costoso, lentes especializados ni experiencia. Tenía únicamente un celular en la mano y un enorme deseo de aprender.</p>
 
-      <p>Salí a observar. Empecé a interpretar la iluminación de otra manera, a prestar atención a los rostros, las sombras, los colores y esos pequeños instantes que normalmente pasan desapercibidos. Tomé una fotografía. Después otra. Y luego muchas más.</p>
+      <p>Salí a observar. Empecé a interpretar la iluminación de otra manera, a prestar atención a los rostros, las sombras, los colores y esos pequeños instantes que normalmente pasan desapercibidos.</p>
 
-      <p>Algunas me encantaban. Otras eran un desastre. Varias no se acercaban a lo que había imaginado. Sin embargo, todas tenían algo importante que enseñarme. Cada error se convirtió en una lección. Cada intento representó un avance. Cada fracaso abrió una nueva oportunidad.</p>
-
-      <p>Con el tiempo también se transformó mi manera de observar. Descubrí que la fotografía no comienza cuando presionas un botón, sino cuando aprendes a interpretar la luz, reconocer la fuerza de una sombra y comprender que una mirada puede comunicar más que mil palabras.</p>
-
-      <p>Aprendí a mirar a la persona frente a mí no como un objeto, sino como un ser humano con experiencias, sueños, emociones y una esencia que merece ser comprendida y respetada.</p>
-
-      <p>También llegaron las dudas. Hubo momentos en los que sentí que no era suficiente y me comparaba con otros. Entonces comprendí una de las lecciones más importantes de mi camino:</p>
+      <p>Algunas fotografías me encantaban. Otras eran un desastre. Sin embargo, todas tenían algo importante que enseñarme. Cada error se convirtió en una lección y cada intento representó un avance.</p>
 
       <blockquote>No tenía que ser mejor que nadie; solamente tenía que superar al hombre que fui ayer.</blockquote>
-
-      <p>Continué. Practiqué. Me equivoqué. Aprendí. Volví a intentarlo. Una y otra vez. Porque el talento puede abrir una puerta, pero es la constancia la que permite avanzar.</p>
-
-      <blockquote>No necesitas tenerlo todo para comenzar; necesitas comenzar con lo que tienes.</blockquote>
 
       <h3>El sueño toma forma: nace Alma y Lente</h3>
 
@@ -894,19 +941,13 @@ footer {
 
       <p>Así nació Alma y Lente. El nombre representa mi manera de entender la fotografía.</p>
 
-      <p><strong>Alma:</strong> porque creo que cada retrato debe transmitir sentimiento. Detrás de cada rostro existe una historia que merece ser reconocida y respetada. Quiero descubrir y revelar quién eres.</p>
+      <p><strong>Alma:</strong> porque creo que cada retrato debe transmitir sentimiento. Detrás de cada rostro existe una historia que merece ser reconocida y respetada.</p>
 
       <p><strong>Lente:</strong> porque es mi herramienta para observar el mundo y mirar más allá de lo evidente, buscando esa esencia que a veces ni nosotros mismos reconocemos.</p>
-
-      <p>Es la unión entre corazón y visión; entre emoción e imagen. Mi propósito es dedicarme exclusivamente a los retratos individuales al aire libre. Elijo espacios abiertos, naturaleza y luz natural porque creo que no necesitamos artificios para ser extraordinarios.</p>
-
-      <p>La iluminación cambia. El paisaje se transforma. El tiempo avanza. Pero la esencia permanece. Y esa es precisamente la que quiero conservar.</p>
 
       <p>No busco crear únicamente fotografías bonitas. Quiero producir imágenes que, muchos años después, puedan mirarse y provocar una sensación profunda:</p>
 
       <blockquote>“Ese era yo.”</blockquote>
-
-      <p>Auténtico. Real. Humano. Único. Porque todos merecemos conservar una imagen que nos permita recordar quiénes fuimos y la historia que llevamos dentro.</p>
 
       <h3>Para ti que lees esto</h3>
 
@@ -914,19 +955,15 @@ footer {
 
       <p>No necesitas que todo sea ideal. Necesitas reunir el valor suficiente para dar el primer paso. Yo tampoco comencé siendo profesional. Empecé con un celular, ilusión y miedo, pero también con más fe que dudas.</p>
 
-      <p>Si tienes un sueño, no lo entierres por temor. No permitas que la falta de recursos determine hasta dónde puedes llegar. Los grandes caminos también nacen de pequeños pasos. Da el tuyo hoy.</p>
-
-      <p>Aprende a mirar los errores como experiencias que te hacen crecer, no como derrotas. Los sueños se levantan poco a poco, jornada tras jornada, decisión tras decisión, poniendo dedicación y corazón en aquello que amas.</p>
+      <blockquote>No necesitas tenerlo todo para comenzar; necesitas comenzar con lo que tienes.</blockquote>
 
       <h3>Mi camino continúa</h3>
 
       <p>Todavía aprendo. Todavía crezco. Todavía existen metas que parecen lejanas. Mi gran objetivo es convertirme en fotógrafo profesional al cien por ciento, vivir de aquello que amo y llevar Alma y Lente a cada persona que quiera descubrir y mostrar su verdadera belleza.</p>
 
-      <p>No sé hasta dónde llegará esta historia, pero tengo algo claro: no pienso descubrirlo permaneciendo inmóvil.</p>
+      <p>Alma y Lente nació de un sueño, creció mediante la constancia y continúa avanzando con una sola intención: mirar más allá de lo evidente.</p>
 
-      <p>Alma y Lente nació de un sueño, creció mediante la constancia, se fortaleció a través de los errores y continúa avanzando con una sola intención: mirar más allá de lo evidente.</p>
-
-      <blockquote>Porque una cámara puede capturar un rostro...<br>Pero cuando una imagen nace del alma, puede capturar una vida.</blockquote>
+      <blockquote>Porque una cámara puede capturar un rostro... Pero cuando una imagen nace del alma, puede capturar una vida.</blockquote>
     </div>
   </article>
 </div>
@@ -938,22 +975,68 @@ const STORE = "fotos";
 
 let db;
 let currentCategory = "";
+let activePhotos = [];
+let activePhotoIndex = 0;
 
 const staticAlbums = {
   retratos: [
-    { name: "retrato1.jpg", src: "https://almaylente.github.io/retrato1.jpg" },
-    { name: "retrato2.jpg", src: "https://almaylente.github.io/retrato2.jpg" }
+    {
+      name: "retrato1.jpg",
+      src: "https://almaylente.github.io/retrato1.jpg"
+    },
+    {
+      name: "retrato2.jpg",
+      src: "https://almaylente.github.io/retrato2.jpg"
+    }
   ],
+
   celebraciones: [
-    { name: "mis xv años (1).jpg", src: "https://almaylente.github.io/mis%20xv%20a%C3%B1os%20%281%29.jpg" },
-    { name: "mis xv años (2).jpg", src: "https://almaylente.github.io/mis%20xv%20a%C3%B1os%20%282%29.jpg" },
-    { name: "mis xv años (3).jpg", src: "https://almaylente.github.io/mis%20xv%20a%C3%B1os%20%283%29.jpg" },
-    { name: "mis xv años (4).jpg", src: "https://almaylente.github.io/mis%20xv%20a%C3%B1os%20%284%29.jpg" },
-    { name: "mis xv años (5).jpg", src: "https://almaylente.github.io/mis%20xv%20a%C3%B1os%20%285%29.jpg" },
-    { name: "mis xv años (6).jpg", src: "https://almaylente.github.io/mis%20xv%20a%C3%B1os%20%286%29.jpg" },
-    { name: "mis xv años (7).jpg", src: "https://almaylente.github.io/mis%20xv%20a%C3%B1os%20%287%29.jpg" }
+    {
+      name: "mis xv años (1).jpg",
+      src: "https://almaylente.github.io/mis%20xv%20a%C3%B1os%20%281%29.jpg"
+    },
+    {
+      name: "mis xv años (2).jpg",
+      src: "https://almaylente.github.io/mis%20xv%20a%C3%B1os%20%282%29.jpg"
+    },
+    {
+      name: "mis xv años (3).jpg",
+      src: "https://almaylente.github.io/mis%20xv%20a%C3%B1os%20%283%29.jpg"
+    },
+    {
+      name: "mis xv años (4).jpg",
+      src: "https://almaylente.github.io/mis%20xv%20a%C3%B1os%20%284%29.jpg"
+    },
+    {
+      name: "mis xv años (5).jpg",
+      src: "https://almaylente.github.io/mis%20xv%20a%C3%B1os%20%285%29.jpg"
+    },
+    {
+      name: "mis xv años (6).jpg",
+      src: "https://almaylente.github.io/mis%20xv%20a%C3%B1os%20%286%29.jpg"
+    },
+    {
+      name: "mis xv años (7).jpg",
+      src: "https://almaylente.github.io/mis%20xv%20a%C3%B1os%20%287%29.jpg"
+    }
   ],
+
   bodas: [
+    /* TRES FOTOS NUEVAS */
+    {
+      name: "Boda (1).jpg",
+      src: "https://almaylente.github.io/Boda%20%281%29.jpg"
+    },
+    {
+      name: "Boda (2).jpg",
+      src: "https://almaylente.github.io/Boda%20%282%29.jpg"
+    },
+    {
+      name: "Boda (3).jpg",
+      src: "https://almaylente.github.io/Boda%20%283%29.jpg"
+    },
+
+    /* FOTOS ANTERIORES: SE CONSERVAN */
     {
       name: "Novia de Boda (1).jpg",
       src: "https://almaylente.github.io/Novia%20de%20Boda%20%281%29.jpg"
@@ -967,13 +1050,14 @@ const staticAlbums = {
       src: "https://almaylente.github.io/novia%20de%20boda%20%283%29.jpg"
     }
   ],
+
   retoque: [
-    { name: "Retoque fotografico.jpg", src: "https://almaylente.github.io/Retoque%20fotografico.jpg" }
+    {
+      name: "Retoque fotografico.jpg",
+      src: "https://almaylente.github.io/Retoque%20fotografico.jpg"
+    }
   ]
 };
-
-let activePhotos = [];
-let activePhotoIndex = 0;
 
 const albumModal = document.getElementById("albumModal");
 const storyModal = document.getElementById("storyModal");
@@ -1014,7 +1098,11 @@ function allPhotos() {
       .getAll();
 
     req.onsuccess = () => {
-      resolve(req.result.filter(photo => photo.category === currentCategory));
+      resolve(
+        req.result.filter(
+          photo => photo.category === currentCategory
+        )
+      );
     };
 
     req.onerror = () => reject(req.error);
@@ -1023,6 +1111,7 @@ function allPhotos() {
 
 function showCurrentPhoto() {
   gallery.replaceChildren();
+
   if (!activePhotos.length) return;
 
   const photo = activePhotos[activePhotoIndex];
@@ -1031,20 +1120,31 @@ function showCurrentPhoto() {
 
   const image = document.createElement("img");
   image.src = photo.src;
-  image.alt = `${document.getElementById("albumTitle").textContent}: foto ${activePhotoIndex + 1}`;
+  image.alt =
+    document.getElementById("albumTitle").textContent +
+    ": foto " + (activePhotoIndex + 1);
 
   const caption = document.createElement("p");
   caption.className = "filename";
-  caption.textContent = `Foto ${activePhotoIndex + 1} de ${activePhotos.length}`;
+  caption.textContent =
+    (photo.name || "Fotografía") +
+    " · " + (activePhotoIndex + 1) +
+    " de " + activePhotos.length;
+
+  image.onerror = () => {
+    image.alt = "No se pudo cargar: " + (photo.name || "fotografía");
+  };
 
   tile.append(image, caption);
   gallery.appendChild(tile);
-  document.getElementById("slideCount").textContent = `${activePhotoIndex + 1} / ${activePhotos.length}`;
+
+  document.getElementById("slideCount").textContent =
+    (activePhotoIndex + 1) + " / " + activePhotos.length;
 }
 
 async function renderGallery() {
   gallery.replaceChildren();
-  gallery.classList.remove("single");
+  gallery.classList.add("single");
   document.getElementById("slideshowControls").hidden = true;
   activePhotos = [];
 
@@ -1060,7 +1160,8 @@ async function renderGallery() {
       title.textContent = "Este álbum está pendiente";
 
       const message = document.createElement("span");
-      message.textContent = "Las fotografías de esta categoría aparecerán aquí.";
+      message.textContent =
+        "Las fotografías de esta categoría aparecerán aquí.";
 
       empty.append(title, message);
       gallery.appendChild(empty);
@@ -1070,11 +1171,13 @@ async function renderGallery() {
     if (fixedPhotos) {
       activePhotos = fixedPhotos;
       activePhotoIndex = 0;
-      gallery.classList.add("single");
+
       document.getElementById("slideshowControls").hidden = false;
       showCurrentPhoto();
       return;
     }
+
+    gallery.classList.remove("single");
 
     for (const photo of photos) {
       const tile = document.createElement("article");
@@ -1097,10 +1200,11 @@ async function renderGallery() {
     empty.className = "empty";
 
     const title = document.createElement("strong");
-    title.textContent = "Este álbum está pendiente";
+    title.textContent = "No se pudo cargar el álbum";
 
     const message = document.createElement("span");
-    message.textContent = "Las fotografías de esta categoría aparecerán aquí.";
+    message.textContent =
+      "Comprueba que las fotografías estén disponibles en GitHub Pages.";
 
     empty.append(title, message);
     gallery.appendChild(empty);
@@ -1110,18 +1214,30 @@ async function renderGallery() {
 function openAlbum(card) {
   currentCategory = card.dataset.id;
 
-  document.getElementById("albumTitle").textContent = card.dataset.title;
-  document.getElementById("albumCategory").textContent = card.dataset.category;
-  document.getElementById("albumDescription").textContent = card.dataset.description;
+  document.getElementById("albumTitle").textContent =
+    card.dataset.title;
+
+  document.getElementById("albumCategory").textContent =
+    card.dataset.category;
+
+  document.getElementById("albumDescription").textContent =
+    card.dataset.description;
 
   albumModal.classList.add("open");
   document.body.classList.add("lock");
+
   renderGallery();
 }
 
 function closeModal(modal) {
   modal.classList.remove("open");
-  document.body.classList.remove("lock");
+
+  if (
+    !albumModal.classList.contains("open") &&
+    !storyModal.classList.contains("open")
+  ) {
+    document.body.classList.remove("lock");
+  }
 }
 
 document.querySelectorAll(".album").forEach(card => {
@@ -1130,13 +1246,20 @@ document.querySelectorAll(".album").forEach(card => {
 
 document.getElementById("previousPhoto").addEventListener("click", () => {
   if (!activePhotos.length) return;
-  activePhotoIndex = (activePhotoIndex - 1 + activePhotos.length) % activePhotos.length;
+
+  activePhotoIndex =
+    (activePhotoIndex - 1 + activePhotos.length) %
+    activePhotos.length;
+
   showCurrentPhoto();
 });
 
 document.getElementById("nextPhoto").addEventListener("click", () => {
   if (!activePhotos.length) return;
-  activePhotoIndex = (activePhotoIndex + 1) % activePhotos.length;
+
+  activePhotoIndex =
+    (activePhotoIndex + 1) % activePhotos.length;
+
   showCurrentPhoto();
 });
 
@@ -1145,7 +1268,9 @@ document.getElementById("closeAlbum").addEventListener("click", () => {
 });
 
 albumModal.addEventListener("click", event => {
-  if (event.target === albumModal) closeModal(albumModal);
+  if (event.target === albumModal) {
+    closeModal(albumModal);
+  }
 });
 
 document.getElementById("openStory").addEventListener("click", () => {
@@ -1158,17 +1283,32 @@ document.getElementById("closeStory").addEventListener("click", () => {
 });
 
 storyModal.addEventListener("click", event => {
-  if (event.target === storyModal) closeModal(storyModal);
+  if (event.target === storyModal) {
+    closeModal(storyModal);
+  }
 });
 
 document.addEventListener("keydown", event => {
-  if (albumModal.classList.contains("open") && activePhotos.length && event.key === "ArrowLeft") {
-    activePhotoIndex = (activePhotoIndex - 1 + activePhotos.length) % activePhotos.length;
+  if (
+    albumModal.classList.contains("open") &&
+    activePhotos.length &&
+    event.key === "ArrowLeft"
+  ) {
+    activePhotoIndex =
+      (activePhotoIndex - 1 + activePhotos.length) %
+      activePhotos.length;
+
     showCurrentPhoto();
   }
 
-  if (albumModal.classList.contains("open") && activePhotos.length && event.key === "ArrowRight") {
-    activePhotoIndex = (activePhotoIndex + 1) % activePhotos.length;
+  if (
+    albumModal.classList.contains("open") &&
+    activePhotos.length &&
+    event.key === "ArrowRight"
+  ) {
+    activePhotoIndex =
+      (activePhotoIndex + 1) % activePhotos.length;
+
     showCurrentPhoto();
   }
 
@@ -1186,16 +1326,15 @@ menu.addEventListener("click", () => {
 });
 
 links.querySelectorAll("a").forEach(link => {
-  link.addEventListener("click", () => links.classList.remove("open"));
+  link.addEventListener("click", () => {
+    links.classList.remove("open");
+  });
 });
 
 openDB().catch(() => {
   db = null;
 });
 </script>
+
 </body>
 </html>
-</html>
-
-
-
