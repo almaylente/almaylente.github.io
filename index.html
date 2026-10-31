@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -194,35 +193,16 @@ a { text-decoration: none; }
   margin: 15px auto;
 }
 
+.story { padding: 52px 0; }
 .story {
-  position: relative;
-  isolation: isolate;
   padding: 52px 0;
   background-color: var(--bg);
-}
-
-/* Marca de agua del logotipo: queda limitada a la sección Mi historia. */
-.story::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  background-image: url("https://almaylente.github.io/Logotipo%20jpg.png");
-  background-repeat: no-repeat;
-  background-position: calc(50% + 8vw) center;
-  background-size: min(44vw, 560px) auto;
-  opacity: .12;
-  pointer-events: none;
-}
-
-/* Velo negro semitransparente entre el logotipo y el contenido. */
-.story::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: rgba(13, 13, 13, .20);
-  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(13, 13, 13, .90), rgba(13, 13, 13, .90)),
+    url("Logotipo%20jpg.png");
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, calc(50% + 8vw) center;
+  background-size: cover, min(44vw, 560px) auto;
 }
 
 .storygrid {
@@ -643,7 +623,8 @@ footer {
   }
 
   .storyphoto { min-height: 270px; }
-  .story::before { background-position: 62% center; background-size: min(70vw, 430px) auto; }
+  .storyphoto { min-height: 270px; }
+  .story { background-position: center, 62% center; background-size: cover, min(70vw, 430px) auto; }
   .cards { grid-template-columns: repeat(2, 1fr); }
   .album { min-height: 220px; }
   .servicegrid { grid-template-columns: 1fr 1fr; }
@@ -660,7 +641,8 @@ footer {
   }
 
   .album { min-height: 190px; }
-  .story::before { background-position: 66% center; background-size: min(82vw, 360px) auto; }
+  .album { min-height: 190px; }
+  .story { background-position: center, 66% center; background-size: cover, min(82vw, 360px) auto; }
   .albumtext strong { font-size: 17px; }
 }
 </style>
@@ -1199,4 +1181,8 @@ openDB().catch(() => {
 </script>
 </body>
 </html>
-```
+
+
+
+
+</html>
