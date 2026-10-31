@@ -197,12 +197,26 @@ a { text-decoration: none; }
 .story {
   padding: 52px 0;
   background-color: var(--bg);
+}
+
+/* Marca de agua detrás del texto, sin quedar cubierta por la foto decorativa. */
+.storygrid > div:first-child {
+  position: relative;
+  isolation: isolate;
+}
+
+.storygrid > div:first-child::before {
+  content: "";
+  position: absolute;
+  inset: -20px;
+  z-index: -1;
   background-image:
     linear-gradient(rgba(13, 13, 13, .90), rgba(13, 13, 13, .90)),
-    url("Logotipo%20jpg.png");
+    url("https://almaylente.github.io/logotipo%20jpg.png");
   background-repeat: no-repeat, no-repeat;
-  background-position: center, calc(50% + 8vw) center;
-  background-size: cover, min(44vw, 560px) auto;
+  background-position: center, 65% center;
+  background-size: cover, min(100%, 520px) auto;
+  pointer-events: none;
 }
 
 .storygrid {
@@ -624,7 +638,7 @@ footer {
 
   .storyphoto { min-height: 270px; }
   .storyphoto { min-height: 270px; }
-  .story { background-position: center, 62% center; background-size: cover, min(70vw, 430px) auto; }
+  .storygrid > div:first-child::before { background-position: center, 65% center; background-size: cover, min(82vw, 430px) auto; }
   .cards { grid-template-columns: repeat(2, 1fr); }
   .album { min-height: 220px; }
   .servicegrid { grid-template-columns: 1fr 1fr; }
@@ -642,7 +656,7 @@ footer {
 
   .album { min-height: 190px; }
   .album { min-height: 190px; }
-  .story { background-position: center, 66% center; background-size: cover, min(82vw, 360px) auto; }
+  .storygrid > div:first-child::before { background-position: center, 65% center; background-size: cover, min(85vw, 360px) auto; }
   .albumtext strong { font-size: 17px; }
 }
 </style>
@@ -1181,8 +1195,7 @@ openDB().catch(() => {
 </script>
 </body>
 </html>
-
-
-
-
 </html>
+
+
+
